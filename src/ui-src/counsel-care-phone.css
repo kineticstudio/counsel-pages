@@ -1,0 +1,41 @@
+/* Measured Figma phone. Scale the complete frame, never resize exported SVGs. */
+:is(.channel-v3,.channel-v4,.channel-v5) .v2-integration .ci-sky{position:relative;display:block;max-width:395px;aspect-ratio:395/736}
+:is(.channel-v3,.channel-v4,.channel-v5) .ci-phone.cf-phone{
+  position:absolute;inset:0 auto auto 0;display:flex;flex-direction:column;
+  width:395px;max-width:none;height:736px;aspect-ratio:auto;box-sizing:border-box;
+  border:12px solid var(--blue-2);border-radius:36px;padding:16px;
+  background:var(--gray-0);color:var(--gray-9);overflow:hidden;box-shadow:none;
+  filter:drop-shadow(0 52px 18px rgb(0 0 0 / .08));
+  transform:scale(var(--care-phone-scale,1));transform-origin:top left;
+  font-family:var(--body-font);font-size:14px;line-height:1.3;letter-spacing:0;
+  --cf-secondary:#5D564A;--cf-placeholder:#9D998F;--cf-brand:#243866;
+}
+.cf-phone .cf-status{height:31px;flex:none;display:flex;align-items:center;justify-content:space-between;padding-block:8px}
+.cf-phone img{display:block;max-width:none}
+.cf-phone .cf-status-icons{width:75px;height:15px;position:relative;flex:none}
+.cf-phone .cf-status-icons>img{position:absolute;left:.555px;top:1.2435px}
+.cf-phone .cf-nav{display:flex;align-items:center;gap:16px;height:72px;flex:none;padding-block:16px;font-size:16px;line-height:22.4px}
+.cf-phone .cf-menu{position:relative;width:40px;height:40px;flex:none}
+.cf-phone .cf-menu>img{position:absolute;left:-1px;top:-1px}
+.cf-phone .cf-profile{margin-left:auto;display:grid;place-items:center;width:40px;height:40px;flex:none;padding:10px;background:var(--gray-15);border-radius:22px;filter:drop-shadow(0 0 .5px rgb(0 0 0 / .2))}
+.cf-phone .cf-conversation{position:relative;flex:1;min-height:0;width:100%}
+:is(.channel-v3,.channel-v4,.channel-v5) .ci-phone.cf-phone .ci-panel{position:absolute;inset:8px 0 18px;overflow-y:auto}
+.cf-phone .cf-composer{display:flex;flex-direction:column;gap:8px;flex:none;padding:8px;width:100%;border-radius:16px;background:var(--blue-1);overflow:clip}
+.cf-phone .cf-doctor-banner{display:flex;align-items:center;gap:4px;width:100%;height:39.2px;padding:4px 8px;margin:0;border:0;background:none;color:var(--cf-secondary);border-radius:8px;font:400 12px/1.3 var(--body-font);text-align:left}
+.cf-phone .cf-doctor-banner:focus-visible{outline:2px solid var(--cf-brand);outline-offset:0}
+.cf-phone .cf-portraits{display:flex;align-items:center;flex:none;padding-right:6.24px}
+.cf-phone .cf-avatar{position:relative;width:31.2px;height:31.2px;flex:none;border:3px solid var(--blue-1);border-radius:100px;overflow:clip}
+.cf-phone .cf-avatar:not(:last-child){margin-right:-6.24px}
+.cf-phone .cf-avatar>span{position:absolute;top:-1.56%;bottom:-1.56%;left:calc(50% - .78px);aspect-ratio:1;transform:translateX(-50%)}
+.cf-phone .cf-avatar-3{background:#F9F8F5}
+.cf-phone .cf-avatar-3>span{top:0;bottom:0;left:50%}
+.cf-phone .cf-avatar img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cf-phone .cf-doctor-label{flex:1;min-width:0;font-weight:500}
+.cf-phone .cf-wait{display:flex;align-items:center;gap:4px;flex:none;white-space:nowrap}
+.cf-phone .cf-field{display:flex;align-items:center;gap:9px;height:60px;flex:none;width:100%;padding:16px;border-radius:12px;background:var(--gray-0);overflow:clip}
+.cf-phone .cf-placeholder{flex:1;min-width:0;color:var(--cf-placeholder);font-size:16px;line-height:1.3;white-space:nowrap}
+.cf-phone .cf-attachment,.cf-phone .cf-send{display:grid;place-items:center;width:28px;height:28px;border-radius:1000px;flex:none;overflow:clip}
+.cf-phone .cf-send{background:var(--cf-brand)}
+.cf-phone .cf-send>img{transform:rotate(-90deg)}
+.cf-phone .cf-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:760px){:is(.channel-v3,.channel-v4,.channel-v5) .v2-integration .ci-sky{max-width:350px}}

@@ -1,0 +1,221 @@
+/* Hunter, 2026-09-10: implement the approved type audit across V13.
+   Canonical role definitions. The explicit page scope beats later-injected
+   section/menu styles without changing any earlier prototype.
+   Desktop uses the brand scale. Mobile/tablet follows the existing 900px
+   layout breakpoint. Values are rem so browser text preferences still work.
+   Params: headline drives both bookends, navigation.linkSize drives menu
+   links and card titles, members.quoteSize drives every quote equally.
+   SVG chart labels remain illustration details,
+   not page-text roles. The studio's own controls are outside this scope. */
+html[data-counsel-type="v13"] {
+  --counsel-weave-width: 8px;
+  /* Hunter, 2026-09-22: colors now live in tokens-src/counsel-colors.css. */
+  --type-huge: var(--headline-size, 5rem);
+  --type-lg: 3.5rem;       /* 56: section headings */
+  --type-md: 2.5rem;       /* 40: walkthrough step headings and readings */
+  --type-sm: 1.75rem;      /* 28: claim and care-card titles */
+  --type-xs: 1.25rem;      /* 20: FAQ questions */
+  --type-body-lg: 1.375rem;/* 22: introductions */
+  --type-body: 1.0625rem;  /* 17: page copy and question fields */
+  --type-ui: 1rem;        /* 16: buttons and navigation row */
+  --type-small: .875rem;  /* 14: supporting metadata and compact card copy */
+  --type-chip: .78125rem; /* 12.5: chips and illustration labels */
+  --type-quote-ratio: 1;   /* 24 desktop / 20 mobile at the saved 24px dial */
+  --leading-display: 1.06;
+  --leading-heading: 1.12;
+  --leading-body: 1.5;
+  --tracking-display: -.02em;
+  --tracking-body: 0em;
+}
+/* Shared bookend weight, unchanged by viewport or SVG scaling. */
+html[data-counsel-type="v13"] .motion-sweep-host{position:relative;overflow:hidden;isolation:isolate}
+html[data-counsel-type="v13"] .motion-sweep-train{position:absolute;inset:0 auto 0 0;display:flex;width:200%;z-index:-1;pointer-events:none}
+html[data-counsel-type="v13"] .motion-sweep-train>i{display:block;width:50%;height:100%}
+html[data-counsel-type="v13"] :is(.channel-v5,.condition-page) :is(.hero-thread,.condition-thread,.v2-closing-card .v2-closing-thread){stroke-width:var(--counsel-weave-width)}
+html[data-counsel-type="v13"] body {
+  font-family: var(--body-font);
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+}
+
+/* Headings: same role, same size, leading and tracking in every section. */
+html[data-counsel-type="v13"] h1,
+html[data-counsel-type="v13"] .under h2,
+html[data-counsel-type="v13"] .how-head h2,
+html[data-counsel-type="v13"] .ch h2,
+html[data-counsel-type="v13"] .app-intake h2 {
+  font-family: var(--display-font);
+  font-weight: 300;
+  font-size: var(--type-lg);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance; /* Hunter, 2026-09-10: prevent lonely last words as headings resize. */
+}
+html[data-counsel-type="v13"] h1,
+html[data-counsel-type="v13"] .ch-foot-hero h2 {
+  font-size: var(--type-huge);
+}
+html[data-counsel-type="v13"] .ch-walk-steps li h3,
+html[data-counsel-type="v13"] .ch-card h3,
+html[data-counsel-type="v13"] .cj-title,
+html[data-counsel-type="v13"] .ch-q summary {
+  font-family: var(--display-font);
+  font-weight: 300;
+  font-size: var(--type-sm);
+  line-height: var(--leading-heading);
+  letter-spacing: var(--tracking-display);
+  text-wrap: balance;
+}
+html[data-counsel-type="v13"] .ch-walk-steps li h3 { font-size: var(--type-md); }
+html[data-counsel-type="v13"] .ch-q summary { font-size: var(--type-xs); }
+
+/* Reading copy, including the after-Send state. */
+html[data-counsel-type="v13"] .under p,
+html[data-counsel-type="v13"] .how-head p,
+html[data-counsel-type="v13"] .ch-walk-steps li p,
+html[data-counsel-type="v13"] .ch-card p,
+html[data-counsel-type="v13"] .ch-plan-sub,
+html[data-counsel-type="v13"] .ch-plan li,
+html[data-counsel-type="v13"] .ch-faq-side p,
+html[data-counsel-type="v13"] .ch-q .ch-a p,
+html[data-counsel-type="v13"] .ch-foot-news p,
+html[data-counsel-type="v13"] .ch-foot-col a,
+html[data-counsel-type="v13"] .app-intake p,
+html[data-counsel-type="v13"] .app-intake .intake-next {
+  font-size: var(--type-body);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+}
+html[data-counsel-type="v13"] .ch .ch-lede {
+  font-size: var(--type-body-lg);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+}
+/* Hunter, 2026-09-22: one type step down inside the larger services circle. */
+html[data-counsel-type="v13"] .under h2 { font-size: var(--type-md); }
+html[data-counsel-type="v13"] .under p { font-size: var(--type-small); }
+html[data-counsel-type="v13"] .ask textarea,
+html[data-counsel-type="v13"] .ask-row .ph,
+html[data-counsel-type="v13"] .ch-foot-field textarea,
+html[data-counsel-type="v13"] .ch-foot-field .ph {
+  font-size: var(--type-body);
+  line-height: 28px; /* Shared field baseline and flying-token geometry. */
+  letter-spacing: var(--tracking-body);
+}
+
+/* UI and navigation. V13 overrides the shared menu without editing it. */
+html[data-counsel-type="v13"] nav { --cn-size: var(--type-body-lg); }
+html[data-counsel-type="v13"] nav .links a,
+html[data-counsel-type="v13"] nav .actions a,
+html[data-counsel-type="v13"] .ch-btn,
+html[data-counsel-type="v13"] .app-intake .intake-continue,
+html[data-counsel-type="v13"] .app-intake .back,
+html[data-counsel-type="v13"] .ch-foot-news input,
+html[data-counsel-type="v13"] .cn-mobile .cn-mfoot a,
+html[data-counsel-type="v13"] .cn-mobile .cn-mfoot button {
+  font-size: var(--type-ui);
+  line-height: 1.25;
+  letter-spacing: -.03em;
+}
+html[data-counsel-type="v13"] nav .cn-col a,
+html[data-counsel-type="v13"] nav .cn-card-text b,
+html[data-counsel-type="v13"] nav .cn-cards.cn-two .cn-card-text b {
+  font-size: var(--cn-size);
+  line-height: 1.5;
+  letter-spacing: var(--tracking-body);
+}
+html[data-counsel-type="v13"] .cn-mobile summary { font-size: var(--type-sm); line-height: 1.25; letter-spacing: var(--tracking-body); }
+html[data-counsel-type="v13"] .cn-mobile .cn-mlist a,
+html[data-counsel-type="v13"] .cn-mobile .cn-mcard b { font-size: var(--type-body); line-height: 1.5; letter-spacing: var(--tracking-body); }
+/* Hunter, 2026-09-15: tighter card titles, with the last two words kept together. */
+html[data-counsel-type="v13"] nav .cn-card-text b,
+html[data-counsel-type="v13"] nav .cn-cards.cn-two .cn-card-text b,
+html[data-counsel-type="v13"] .cn-mobile .cn-mcard b { line-height: 1.2; text-wrap: pretty; }
+html[data-counsel-type="v13"] .cn-title-copy { min-width: 0; }
+html[data-counsel-type="v13"] nav.cn-fixed { background: rgba(248,248,246,.94); }
+html[data-counsel-type="v13"] .cn-mobile { background: var(--gray-1); }
+html[data-counsel-type="v13"] .under-chip b,
+html[data-counsel-type="v13"] .under.narrow .under-chip b { font-size: var(--type-small); /* Hunter, 2026-09-22: small labels frame the main headline, not compete with it. */ line-height: 1; letter-spacing: var(--tracking-body); }
+html[data-counsel-type="v13"] .under-kid b { font-size: var(--type-chip); line-height: 1; letter-spacing: var(--tracking-body); } /* Hunter, 2026-09-22: use the existing 12.5px label role. */
+
+/* Small supporting text. No arbitrary 13/15px variations. */
+html[data-counsel-type="v13"] .notice,
+html[data-counsel-type="v13"] .ch .ch-eyebrow,
+html[data-counsel-type="v13"] .ch-plan-name,
+html[data-counsel-type="v13"] .ch-price-big small,
+html[data-counsel-type="v13"] .ch-price .ch-price-foot,
+html[data-counsel-type="v13"] .ch-quote figcaption b,
+html[data-counsel-type="v13"] .ch-quote figcaption small,
+html[data-counsel-type="v13"] .ch-foot-col h4,
+html[data-counsel-type="v13"] .ch-foot-bottom,
+html[data-counsel-type="v13"] nav .cn-col h4,
+html[data-counsel-type="v13"] .cn-mobile .cn-mlist h4,
+html[data-counsel-type="v13"] .cj-note,
+html[data-counsel-type="v13"] .pharmacy-copy span {
+  font-size: var(--type-small);
+  line-height: var(--leading-body);
+  letter-spacing: var(--tracking-body);
+}
+html[data-counsel-type="v13"] .cat-chip,
+html[data-counsel-type="v13"] .mini-card .chip,
+html[data-counsel-type="v13"] .mini-card .stat .cap,
+html[data-counsel-type="v13"] .mini-card .stat small,
+html[data-counsel-type="v13"] .ch-plan-name .ch-pill,
+html[data-counsel-type="v13"] .ch-walk-steps .ch-step-chip,
+html[data-counsel-type="v13"] .ch-quote .vchip,
+html[data-counsel-type="v13"] nav .cn-card-chip,
+html[data-counsel-type="v13"] .intake-question span,
+html[data-counsel-type="v13"] .cj-label,
+html[data-counsel-type="v13"] .cj-thought,
+html[data-counsel-type="v13"] .cj-source,
+html[data-counsel-type="v13"] .cj-cost small,
+html[data-counsel-type="v13"] .cj-caption {
+  font-size: var(--type-chip);
+  line-height: 1.2;
+  letter-spacing: var(--tracking-body);
+}
+html[data-counsel-type="v13"] .token,
+html[data-counsel-type="v13"] .flyer,
+html[data-counsel-type="v13"] .ch-flyer,
+html[data-counsel-type="v13"] .ch-foot-field .token {
+  font-size: var(--type-small);
+  line-height: 16px; /* Token plus its padding equals the 28px field line. */
+  letter-spacing: var(--tracking-body);
+}
+html[data-counsel-type="v13"] .pharmacy-copy strong,
+html[data-counsel-type="v13"] .cj-question {
+  font-size: var(--type-body);
+  line-height: 1.4;
+  letter-spacing: var(--tracking-body);
+}
+html[data-counsel-type="v13"] .ch-price-big,
+html[data-counsel-type="v13"] .cj-cost {
+  font-size: var(--type-huge);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+}
+html[data-counsel-type="v13"] .cj-cost { font-size: var(--type-md); }
+html[data-counsel-type="v13"] .mini-card .stat {
+  font-size: var(--type-md);
+  line-height: var(--leading-display);
+  letter-spacing: var(--tracking-display);
+}
+html[data-counsel-type="v13"] .ch-quote blockquote {
+  font-size: calc(var(--qfs, 24px) * var(--type-quote-ratio));
+  line-height: 1.25;
+  letter-spacing: var(--tracking-display);
+}
+html[data-counsel-type="v13"] .ch-quote { min-height: min-content; }
+
+/* Hunter, 2026-09-10: one mobile scale, not section-by-section guesses. */
+@media (max-width: 900px) {
+  html[data-counsel-type="v13"] {
+    --type-huge: 2.5rem;    /* 40 */
+    --type-lg: 2.25rem;     /* 36 */
+    --type-md: 1.75rem;     /* 28 */
+    --type-sm: 1.5rem;      /* 24 */
+    --type-body-lg: 1.25rem;/* 20 */
+    --type-quote-ratio: .8333333333;
+  }
+}

@@ -1,0 +1,35 @@
+/* Hunter, 2026-09-22: apply the supplied theme/text/button roles to current
+   pages only. Motion opacity and photographic glass are separate effects. */
+html[data-counsel-type="v13"] :is(.under, .stack) { background: var(--gray-1); }
+html[data-counsel-type="v13"] :is(.under p, .how-head p, .ch-walk-steps li p, .ch-card p, .ch-plan-sub, .ch-faq-side p, .ch-q .ch-a p, .ch-quote .ch-member-line small, .ch-foot-news p, .channel-lead, .hero-note, .care-card-copy p, .impact-stat>p:last-child, .source-note, .value-accordions p, .network-path small, .integration-list, .integration-art figcaption) {
+  color: var(--theme-text-2);
+}
+html[data-counsel-type="v13"] :is(.under p, .how-head p, .ch-walk-steps li p, .ch-card p, .ch-plan-sub, .ch-faq-side p, .ch-quote .ch-member-line small, .ch-foot-news p) { opacity: 1; }
+html[data-counsel-type="v13"] .notice { color: var(--theme-text-2); }
+html[data-counsel-type="v13"] .ch-q-rule::before { background: var(--theme-border); }
+html[data-counsel-type="v13"] :is(.ch-foot-news, .footer-bottom) { border-color: var(--theme-border); }
+html[data-counsel-type="v13"] :is(.ch-foot-col a, .footer-cols a, .footer-invite>p, .footer-cols h3, .footer-bottom) { color: var(--theme-text-2); opacity: 1; }
+html[data-counsel-type="v13"] .ch-foot-col a:hover { color: var(--theme-text); }
+html[data-counsel-type="v13"] :is(.ch-btn, .channel-btn, .app-intake .intake-continue) { background: var(--button-primary-background); color: var(--button-primary-text); }
+html[data-counsel-type="v13"] .ch-btn--ghost { background: var(--button-secondary-background); color: var(--button-secondary-text); }
+html[data-counsel-type="v13"] .ch-btn--ghost:hover { background: var(--button-secondary-background-hover); box-shadow: inset 0 0 0 1.5px currentColor; }
+html[data-counsel-type="v13"] :is(.ch-plan, .integration-section) { color: var(--theme-text); }
+html[data-counsel-type="v13"] .member-app { color: var(--blue-9); }
+html[data-counsel-type="v13"] :is(.impact-stat, .value-accordions details) { border-color: var(--theme-border); }
+html[data-counsel-type="v13"] :is(.app-intake .intake-next, .ch-plan li em) { color: var(--theme-text-2); opacity: 1; }
+html[data-counsel-type="v13"] .app .back { background: var(--button-secondary-background); color: var(--button-secondary-text); }
+html[data-counsel-type="v13"] .app .back:hover { background: var(--button-secondary-background-hover); }
+html[data-counsel-type="v13"] :is(.ask .send, .ch-foot-field .go, .cj-action, .cj-composer-send) { background: var(--blue-9); color: var(--gray-0); }
+html[data-counsel-type="v13"] nav { --cn-ghost: var(--button-secondary-background-hover); }
+html[data-counsel-type="v13"] nav .cn-col h4 { color: var(--theme-text-2); opacity: 1; }
+html[data-counsel-type="v13"] nav .demo-btn { background: var(--button-primary-background); color: var(--button-primary-text); }
+html[data-counsel-type="v13"] nav :is(.cn-ghost, .actions a:hover) { background: var(--button-secondary-background-hover); }
+html[data-counsel-type="v13"] nav .actions .demo-btn:hover { background: var(--button-primary-background-hover); }
+html[data-counsel-type="v13"] .cn-mobile { color: var(--theme-text); }
+html[data-counsel-type="v13"] .cn-mobile details { border-color: var(--theme-border); }
+html[data-counsel-type="v13"] .cn-mobile .cn-msign:hover { background: var(--button-secondary-background-hover); }
+html[data-counsel-type="v13"] .cj-scene { color: var(--theme-text); }
+html[data-counsel-type="v13"] .app { color: var(--theme-text); }
+html[data-counsel-type="v13"] :is(.cj-answer-copy .cj-ui-copy, .cj-doctor-fan figcaption) { color: var(--theme-text); }
+html[data-counsel-type="v13"] :is(.cj-meta, .cj-thought, .cj-source, .cj-add-banner small, .cj-composer-label, .cj-attachment) { color: var(--theme-text-2); }
+html[data-counsel-type="v13"] :is(.cj-source, .context-token) { border-color: var(--theme-border); }

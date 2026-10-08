@@ -1,0 +1,87 @@
+/* Hunter, 2026-09-22: canonical colors from the three supplied token screenshots.
+   Blue/green numbering supersedes the six-step deck. Gray values retain the
+   approved September 15 ramp because the new screenshots do not show its hexes.
+   Only current pages opt in. Historical prototypes keep their own colors. */
+html[data-counsel-type="v13"] {
+  --gray-0: #FFFFFF;
+  --gray-05: #FCFCFB;
+  --gray-1: #F8F8F6;
+  --gray-15: #F1F0ED;
+  --gray-2: #E9E8E4;
+  --gray-3: #D3D1CC;
+  --gray-4: #BDBAB4;
+  --gray-5: #9D9992;
+  --gray-6: #7E7A74;
+  --gray-65: #6C6862;
+  --gray-7: #5F5B56;
+  --gray-8: #44413D;
+  --gray-9: #2A2825;
+  --gray-10: #0E0D0C;
+  --blue-1: #DFEFF8;
+  --blue-2: #C5E1ED;
+  --blue-3: #9ABDDB;
+  --blue-4: #82A0C0;
+  --blue-5: #6B84A6;
+  --blue-6: #55698D;
+  --blue-7: #3F4F74;
+  --blue-75: #344368;
+  --blue-8: #29375C;
+  --blue-9: #132045;
+  --blue-10: #020A21;
+  --green-1: #DBEDD8;
+  --green-2: #AED9B0;
+  --green-3: #80C48A;
+  --green-4: #63A773;
+  --green-5: #468A5D;
+  --green-6: #286F48;
+  --green-7: #005434;
+  --green-8: #063F28;
+  --green-9: #072A1C;
+  --green-10: #00180F;
+  --bright-blue: #47AFFF;
+  --yellow: #FADA78;
+  --yellow-1: #FDF0C9;
+  --chartreuse: #DBE64C;
+  --pink: #FF93AD;
+  --pink-1: #FFDDE5;
+  --maroon: #6A2032;
+}
+
+/* Hunter, 2026-09-22: semantic aliases from the Light/Dark/Blue/Green table.
+   Green's cropped opacity cells are not claimed as confirmed. Until supplied,
+   secondary green roles follow the Light theme's 70/45/20/10 convention. */
+html[data-counsel-type="v13"], [data-counsel-theme] {
+  --theme-background: var(--gray-1);
+  --theme-background-2: var(--gray-0);
+  --theme-text: var(--blue-9);
+  --theme-text-2: color-mix(in srgb, var(--theme-text) 70%, transparent);
+  --theme-text-3: color-mix(in srgb, var(--theme-text) 45%, transparent);
+  --theme-border: color-mix(in srgb, var(--theme-text) 20%, transparent);
+  --theme-border-2: color-mix(in srgb, var(--theme-text) 10%, transparent);
+  --button-primary-background: var(--blue-9);
+  --button-primary-background-hover: var(--blue-8);
+  --button-primary-text: var(--gray-0);
+  --button-secondary-background: transparent;
+  --button-secondary-background-hover: color-mix(in srgb, var(--theme-text) 10%, transparent);
+  --button-secondary-text: var(--theme-text);
+}
+[data-counsel-theme="dark"] {
+  --theme-background: var(--blue-9);
+  --theme-background-2: var(--blue-8);
+  --theme-text: var(--gray-1);
+  --theme-border: color-mix(in srgb, var(--theme-text) 30%, transparent);
+  --theme-border-2: color-mix(in srgb, var(--theme-text) 15%, transparent);
+  --button-primary-background: var(--gray-1);
+  --button-primary-background-hover: color-mix(in srgb, var(--gray-1) 68%, var(--blue-2));
+  --button-primary-text: var(--blue-9);
+  --button-secondary-background-hover: color-mix(in srgb, var(--gray-0) 15%, transparent);
+}
+[data-counsel-theme="blue"] {
+  --theme-background: var(--blue-1);
+  --theme-background-2: var(--blue-2);
+}
+[data-counsel-theme="green"] {
+  --theme-background: var(--green-1);
+  --theme-background-2: var(--green-2);
+  --theme-text: var(--green-7);
+}

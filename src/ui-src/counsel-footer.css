@@ -1,0 +1,125 @@
+.ch-foot { background: var(--blue-9,#132045); color: var(--gray-1,#F8F8F6); padding: 0 0 40px; min-height: 0; display: block; }
+.ch-foot .ch-wrap { flex: none; display: block; }
+.ch-foot-hero { display: grid; justify-items: center; text-align: center; gap: 36px; padding: calc(var(--r) + clamp(72px, 9vw, 130px)) 0 clamp(64px, 7vw, 96px); }
+.ch-foot-hero h2 { font-size: clamp(44px, 5.2vw, 78px); max-width: 11em; line-height: 1.02; }
+.ch-foot-ask { position: relative; width: min(600px, 100%); padding: 34px 0 0; display: grid; gap: 0; justify-items: center; }
+.ch-foot-box { position: relative; width: 100%; transition: transform 650ms cubic-bezier(0.3, 0.9, 0.3, 1); }
+.ch-foot-ask.is-focus .ch-foot-box { transform: translateY(12px); }   /* the field dips a touch to meet the thread, as the hero's does */
+/* the thread is already coiled round the field, the hero's focus state,
+   its pieces drifting slowly round the ring; no weave running off across
+   the page (Hunter, 2026-09-08: cleaner) */
+.ch-foot-ring { position: absolute; pointer-events: none; overflow: visible; }
+.ch-foot-ring path { fill: none; stroke-width: var(--thread, 8px); stroke-linecap: butt; }
+/* the field is the hero's, in its focused state (Hunter, 2026-09-09): the
+   same white rounded rectangle, the same send button, the thread coiled
+   round it at the hero's weight and air, the category chips under it */
+.ch-foot-field { position: relative; z-index: 1; width: 100%; display: flex; align-items: center; gap: 12px; min-height: 72px; padding: 22px 12px 22px 26px; border-radius: var(--card-r, 16px); background: #fff; color: var(--blue-9,#132045); cursor: text; }
+.ch-foot-field .tokens { display: inline-flex; align-items: center; margin-right: 8px; }
+.ch-foot-field .tokens:empty { display: none; }
+.ch-foot-field .token { display: inline-flex; align-items: center; font-size: 14px; font-weight: 500; line-height: 16px; padding: 6px 11px; border-radius: 9px; white-space: nowrap; color: var(--blue-9,#132045); }
+.ch-foot-field .token.landing { opacity: 0; }
+/* the placeholder is an overlay, as the hero's, so a question can rise in and leave upward */
+.ch-foot-field .ph { position: absolute; left: 26px; right: 80px; top: 0; bottom: 0; overflow: hidden; pointer-events: none; font-size: 17px; line-height: 28px; letter-spacing: -0.01em; color: rgba(19, 32, 69, 0.45); white-space: nowrap; transition: opacity 160ms ease; }
+.ch-foot-field.has-value .ph { opacity: 0; }
+.ch-foot-field .ph-line { position: absolute; left: 0; top: 50%; transform: translateY(-50%); }
+.ch-foot-field .ph-line.in { animation: chPhIn 600ms cubic-bezier(0.65, 0, 0.35, 1) both; }
+.ch-foot-field .ph-line.out { animation: chPhOut 480ms cubic-bezier(0.65, 0, 0.35, 1) both; }
+@keyframes chPhIn { from { top: 100%; transform: translateY(0); opacity: 0; } 30% { opacity: 1; } to { top: 50%; transform: translateY(-50%); opacity: 1; } }
+@keyframes chPhOut { from { top: 50%; transform: translateY(-50%); opacity: 1; } 70% { opacity: 1; } to { top: 0; transform: translateY(-100%); opacity: 0; } }
+.ch-flyer { position: fixed; left: 0; top: 0; z-index: 90; pointer-events: none; display: inline-flex; align-items: center; font-family: var(--body-font, "GT America", sans-serif); font-size: 14px; font-weight: 500; padding: 6px 11px; border-radius: 9px; white-space: nowrap; will-change: transform; color: var(--blue-9,#132045); }
+.ch-foot-field textarea { flex: 1; min-width: 0; border: 0; outline: none; background: none; resize: none; height: 28px; line-height: 28px; padding: 0; margin: 0; font-family: var(--body-font, "GT America", sans-serif); font-size: 17px; letter-spacing: -0.01em; color: var(--blue-9,#132045); }
+.ch-foot-field textarea::placeholder { color: rgba(19, 32, 69, 0.45); }
+.ch-foot-field .go { flex: none; width: 40px; height: 40px; margin: -7px 0; border: 0; border-radius: 10px; background: var(--blue-9,#132045); color: var(--gray-1,#F8F8F6); display: grid; place-items: center; cursor: pointer; transition: transform 150ms ease; }
+.ch-foot-field .go:active { transform: scale(0.985); }
+.ch-foot-field .go svg { width: 24px; height: 24px; }
+/* the chips sit clear of the coiled thread, and drop a little further while
+   the field is focused, as the hero's do */
+.ch-foot-cats { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; margin-top: 40px; transition: transform 650ms cubic-bezier(0.3, 0.9, 0.3, 1); }
+.ch-foot-ask.is-focus .ch-foot-cats { transform: translateY(22px); }
+.ch-foot-cats button { border: 0; cursor: pointer; font-family: var(--body-font, "GT America", sans-serif); font-size: 12.5px; font-weight: 500; padding: 4px 9px; border-radius: 7px; white-space: nowrap; background: var(--blue-75); color: rgba(248, 248, 246, 0.85); transition: background 70ms ease, color 70ms ease, opacity 220ms ease; }
+.ch-foot-cats button:hover { background: var(--c); color: var(--blue-9,#132045); }
+.ch-foot-cats button.is-on { opacity: 0.35; }
+.ch-foot-hero .sub { font-size: 15px; opacity: 0.7; }
+.ch-foot-cols { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding: 0 0 clamp(56px, 6vw, 80px); }
+.ch-foot-col h4 { margin: 0 0 18px; font-size: 14px; font-weight: 500; letter-spacing: 0; opacity: 0.6; }
+.ch-foot-col ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.ch-foot-col a { display: flex; align-items: center; gap: 10px; padding: 4px 0; color: inherit; text-decoration: none; font-size: 17px; letter-spacing: -0.02em; line-height: 1.4; opacity: 0.85; transition: opacity 220ms ease; }
+.ch-foot-col a span { display: inline-block; transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1); }
+.ch-foot-col a svg { flex: none; width: 18px; height: 18px; opacity: 0; transform: translateX(-8px); transition: transform 300ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 200ms ease; }
+.ch-foot-col a:hover { opacity: 1; }
+.ch-foot-col a:hover span { transform: translateX(4px); }
+.ch-foot-col a:hover svg { opacity: 1; transform: none; }
+.ch-foot-cols:has(a:hover) a:not(:hover) { opacity: 0.45; }
+.ch-foot-news { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 18px 32px; padding: 28px 0; border-top: 1px solid rgba(248, 248, 246, 0.18); }
+.ch-foot-news p { font-size: 15px; line-height: 1.45; max-width: 380px; opacity: 0.85; }
+.ch-foot-news form { display: flex; gap: 8px; }
+.ch-foot-news input { width: min(300px, 60vw); height: 40px; padding: 0 14px; border: 0; border-radius: 10px; background: rgba(248, 248, 246, 0.1); color: var(--gray-1,#F8F8F6); font: inherit; font-size: 15px; outline: none; }   /* no border (Hunter, 2026-09-09) */
+.ch-foot-news input::placeholder { color: rgba(248, 248, 246, 0.5); }
+.ch-foot-news input:focus { box-shadow: inset 0 0 0 1.5px var(--bright-blue,#47AFFF); }
+.ch-foot-bottom { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 24px; padding-top: 28px; border-top: 0; font-size: 13px; opacity: 0.7; } /* Hunter, 2026-09-22: no divider below email signup. */
+.ch-foot-bottom .social { display: flex; gap: 6px; }
+.ch-foot-bottom .social a { display: grid; place-items: center; width: 34px; height: 34px; border-radius: 9px; transition: background 200ms ease; }
+.ch-foot-bottom .social a:hover { background: rgba(248, 248, 246, 0.12); text-decoration: none; }
+.ch-foot-bottom .social svg { display: block; width: 18px; height: 18px; fill: currentColor; flex: none; } /* Hunter, 2026-09-22: consistent optical size and unmodified brand paths. */
+.ch-foot-bottom .ch-logo img { display: block; height: 26px; width: auto; }
+.ch-foot-bottom .legal { display: flex; flex-wrap: wrap; gap: 18px; }
+.ch-foot-bottom a { color: inherit; text-decoration: none; }
+.ch-foot-bottom a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.ch-foot-bottom .secure { display: inline-flex; align-items: center; gap: 8px; }
+.ch-foot-bottom .secure svg { width: 14px; height: 14px; }
+
+/* Own the Home V13 baseline so archived pages cannot change this footer. */
+.counsel-footer{
+  --r:var(--hero-radius,var(--channel-radius,48px));
+  --blue-9:#132045;--gray-1:#F8F8F6;--gray-0:#FFFFFF;--blue-2:#C5E1ED;--bright-blue:#47AFFF;
+  position:relative;z-index:3;margin-top:calc(-1 * var(--r));
+  border-radius:var(--r) var(--r) 0 0;overflow:clip;
+  font-family:var(--body-font,"GT America",sans-serif);line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.counsel-footer,.counsel-footer *{box-sizing:border-box}
+.counsel-footer .ch-wrap{width:min(var(--content-max,1280px),var(--content-width,90%));margin:0 auto}
+.counsel-footer .ch-foot-hero h2{
+  margin:0;font-family:var(--display-font,"Cooper Light",serif);font-weight:300;
+  font-size:var(--type-huge,5rem);line-height:1.06;letter-spacing:-.02em;text-wrap:balance;
+  color:var(--gray-1);
+}
+.counsel-footer p{margin:0}
+.counsel-footer .ch-rise{opacity:1;transform:none}
+.counsel-footer .ch-foot-col a,.counsel-footer .ch-foot-news p{font-size:17px;line-height:1.5;letter-spacing:0;color:color-mix(in srgb,var(--gray-1) 70%,transparent);opacity:1}
+.counsel-footer .ch-foot-col a:hover{color:var(--gray-1)}
+.counsel-footer .ch-foot-col h4,.counsel-footer .ch-foot-bottom{font-size:14px;line-height:1.5;letter-spacing:0}
+.counsel-footer .ch-foot-field textarea,.counsel-footer .ch-foot-field .ph{font-size:17px;line-height:28px;letter-spacing:0}
+.counsel-footer .ch-foot-news input{font-size:16px;line-height:1.25;letter-spacing:-.03em}
+.counsel-footer .ch-foot-news{border-color:color-mix(in srgb,var(--gray-1) 30%,transparent)}
+.counsel-footer .ch-btn{
+  display:inline-flex;align-items:center;justify-content:center;flex:none;gap:8px;
+  height:40px;padding:0 16px;border:0;border-radius:10px;cursor:pointer;
+  font:400 16px/1.25 var(--body-font,"GT America",sans-serif);letter-spacing:-.03em;
+  text-decoration:none;background:var(--gray-1);color:var(--blue-9);transition:transform 150ms ease;
+}
+.counsel-footer .ch-btn:active{transform:scale(.985)}
+.counsel-footer .ch-logo img{filter:brightness(0) invert(1)}
+.counsel-footer .ch-foot-note{font-size:14px;padding:0 0 24px;color:var(--gray-1)}
+.counsel-footer .ch-foot-note a{color:inherit;text-underline-offset:3px}
+.counsel-footer :is(a,button):focus-visible{outline:2px solid var(--blue-2);outline-offset:4px}
+.counsel-footer .ch-foot-field:has(textarea:focus-visible){outline:2px solid var(--blue-2);outline-offset:4px}
+@media(max-width:900px){
+  .counsel-footer{--r:var(--hero-radius,var(--channel-radius,32px))}
+  .counsel-footer .ch-foot-hero h2{font-size:2.5rem}
+}
+@media(max-width:760px){
+  .counsel-footer .ch-foot-hero{gap:24px;padding:calc(var(--r) + 64px) 0 56px}
+  .counsel-footer .ch-foot-ask{padding:28px 0 0}
+  .counsel-footer .ch-foot-field{min-height:62px;padding:17px 12px 17px 18px}
+  .counsel-footer .ch-foot-field .ph{left:18px;right:64px}
+  .counsel-footer .ch-foot-field textarea{font-size:16px}
+  .counsel-footer .ch-foot-cols{grid-template-columns:repeat(2,minmax(0,1fr));gap:32px 20px}
+  .counsel-footer .ch-foot-bottom,.counsel-footer .ch-foot-news{flex-direction:column;align-items:flex-start}
+  .counsel-footer .ch-foot-news input{width:min(240px,56vw)}
+}
+@media(prefers-reduced-motion:reduce){
+  .counsel-footer .ph-line{animation:none!important}
+  .counsel-footer .ch-foot-box,.counsel-footer a,.counsel-footer a span,.counsel-footer a svg{transition:none}
+  .counsel-footer .ch-foot-ask.is-focus .ch-foot-box{transform:none}
+}

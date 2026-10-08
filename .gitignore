@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+# Counsel's fonts are licensed and stay out of the repo; put your copies in fonts/ to preview.
+fonts/*.woff
+fonts/*.woff2
+fonts/*.otf
+fonts/*.ttf

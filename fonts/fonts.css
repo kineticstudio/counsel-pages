@@ -1,0 +1,50 @@
+/* Counsel webfonts — licensed originals, installed 2026-08-27.
+ *
+ *   Cooper Light   ParaType        headlines only (the brand book allows no
+ *                                  other Cooper weight)
+ *   GT America     Grilli Type     body, buttons, eyebrows — the Standard cut
+ *
+ * Family names are the real ones. The theme used to say "ABC Diatype" for the
+ * body face, which the brand book's overview slide named; the licensed
+ * delivery contains no Diatype, so GT America is the body face and the name
+ * follows the file rather than the slide.
+ *
+ * Licenses ride with the delivery (Grilli Type US EULA, ParaType EULA). These
+ * are served publicly by the share, so a license question is a real question.
+ */
+
+@font-face {
+  font-family: "Cooper Light";
+  src: url("/fonts/cooper-light.woff2") format("woff2"),
+    url("/fonts/cooper-light.woff") format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GT America";
+  src: url("/fonts/gt-america-regular.woff2") format("woff2"),
+    url("/fonts/gt-america-regular.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GT America";
+  src: url("/fonts/gt-america-medium.woff2") format("woff2"),
+    url("/fonts/gt-america-medium.woff") format("woff");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GT America";
+  src: url("/fonts/gt-america-bold.woff2") format("woff2"),
+    url("/fonts/gt-america-bold.woff") format("woff");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

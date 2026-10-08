@@ -1,0 +1,83 @@
+/* Shared condition V2 artwork. Hunter requested product-specific, legible UI. */
+.condition-v2 .wm-included,.condition-v2 .wm-walkthrough{background:var(--gray-0)}
+.condition-v2 .wm-walkthrough{position:relative;z-index:3;margin-top:-32px;border-radius:32px 32px 0 0}
+.condition-v2 .wm-included{--benefit-tint:var(--yellow-1);--benefit-line:#e8d596;--benefit-tab:#f5df97}
+.condition-v2.condition-skin-care .wm-included{--benefit-tint:var(--pink-1);--benefit-line:#ebbbca;--benefit-tab:#f8b8ca}
+.condition-v2 .wm-included .condition-step-art{container-type:inline-size;padding:0;overflow:hidden;background:var(--benefit-tint)}
+.wm-included .condition-section-head p{max-width:720px;margin:24px auto 0;text-wrap:balance}
+.wm-scene{position:relative;width:100%;aspect-ratio:1;color:var(--blue-9);font-size:3.8cqw;line-height:1.4;transform:scale(.85);transform-origin:center}
+.wm-assessment,.wm-prescription{position:absolute;background:var(--gray-0);box-shadow:0 1px 2px rgb(19 32 69 / .03),0 12px 24px -18px rgb(19 32 69 / .2);overflow:hidden}
+
+/* A single intake document. Its physician review is part of the document. */
+.wm-assessment{top:13%;left:9%;width:82%;border-radius:5cqw}
+.wm-intake-heading{display:flex;justify-content:space-between;align-items:center;padding:5cqw 6cqw 3cqw;font-size:4.4cqw;font-weight:500;letter-spacing:-.025em}
+.wm-intake-complete{display:grid;place-items:center;width:6cqw;height:6cqw;color:var(--green-7)}
+.wm-intake-complete svg{width:5cqw;height:5cqw}
+.wm-intake-fields{display:grid;gap:3cqw;padding:0 6cqw 5cqw}
+.wm-intake-field>span{display:block;font-size:3cqw;color:var(--blue-7);margin-bottom:1cqw}
+.wm-intake-field>div{display:flex;gap:1.5cqw}
+.wm-intake-field b{font-weight:400;font-size:3.3cqw;padding:1.2cqw 2.5cqw;border-radius:1.5cqw;background:var(--benefit-tint);white-space:nowrap}
+.wm-reviewed{display:grid;grid-template-columns:12cqw 1fr;gap:3cqw;margin:0 6cqw 5cqw;padding:3cqw;background:var(--gray-1);color:var(--blue-9);align-items:center;border-radius:3cqw}
+.wm-reviewed img{display:block;width:12cqw;height:12cqw;border-radius:50%;object-fit:cover;object-position:center 25%}
+.wm-reviewed>div{min-width:0}
+.wm-reviewed span{display:block;font-size:2.8cqw;color:var(--blue-7);margin-bottom:1cqw}
+.wm-reviewed strong{display:block;font-size:3.8cqw;font-weight:500;line-height:1.25;letter-spacing:-.02em}
+
+/* A prescription detail screen, not another marketing card inside the card. */
+.wm-prescription{left:7%;top:8%;width:86%;border-radius:5cqw}
+.wm-prescription-tabs{display:flex;gap:1cqw;border-bottom:1px solid var(--benefit-tint);padding:3cqw 4cqw;font-size:3.4cqw}
+.wm-prescription-tabs span{display:block;padding:1.8cqw 4cqw;color:var(--blue-7);border-radius:2cqw}
+.wm-prescription-tabs span:first-child{color:var(--blue-9);background:var(--benefit-tint);font-weight:500}
+.wm-prescription-body{padding:5cqw 6cqw}
+.wm-rx-eyebrow{display:block;font-size:3cqw;color:var(--blue-7)}
+.wm-prescription strong{display:block;margin:3cqw 0 3cqw;font:300 10cqw/1.02 var(--display-font);letter-spacing:-.045em}
+.wm-prescription p{margin:0;font-size:3.6cqw;line-height:1.5;color:var(--blue-7)}
+.wm-prescriber{display:flex;align-items:center;gap:2cqw;margin-top:4cqw;font-size:3cqw}
+.wm-prescriber img{width:7cqw;height:7cqw;object-fit:cover;border-radius:50%}
+.wm-directions{display:flex;align-items:center;justify-content:space-between;gap:2cqw;border-top:1px solid var(--benefit-tint);padding-top:4cqw;margin-top:4cqw}
+.wm-directions small{display:block;font-size:2.6cqw;color:var(--blue-7)}
+.wm-directions b{display:block;font-size:3.5cqw;font-weight:500;margin-top:1cqw}
+.wm-directions svg{width:6cqw;height:6cqw;flex:none}
+
+/* A conversation at readable scale. No decorative frame or status badge. */
+.wm-support-question{position:absolute;left:24%;top:10%;width:69%;padding:4.5cqw 5cqw;border-radius:4.5cqw 4.5cqw 1cqw 4.5cqw;background:var(--blue-9);color:white;font-size:4.5cqw;line-height:1.4;letter-spacing:-.02em}
+.wm-support-reply{position:absolute;left:7%;top:39%;width:83%;padding:5cqw 5.5cqw;border-radius:4.5cqw 4.5cqw 4.5cqw 1cqw;background:var(--gray-0);box-shadow:0 10px 24px -20px rgb(19 32 69 / .2)}
+.wm-support-header{display:flex;align-items:center;gap:2.5cqw;font-size:3.7cqw;font-weight:500}
+.wm-support-header img{width:10cqw;height:10cqw;object-fit:cover;border-radius:50%}
+.wm-support-header small{display:block;font-size:2.7cqw;color:var(--blue-7);font-weight:400;margin-top:.6cqw}
+.wm-support-reply p{margin:4cqw 0 0;font-size:4.2cqw;line-height:1.45;letter-spacing:-.01em}
+.wm-support-thinking{position:absolute;top:20cqw;left:5.5cqw;display:grid;grid-template-columns:repeat(3,1.2cqw);gap:.8cqw;opacity:0}
+.wm-support-thinking i{width:1.2cqw;height:1.2cqw;background:var(--blue-9)}
+.wm-support-composer{position:absolute;left:7%;top:86%;width:86%;height:10cqw;display:flex;align-items:center;justify-content:space-between;padding:2cqw 3cqw 2cqw 4cqw;border:1px solid var(--benefit-line);border-radius:4cqw;font-size:3.2cqw;color:var(--blue-7)}
+.wm-support-composer b{display:grid;place-items:center;width:6cqw;height:6cqw;border-radius:50%;background:var(--blue-9);color:white;font-size:4cqw;font-weight:400}
+
+.wm-team{display:flex;align-items:center;flex:none;padding-left:6px}
+.wm-team img{width:30px;height:30px;object-fit:cover;border-radius:50%;border:2px solid var(--gray-0);margin-left:-6px}
+.condition-v2.condition-skin-care .ci-static-guidance .ci-floating-card,.condition-v2.condition-skin-care .ci-static-history .ci-floating-card{background:var(--pink-1)}
+.condition-v2.condition-skin-care .ci-prescription-status{background:var(--pink)}
+.condition-v2.condition-skin-care .wm-included .condition-section-head h2{max-width:800px;margin-inline:auto;text-wrap:balance}
+@media(max-width:580px){.condition-v2 .wm-included .condition-step-art{height:auto;min-height:0;aspect-ratio:1}}
+/* Base accordion furniture, scoped here rather than importing old page-wide CSS. */
+.wm-walkthrough .ci-experience{display:grid}
+.wm-walkthrough .ci-item{position:relative}
+.wm-walkthrough .ci-tab{display:block;width:100%;text-align:left;cursor:pointer;background:none}
+.wm-walkthrough .ci-tab-heading{display:grid;grid-template-columns:1fr 24px;gap:12px;text-wrap:balance}
+.wm-walkthrough .ci-tab-label{display:block;font:inherit;color:inherit}
+.wm-walkthrough .ci-chevron{display:grid;place-items:center;width:24px;height:24px}
+.wm-walkthrough .ci-chevron svg{width:14px;height:14px}
+.wm-walkthrough .ci-item.is-open .ci-chevron{transform:rotate(180deg)}
+.wm-walkthrough .ci-rule::before{content:'';position:absolute;inset:0;opacity:var(--rule-opacity,1);border-radius:3px}
+.wm-walkthrough .ci-weave{position:absolute;left:0;right:0;bottom:-4px;height:10px;pointer-events:none;opacity:0;clip-path:inset(0 100% 0 0)}
+.wm-walkthrough .ci-weave svg{display:block;width:100%;height:10px}
+.wm-walkthrough .ci-answer{display:grid;grid-template-rows:0fr}
+.wm-walkthrough .ci-item.is-open .ci-answer{grid-template-rows:1fr}
+.wm-walkthrough .ci-answer>div{min-height:0;overflow:hidden}
+.wm-walkthrough .ci-tab-copy{font:400 var(--type-body)/var(--leading-body) var(--body-font);margin:0}
+.wm-walkthrough .ci-message{background:var(--blue-9);color:var(--gray-1);margin:0 0 20px}
+.wm-walkthrough .wm-team img{width:44px;height:44px;border-color:var(--blue-9)}
+.wm-walkthrough .ci-tab:focus-visible{outline:2px solid var(--gray-1)!important;outline-offset:5px}
+.wm-followup-options{display:grid;gap:8px}
+.wm-followup-options span{padding:11px 13px;border-radius:8px;background:var(--gray-0);font-size:13px;color:var(--blue-9)}
+/* Preserve the reference's overflow card, but keep it within narrow screens. */
+@media(max-width:760px){.wm-walkthrough .ci-sky{max-width:290px!important;width:calc(100% - 40px)!important}}
+@media(prefers-reduced-motion:reduce){.wm-walkthrough *{transition:none!important}}
