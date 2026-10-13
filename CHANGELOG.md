@@ -2,6 +2,9 @@
 
 ## October 13, 2026: Counsel's October 12 updates, for the build
 
+- **Status:** the README opens with a "Where we're at" table: every page,
+  whether it's built, what's next for Toqir, Kinetic and Counsel. It's
+  updated with every push.
 - **Audience pages:** `content/audience-pages.md` sets out Javi's copy for
   the four pages on the Health Plans template (Health plans with its copy
   changes, Health systems, Consumer health, Employers): hero, logos, the

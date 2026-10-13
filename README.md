@@ -1,9 +1,33 @@
-# Counsel condition pages
+# Counsel pages
 
-Coded reference for the Webflow build of Counsel Health's condition pages, from
-Kinetic Studio. It holds one template and eight pages. These are the approved
-prototypes from the review link, pulled out of Kinetic's Studio, so the repo
-holds only the pages and the files they load.
+Coded reference for the Webflow build of Counsel Health's site, from Kinetic
+Studio: the condition pages, the content and structure notes for the next
+pages, and every animated piece as a code embed. Kinetic keeps this repo
+current; the Studio is the source of truth.
+
+## Where we're at
+
+Updated October 13, 2026. Webflow staging: counsel-inc.webflow.io. Design
+links open each page on its own.
+
+| Page | Design | Webflow | Toqir, now | Kinetic, next | Counsel |
+| --- | --- | --- | --- | --- | --- |
+| Home | [Home V13](https://counsel.kineticstudio.com/designs/counsel/01-home/home-hero-weave-v13) | Built | Pricing and step copy from `content/homepage-updates.md`, if Counsel doesn't edit it themselves | The walkthrough phone embed (screens 1, 3, 4 change) | |
+| Conditions (8) | [Weight management](https://counsel.kineticstudio.com/designs/counsel/03-conditions/weight-management-v3) and seven more | Built (CMS) | The three template changes at the end of `content/homepage-updates.md` | The weight management step 3 screen (weight graph, Zepbound) | Sam is making the copy changes in the CMS |
+| Health plans | [Health Plans V6](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-plans-v6) | Built, needs updating | New copy, five walkthrough steps, new tile order, copy-first tiles, Scope of care without its button, stats (`content/audience-pages.md`) | Bento embeds (after Javi's review), the five-screen walkthrough phone | Javi reviews the bento |
+| Health systems | [Health Systems V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-systems-v1) | Not started | Duplicate Health plans, then the same as above with this page's copy | Same as Health plans | Javi: map or EHR on tile 4 |
+| Consumer health | [Consumer Health V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/consumer-health-v1) | Not started | Duplicate Health plans, add the Oura section | Same as Health plans | |
+| Employers | [Employers V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/employers-v1) | Not started | Duplicate Health plans, its own third feature | Same as Health plans | Javi: body copy for tile 3; the real program card |
+| Counsel Studio | In design | Not started | | Next round of designs | Picking a direction |
+| Site-wide | | | Headings render in Georgia for visitors: set `--font-cooper-light: Cooper` in Global Styles | | Confirm the October 20 launch |
+
+How work moves:
+
+- **New work** (pages, content, embeds) lands here, one commit and one
+  `CHANGELOG.md` entry per change, with a note in #counsel-dev.
+- **Bugs on built pages** go in Kinetic's bug tracker, pinned to the spot on
+  staging, grouped Home, Conditions, Audience pages. Counsel logs there too.
+- **This table** is updated with every push.
 
 ## Run it
 
