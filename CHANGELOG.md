@@ -1,5 +1,28 @@
 # Changelog
 
+## October 13, 2026, after the call: Sam's changes in the designs, for the build
+
+- **Process:** the designs on the review site now carry everything Sam and
+  Javi sent. Once Counsel gives the thumbs-up in #counsel-health, build them
+  in Webflow, text included. The README's table says what each page needs.
+- **Homepage:** `homepage/` has the phone's code changes (a patch plus the
+  full files): Nora's new story (tired, labs, low vitamin D), the doctor's
+  message in place of the "Your doctor joined, $29" row, a lab order card,
+  and the chat ending on the doctor typing. `content/homepage-updates.md`
+  has the step and pricing text.
+- **Condition pages, re-synced:** Sam's copy on all eight. Template changes:
+  weight management's new step 3 treatment plan screen, birth control's chat
+  without a doctor message, hair loss's two extra chat turns, the refill line
+  on every step 3 card, a per-page step 3 body. Listed in
+  `content/homepage-updates.md`.
+- **Bento embeds, re-exported:** the triage tile (Health plans and Health
+  systems, tile 1) now sits in a hairline frame that fills its art area.
+  Nothing else changed visibly; every file has a fresh style scope.
+- **Card Studio:** new permanent link,
+  https://counsel.kineticstudio.com/prototypes/counsel/card-studio, and a
+  step-by-step guide to pasting tiles and phone cards into Webflow in
+  `embeds/README.md`.
+
 ## October 13, 2026: Counsel's October 12 updates, for the build
 
 - **Bento embeds:** all 22 tiles for the four audience pages are in

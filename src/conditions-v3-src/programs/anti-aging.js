@@ -20,9 +20,11 @@ export default {
   steps:{
     heading:STEPS_HEADING,intro:STEPS_INTRO,
     items:startSteps(),
+    // Sam at Counsel, Oct 13: new step 1 member and Counsel AI lines. Step 2
+    // repeats the member's step 1 message, so it changes with it.
     screens:[
-      {kind:'ai',question:'I’d like a prescription for fine lines and sun spots.',reply:'What would you most like to improve, and are you using a retinoid now?'},
-      {kind:'doctor',question:'I’d like a prescription for fine lines and sun spots.',title:'Your plan, physician-led.',body:'Medical history reviewed. Treatment tailored to your skin.'},
+      {kind:'ai',question:'I’m interested in starting tretinoin',reply:'Counsel can help with that. What would you like to improve about your skin? Fine lines, wrinkles, skin tone, texture, or dark spots?'},
+      {kind:'doctor',question:'I’m interested in starting tretinoin',title:'Your plan, physician-led.',body:'Medical history reviewed. Treatment tailored to your skin.'},
       {kind:'rx',name:'Tretinoin 0.025% cream',detail:'Apply once a day'},
     ],
   },

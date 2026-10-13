@@ -27,14 +27,20 @@ export default {
   },
   ongoing:{
     heading:ONGOING_HEADING,
-    // Drafted from the live FAQ: hair grows slowly and an early shedding phase is common.
-    body:'Hair grows slowly, so treatment takes patience. Questions come up. Shedding happens. Plans change. Counsel proactively checks in, so staying on track doesn’t depend on you remembering to follow up.',
+    // Sam at Counsel, Oct 13.
+    body:'Treatment takes time, so knowing what’s normal matters. Questions come up. Shedding happens. Plans change. Counsel proactively checks in, so staying on track doesn’t depend on you remembering to follow up.',
     cta:{label:'Get started',href:START},
+    // Sam at Counsel, Oct 13: Counsel AI answers and asks a follow-up, the
+    // member replies, and Counsel AI closes. No doctor in this chat.
     chat:checkIn({
       title:'Hair loss check-in',
       question:'Quick check-in: how has your hair been since you started treatment?',
       reply:'I think I’m shedding more than before. Is that normal?',
-      doctor:'Good question. A short shedding phase in the first few weeks is common, as older hairs make way for new growth. Keep going as prescribed, and we’ll check in again next month. If it continues, we can adjust your plan.',
+      handoff:'Good question. A short shedding phase in the first few weeks is common, as older hairs make way for new growth. Are you noticing additional thinning, or is the shedding concentrated in one place?',
+      followUp:[
+        {from:'member',text:'I’ve just noticed more hair on my pillow in the morning.'},
+        {from:'ai',text:'Ok that’s totally normal, even though it can feel concerning. I will check in again in a month, but I’m here if you need anything before then.'},
+      ],
     }),
   },
   pricing:counselPricing({name:'hair loss',cta:{label:'Get started',href:START}}),

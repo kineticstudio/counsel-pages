@@ -20,11 +20,14 @@ export default {
   },
   steps:{
     heading:STEPS_HEADING,intro:STEPS_INTRO,
-    items:startSteps({fit:'which birth control option would be best suited for your body and lifestyle'}),
+    // Sam at Counsel, Oct 13: step 3 names local and mail order pharmacies.
+    items:startSteps({fit:'which birth control option would be best suited for your body and lifestyle',
+      startBody:'Choose your pharmacy, including local and mail order options. We’ll be here to monitor your progress and adjust your treatment through ongoing check-ins.'}),
+    // Sam at Counsel, Oct 13: new step 2 card copy and a real medication on the step 3 card.
     screens:[
       {kind:'ai',question:'I’d like to start birth control.',reply:'Have you used birth control before, and is there a method you’d like to talk about?'},
-      {kind:'doctor',question:'I’d like to start birth control.',title:'Your options, explained.',body:'Medical history reviewed. A method chosen with you.'},
-      {kind:'rx',name:'Birth control pill',detail:'Prescribed by your care team'},
+      {kind:'doctor',question:'I’d like to start birth control.',title:'Your options, explained.',body:'Have a real conversation about medications with your doctor.'},
+      {kind:'rx',name:'Tri-Lo-Sprintec',detail:'Prescribed by your care team'},
     ],
   },
   ongoing:{
@@ -32,11 +35,13 @@ export default {
     // Drafted from the live FAQ on side effects and switching methods.
     body:'Finding the right birth control can take time. Questions come up. Side effects happen. Methods change. Counsel proactively checks in, so staying on track doesn’t depend on you remembering to follow up.',
     cta:{label:'Get started',href:START},
+    // Sam at Counsel, Oct 13: Counsel AI asks the follow-up questions itself,
+    // so the second timestamp and the doctor's message are gone.
     chat:checkIn({
       title:'Birth control check-in',
       question:'Quick check-in: how have you been feeling since starting your new pill?',
       reply:'Mostly good, but I’ve had some spotting this month.',
-      doctor:'Thanks for flagging that. Spotting can happen in the first few months on a new pill. How many days has it lasted, and have you missed any doses? If it doesn’t settle, we can talk about trying a different option.',
+      handoff:'Thanks for letting me know. Spotting can happen in the first few months on a new pill. Let me ask a few questions about what’s going on, and we can talk through whether it makes sense to wait or chat with a doctor about different medications. How many days has it lasted, and have you missed any doses?',
     }),
   },
   pricing:counselPricing({name:'birth control',cta:{label:'Get started',href:START}}),

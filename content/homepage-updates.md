@@ -1,10 +1,12 @@
 # Homepage updates
 
 Source: Counsel's Notion page "Consumer site animated content" (Sam,
-October 12). It covers the homepage and the condition pages. Sam is making
-the condition-page changes himself in the CMS; three of them need more than
-text and are listed at the end. On the homepage, the step copy and the
-pricing section are Webflow text; the phone is a code embed from Kinetic.
+October 12). It covers the homepage and the condition pages. All of it is now
+in the designs on the review site. On the October 13 call we agreed Kinetic
+builds it in Webflow, text included, once Counsel gives the thumbs-up.
+
+On the homepage, the step copy and the pricing section are Webflow text; the
+phone is code (`../homepage/`).
 
 ## How it works (walkthrough)
 
@@ -21,27 +23,20 @@ Step copy, as Webflow text:
 | 4 | Chip, H3 | Follow-up, Care that keeps going | (no change) |
 | 4 | Body | Nora's visit stays open for seven days, so she can follow up as things change. Her next conversation starts with that context. | Results, treatment, and follow-up stay connected, so Nora never has to start over. |
 
-Phone screens (Kinetic's embed; a new embed replaces the current one):
+Phone screens: the code changes are in `../homepage/` (a patch and the full
+files). In short:
 
-- **Screen 1:** Nora's bubble "I've been feeling really tired lately". AI
-  reply: "Let me get a better picture of what you're experiencing. I'll ask
-  about the fatigue itself, sleep and daily habits, and a few health checks
-  that can commonly affect energy. If it makes sense, you can add a doctor
-  to this chat, and they will have the full context of our conversation. To
-  start, can you describe what 'really tired' feels like for you, and when it
-  started?" Source chips stay: "1 conversation", "3 trusted sources", copy
-  icon.
+- **Screen 1:** Nora's bubble "I’ve been feeling really tired lately" and
+  Sam's three-paragraph answer. The source chips stay.
 - **Screen 2:** no change.
-- **Screen 3:** remove the "Your doctor joined, $29" card. Add a doctor
-  message with their photo: "I'm ordering some labs to help figure out
-  what's going on." A "Lab ordered" card replaces the prescription card,
-  with a map to the nearest Quest.
-- **Screen 4:** doctor message: "Hi Nora, your lab results are back, and
-  your vitamin D levels were about 50% lower than the 'normal' range. This
-  could explain what you're feeling, and you could start with some
-  supplements right away." Nora: "Oh wow. I'm going to pick some up right
-  away, do you have any recommendations?" The chat blurs out below to show
-  the conversation continues.
+- **Screen 3:** no "Your doctor joined, $29" row. The doctor card condenses
+  into the doctor's message with their photo, "I’m ordering some labs to help
+  figure out what’s going on.", above a "Lab ordered" card on the same map
+  ("Quest Diagnostics · 0.6 mi").
+- **Screen 4:** the condensed row reads "Lab ordered at Quest". Then the
+  vitamin D message and Nora's reply. Sam asked for the chat to blur out
+  below; the design ends on the doctor typing instead. Hunter has flagged
+  that to Counsel, so this may change.
 
 ## Pricing
 
@@ -53,7 +48,7 @@ Webflow text:
 | Subhead | No insurance necessary. | Ask Counsel anything at no cost. Pay $29 when you need a doctor, or get unlimited access for $300/year. |
 | Card 1 name | Counsel | Pay per visit |
 | Card 1 price | $0 | $29/visit |
-| Card 1 description | Unlimited access to AI chat for free | Chat with Counsel for free. When you need a doctor, just pay for the visit |
+| Card 1 description | Unlimited access to AI chat for free | Chat with Counsel for free. When you need a doctor, just pay for the visit. |
 | Card 1 bullets | 24/7 medical AI; Unified health records; Add a real doctor to any conversation, $29 a visit | Board-certified doctors join your chat in minutes; Visits stay open for 7 days; No subscription or commitment |
 | Card 1 CTA | Get started for free | (no change) |
 | Card 2 name | Counsel Signature | Membership |
@@ -63,24 +58,28 @@ Webflow text:
 | Card 2 bullets | Everything in Counsel; Unlimited doctor visits; Exclusive access to new features | Unlimited doctor visits; No per-visit fees; Built for managing conditions and regular check-ins |
 | Card 2 CTA | Get Signature | Become a member |
 
-## Condition pages: the three notes that need more than text
+## Condition pages
 
-Sam is handling the rest in the CMS. These change the template:
+All of Sam's condition-page changes are in the designs and in this repo's
+re-synced `conditions/` and `src/`. Most are copy. These change the template
+or the CMS model:
 
-1. **Weight management, step 3 screen:** replace the three-option treatment
-   card with the app's treatment plan imagery: a weight graph with a goal
-   weight, and one medication, Zepbound. This is the walkthrough phone
-   embed, so it comes from Kinetic.
-2. **Birth control, check-in chat:** the Counsel AI message now carries the
-   whole answer ("Thanks for letting me know. Spotting can happen in the
-   first few months on a new pill. Let me ask a few questions about what's
-   going on, and we can talk through whether it makes sense to wait or chat
-   with a doctor about different medications. How many days has it lasted,
-   and have you missed any doses?") and the second timestamp, the doctor
-   label and the doctor message are deleted. The chat card needs to hide
-   those three when they are empty.
-3. **Hair loss, check-in chat:** two new turns after the AI reply: a member
-   reply ("I've just noticed more hair on my pillow in the morning.") and an
-   AI reply ("Ok that's totally normal, even though it can feel concerning.
-   I will check in again in a month, but I'm here if you need anything before
-   then."). The chat card needs two more fields.
+1. **Weight management, step 3 screen:** a treatment plan instead of the
+   three-option card: a weight chart with a dashed goal line at 180 lb and
+   one medication, Zepbound (the `plan` screen in
+   `src/conditions-v3-src/condition-v3.js`). It is part of the walkthrough
+   phone, so build it like the other screens. The weights are illustrative.
+2. **Birth control, check-in chat:** ends on Counsel's answer. The second
+   timestamp, the doctor label and the doctor message are gone, so the chat
+   card has to hide them when they are empty.
+3. **Hair loss, check-in chat:** two more turns after Counsel's reply, a
+   member line and a Counsel line. The chat card needs room for them.
+4. **Step 3 card on seven pages:** "We’ll notify you when it’s ready for
+   pickup." is now "We’ll check in when it’s time for a refill." It is one
+   shared line.
+5. **Step 3 body:** birth control has its own ("Choose your pharmacy,
+   including local and mail order options. ..."), so the step 3 body is a
+   per-page field now.
+6. **Weight management, ongoing heading:** "Care doesn’t stop with the first
+   GLP-1 prescription", on that page only. Keep "GLP-1" from breaking at its
+   hyphen.

@@ -1359,3 +1359,186 @@ function animateStudioV9Thread(env){
   env.cleanups.push(()=>{mask.remove();group.removeAttribute('mask');gsap.set(phone,{clearProps:'clipPath'});});
 }
 
+
+/* ================ Counsel Studio round three (Hunter, 2026-10-13) ================
+   V10 to V12: centred type, and "a little bit more scroll-driven". Motion is
+   tied to how far you have scrolled and rides along with the page: scrubbed,
+   never pinned, never snapped, so the page always scrolls like a page and
+   scrolling back up unwinds it. Geometry moves (lines draw, slots open,
+   faces wipe); nothing fades. Reduced motion shows every page settled. */
+function mountStudioRoundThree(moment){
+  return mountStudioPage(env=>{
+    moment(env);
+    $$('.studio-r3 [data-r3-rise]').forEach(element=>rise(env,element));
+    animateR3Outcomes(env);
+  },{ribbon:true});
+}
+
+/** A block rises a little as it scrolls in, home by the time it is two fifths
+ *  of the way up the screen. */
+function rise(env,element,distance=36){
+  if(env.reduce)return;
+  gsap.fromTo(element,{y:distance},{y:0,ease:'none',scrollTrigger:{scroller:env.stage,trigger:element,start:'top bottom',end:'top 62%',scrub:true}});
+}
+
+/** The outcomes' rules grow out of their centre square as the grid scrolls in;
+ *  on phones each outcome's rule draws as it passes. */
+function animateR3Outcomes(env){
+  const grid=$('.studio-r3 .r3-grid');if(!grid||env.reduce)return;
+  const lines=$$('.r3-line',grid).filter(line=>getComputedStyle(line).display!=='none');
+  const axis=line=>line.classList.contains('is-r')?'scaleY':'scaleX';
+  if(env.desktop){
+    const knot=$('.r3-knot',grid);
+    const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{scroller:env.stage,trigger:grid,start:'top 80%',end:'center 45%',scrub:true}});
+    if(knot)tl.fromTo(knot,{scale:0},{scale:1,duration:.2},0);
+    lines.forEach(line=>tl.fromTo(line,{[axis(line)]:0},{[axis(line)]:1,duration:.8},.2));
+  }else lines.forEach(line=>gsap.fromTo(line,{scaleX:0},{scaleX:1,ease:'none',scrollTrigger:{scroller:env.stage,trigger:line,start:'top 92%',end:'top 62%',scrub:true}}));
+}
+
+/* ---- V10, "Rise" ---- */
+export function mountStudioV10(){return mountStudioRoundThree(env=>{animateStudioV10Rise(env);animateStudioV10Quote(env);animateStudioV10Brands(env);});}
+
+/** The app lags the page a little while its story plays at the pace you
+ *  scroll: Counsel's row, then the answer word by word, then a doctor. */
+function animateStudioV10Rise(env){
+  const stage=$('.studio-v10 .r10-stage'),phone=$('.r10-phone',stage);if(!phone||env.reduce)return;
+  document.body.classList.add('is-moving');
+  const lag=()=>parseFloat(getComputedStyle(stage).getPropertyValue('--r10-lag'))||0;
+  const slots=$$('.r10-slot',phone),pieces=slots.map(slot=>slot.firstElementChild.firstElementChild),words=$$('.r10-ai p i',phone);
+  gsap.set(slots,{height:0});gsap.set(words,{visibility:'hidden'});
+  const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{scroller:env.stage,trigger:stage,start:'clamp(top 80%)',end:'bottom 70%',scrub:true,invalidateOnRefresh:true}});
+  tl.fromTo(phone,{y:0},{y:lag,duration:1},0);
+  const open=(i,at,length)=>{
+    tl.fromTo(slots[i],{height:0},{height:()=>slots[i].firstElementChild.offsetHeight,duration:length,ease:'power1.inOut'},at)
+      .fromTo(pieces[i],{y:16,clipPath:'inset(0% 0% 100% 0%)'},{y:0,clipPath:'inset(0% 0% 0% 0%)',duration:length,ease:'power2.out'},at);
+  };
+  open(0,.08,.14);
+  open(1,.3,.08);
+  words.forEach((word,i)=>tl.set(word,{visibility:'visible'},.4+i*(.26/words.length)));
+  open(2,.72,.14);
+  env.cleanups.push(()=>{document.body.classList.remove('is-moving');gsap.set([phone,...slots,...pieces,...words],{clearProps:'all'});});
+}
+
+/** The Oura quote inks in word by word as you read down it. */
+function animateStudioV10Quote(env){
+  const quote=$('.studio-v10 .r10-partner .r3-quote');if(!quote||env.reduce)return;
+  const words=$$('i',quote),ink=getComputedStyle(quote).color,faint=ink.replace('rgb(','rgba(').replace(')',', .2)');
+  gsap.fromTo(words,{color:faint},{color:ink,ease:'none',duration:.3,stagger:1/words.length,
+    scrollTrigger:{scroller:env.stage,trigger:quote,start:'top 80%',end:'bottom 48%',scrub:true}});
+}
+
+/** Each partner card is repainted from Counsel's greens into its brand as
+ *  the row scrolls past: a crisp wipe, top to bottom, one card after another. */
+function animateStudioV10Brands(env){
+  const faces=$$('.studio-v10 .r10-face.is-brand');if(!faces.length||env.reduce)return;
+  const shut={clipPath:'inset(0% 0% 100% 0%)'},open={clipPath:'inset(0% 0% 0% 0%)',ease:'none'};
+  if(env.desktop){
+    const tl=gsap.timeline({scrollTrigger:{scroller:env.stage,trigger:$('.studio-v10 .r10-cards'),start:'top 78%',end:'bottom 40%',scrub:true}});
+    faces.forEach((face,i)=>tl.fromTo(face,shut,{...open,duration:1},i*.75));
+  }else faces.forEach(face=>gsap.fromTo(face,shut,{...open,scrollTrigger:{scroller:env.stage,trigger:face,start:'top 75%',end:'bottom 55%',scrub:true}}));
+}
+
+/* ---- V11, "The thread" ---- */
+export function mountStudioV11(){return mountStudioRoundThree(env=>{animateStudioV11Thread(env);animateStudioDemo(env,{autoplay:false});});}
+
+/** One thread down the page's centre line, drawn to a little ahead of where
+ *  you are reading. The hero's sweep draws once on arrival; after that the
+ *  thread's length follows the scroll. The app opens out of the line as the
+ *  thread reaches it, each knot closes as it passes, and the thread ends at
+ *  the closing button. Reduced motion: drawn, open and closed. */
+function animateStudioV11Thread(env){
+  const page=$('.studio-v11 .page'),svg=page&&$('.r11-thread',page);if(!svg)return;
+  const path=$('.r11-path',svg),ink=$('#r11-ink',svg),copy=$('.studio-hero .r3-copy',page);
+  const app=$('.r11-app .sp-phone',page),knots=$$('.r11-knot',page),end=$('.r11-end .channel-btn',page);
+  const light=$('.r2-light',page),cta=$('.r2-cta',page),C=window.CounselColors;
+  const top=element=>element.getBoundingClientRect().top-page.getBoundingClientRect().top;
+  const state={intro:env.reduce?1:0};
+  let samples=[],length=0,introLength=0,knotY=[],appY=0;
+  const lengthAt=y=>{
+    if(!samples.length||y<=samples[0][1])return 0;
+    let lo=0,hi=samples.length-1;
+    if(y>=samples[hi][1])return length;
+    while(hi-lo>1){const mid=(lo+hi)>>1;if(samples[mid][1]<y)lo=mid;else hi=mid;}
+    const [s0,y0]=samples[lo],[s1,y1]=samples[hi];
+    return s0+(s1-s0)*(y-y0)/Math.max(1e-6,y1-y0);
+  };
+  const draw=()=>{
+    if(!length)return;
+    const drawn=env.reduce?length:Math.max(introLength*state.intro,lengthAt(env.stage.scrollTop+innerHeight*.72));
+    path.style.strokeDashoffset=String(length-drawn);
+    const tip=drawn>=length-.5?Infinity:path.getPointAtLength(drawn).y;
+    knots.forEach((knot,i)=>knot.classList.toggle('is-on',tip>=knotY[i]));
+    if(app){const p=Math.min(1,Math.max(0,(tip-appY)/(app.offsetHeight*.5)));app.style.clipPath=p>=1?'':`inset(0% ${50*(1-p)}% 0% ${50*(1-p)}% round 44px)`;}
+  };
+  const measure=()=>{
+    const w=page.clientWidth,h=page.offsetHeight,cx=Math.round(w/2);
+    svg.setAttribute('viewBox',`0 0 ${w} ${h}`);svg.setAttribute('preserveAspectRatio','none');
+    const a=top(copy)+copy.offsetHeight+Math.min(90,innerHeight*.09),r=Math.min(220,cx*.62),stop=top(end);
+    path.setAttribute('d',`M -40 ${a} C ${cx*.55} ${a} ${cx} ${a+r*.3} ${cx} ${a+r} L ${cx} ${stop}`);
+    // The light green on the dark bands, a deeper green on the light one: hard switches at each band edge.
+    const lt=top(light),ct=top(cta);
+    ink.setAttribute('y2',h);
+    ink.innerHTML=[[0,C.green3],[lt,C.green3],[lt,C.green5],[ct,C.green5],[ct,C.green3],[h,C.green3]].map(([y,colour])=>`<stop offset="${(y/h).toFixed(5)}" stop-color="${colour}"/>`).join('');
+    length=path.getTotalLength();
+    samples=[];for(let s=0;s<length;s+=6)samples.push([s,path.getPointAtLength(s).y]);samples.push([length,stop]);
+    introLength=lengthAt(a+r);
+    knotY=knots.map(knot=>top(knot)+knot.offsetHeight/2);
+    if(app)appY=top(app.parentElement)+parseFloat(getComputedStyle(app.parentElement).paddingTop||0);
+    path.style.strokeDasharray=`${length} ${length}`;
+    draw();
+  };
+  measure();
+  env.resize(page,measure);
+  ScrollTrigger.create({scroller:env.stage,start:0,end:'max',onUpdate:draw,onRefresh:measure});
+  if(!env.reduce)gsap.to(state,{intro:1,duration:1.6,delay:.35,ease:'power2.inOut',onUpdate:draw});
+  env.cleanups.push(()=>{path.style.strokeDasharray='';path.style.strokeDashoffset='';knots.forEach(knot=>knot.classList.remove('is-on'));if(app)app.style.clipPath='';});
+}
+
+/* ---- V12, "Anatomy" ---- */
+export function mountStudioV12(){return mountStudioRoundThree(env=>{animateStudioV12Labels(env);animateStudioV12Points(env);});}
+
+/** Each part of the app is labelled as it scrolls past: a square on the part,
+ *  a hairline out to a tick, then the words. The labels are placed from the
+ *  parts' real positions; phones number the parts and key them below. */
+function animateStudioV12Labels(env){
+  const stage=$('.studio-v12 .r12-stage');if(!stage)return;
+  const phone=$('.r12-phone',stage),calls=$$('.r12-call',stage);
+  const partOf=call=>$(`[data-part="${call.dataset.call}"]`,phone);
+  const place=()=>{
+    if(!env.desktop)return;
+    const s=stage.getBoundingClientRect(),p=phone.getBoundingClientRect();
+    const room=Math.min(380,p.left-s.left),label=Math.max(150,Math.min(260,room-110));
+    calls.forEach(call=>{
+      const part=partOf(call).getBoundingClientRect();
+      call.style.top=`${part.top+part.height/2-s.top}px`;call.style.setProperty('--label',`${label}px`);
+      if(call.classList.contains('is-left')){const x0=p.left-s.left-room;call.style.left=`${x0}px`;call.style.width=`${part.left-s.left+3.5-x0}px`;}
+      else{const x0=part.right-s.left-3.5;call.style.left=`${x0}px`;call.style.width=`${p.right-s.left+room-x0}px`;}
+    });
+  };
+  place();env.resize(stage,place);
+  env.cleanups.push(()=>calls.forEach(call=>{call.style.top=call.style.left=call.style.width='';}));
+  if(env.reduce)return;
+  if(env.desktop){
+    calls.forEach(call=>{
+      const left=call.classList.contains('is-left');
+      const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{scroller:env.stage,trigger:partOf(call),start:'clamp(center 84%)',end:'center 56%',scrub:true}});
+      tl.fromTo($('.r12-dot',call),{scale:0},{scale:1,duration:.12},0)
+        .fromTo($('.r12-wire',call),{scaleX:0},{scaleX:1,duration:.5,ease:'power1.out'},.08)
+        .fromTo($('.r12-label',call),{clipPath:left?'inset(0% 0% 0% 100%)':'inset(0% 100% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.42},.55);
+    });
+  }else{
+    $$('.r12-badge',phone).forEach(badge=>gsap.fromTo(badge,{scale:0},{scale:1,ease:'none',scrollTrigger:{scroller:env.stage,trigger:badge.parentElement,start:'clamp(center 88%)',end:'center 70%',scrub:true}}));
+    $$('.r12-key li',stage).forEach(item=>rise(env,item,18));
+  }
+}
+
+/** The deployment figures draw their lines, then set their squares, as each
+ *  one scrolls in. */
+function animateStudioV12Points(env){
+  if(env.reduce)return;
+  $$('.studio-v12 .r12-points svg').forEach(svg=>{
+    const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{scroller:env.stage,trigger:svg,start:'top 88%',end:'top 52%',scrub:true}});
+    tl.fromTo($$('.r7-line',svg),{strokeDasharray:'1 1',strokeDashoffset:1},{strokeDashoffset:0,duration:.7},0)
+      .fromTo($$('.r7-sq',svg),{scale:0,transformOrigin:'50% 50%'},{scale:1,duration:.12,stagger:.05},.55);
+  });
+}

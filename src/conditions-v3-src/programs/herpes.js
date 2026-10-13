@@ -8,7 +8,10 @@ const GENITAL='https://app.counselhealth.com/chat?view=catalog&condition=genital
 const ORAL='https://app.counselhealth.com/chat?view=catalog&condition=oral-herpes';
 const cutout=n=>`/brand/photography/${n}`;
 
-function program({slug,name,heading,ctas,figure,request,checkin,faqScope,faqCure,once,closingPhoto}){
+// Sam at Counsel, Oct 13: fit and start name the condition in steps 2 and 3,
+// and ongoingBody lets a page replace the shared ongoing care body.
+const ONGOING_BODY='Managing herpes is ongoing. Questions come up. Outbreaks happen. Plans change. Counsel proactively checks in, so staying on track doesn’t depend on you remembering to follow up.';
+function program({slug,name,heading,ctas,figure,request,fit,start,ongoingBody=ONGOING_BODY,checkin,faqScope,faqCure,once,closingPhoto}){
   return {
     slug,name,theme:'lime',source:LIVE+slug,
     hero:{
@@ -18,7 +21,7 @@ function program({slug,name,heading,ctas,figure,request,checkin,faqScope,faqCure
       points:heroPoints(FROM_29),pointsLayout:'row',ctas,figure,
     },
     steps:{
-      heading:STEPS_HEADING,intro:STEPS_INTRO,items:startSteps(),
+      heading:STEPS_HEADING,intro:STEPS_INTRO,items:startSteps({fit,start}),
       screens:[
         {kind:'ai',question:request,reply:'Have you been diagnosed before, and how often do outbreaks happen?'},
         {kind:'doctor',question:request,title:'Your plan, physician-led.',body:'Medical history reviewed. Private, judgment-free care.'},
@@ -28,7 +31,7 @@ function program({slug,name,heading,ctas,figure,request,checkin,faqScope,faqCure
     ongoing:{
       heading:ONGOING_HEADING,
       // Drafted from the live FAQ on outbreaks, daily suppressive therapy and partners.
-      body:'Managing herpes is ongoing. Questions come up. Outbreaks happen. Plans change. Counsel proactively checks in, so staying on track doesn’t depend on you remembering to follow up.',
+      body:ongoingBody,
       ctas,chat:checkIn({title:'Outbreak check-in',...checkin}),
     },
     pricing:counselPricing({name:name.toLowerCase(),ctas}),
@@ -47,6 +50,8 @@ export const herpes=program({
   // Brand photo (man in a tan sweater), cut out with macOS Vision; he faces forward.
   figure:{kind:'cutout',src:cutout('herpes-man-hero-cutout-v1.webp'),alt:'A calm man in a tan sweater with one hand on his chest'},
   request:'I’d like help managing herpes outbreaks.',
+  // Sam at Counsel, Oct 13.
+  fit:'which herpes treatment options would be best suited for your body and lifestyle',start:'Start your herpes treatment',
   checkin:{
     question:'Quick check-in: how have outbreaks been since you started treatment?',
     reply:'Better. I had one last week, but it cleared up faster.',
@@ -62,10 +67,13 @@ export const coldSores=program({
   // Brand photo (cyclist), cut out with macOS Vision and flipped to face the H1.
   figure:{kind:'cutout',src:cutout('cold-sores-cyclist-hero-cutout-v1.webp'),alt:'A smiling cyclist in a helmet and sunglasses',flip:true},
   request:'I’d like treatment for cold sores.',
+  // Sam at Counsel, Oct 13: steps 2 and 3, the ongoing body and the check-in.
+  fit:'which treatment for cold sores would be best suited for your body and lifestyle',start:'Start your cold sores treatment',
+  ongoingBody:'Cold sore treatment is more than a transaction. Questions come up. Outbreaks happen. Plans change. Counsel proactively checks in, so staying on track doesn’t depend on you remembering to follow up.',
   checkin:{
-    question:'Quick check-in: how have cold sores been since you started treatment?',
-    reply:'I felt a tingle on my lip this morning.',
-    doctor:'Thanks for flagging it early. Starting your medication at the first tingle can help it heal faster. If cold sores keep coming back, we can talk about a daily option to help prevent them.',
+    question:'Quick check-in: is your outbreak responding to the valacyclovir?',
+    reply:'Yes! It’s feeling much better. Is it possible to get more regular treatment to prevent outbreaks?',
+    doctor:'I’m happy to hear you responded well to treatment. Preventive treatment is definitely an option, how often do you get outbreaks?',
   },
   faqScope:'oral herpes',faqCure:'oral herpes (HSV-1)',once:'500 mg orally, once daily',
   closingPhoto:PEOPLE.greenShirtMan,
@@ -77,6 +85,9 @@ export const genitalHerpes=program({
   // Skin Care V2's prefooter portrait, flipped to face the H1.
   figure:{kind:'cutout',src:PEOPLE.blouseWoman.src,alt:PEOPLE.blouseWoman.alt,flip:true},
   request:'I’d like treatment for genital herpes.',
+  // Sam at Counsel, Oct 13: steps 2 and 3 and the ongoing body.
+  fit:'which genital herpes treatment options would be best suited for your body and lifestyle',start:'Start your genital herpes treatment',
+  ongoingBody:'Herpes treatment is more than a transaction. Questions come up. Outbreaks happen. Plans change. Counsel proactively checks in, so staying on track doesn’t depend on you remembering to follow up.',
   checkin:{
     question:'Quick check-in: how have you been feeling since starting treatment?',
     reply:'Good overall, but I’m worried about passing it to my partner.',

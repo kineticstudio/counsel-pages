@@ -18,7 +18,8 @@ export default {
   },
   steps:{
     heading:STEPS_HEADING,intro:STEPS_INTRO,
-    items:startSteps({fit:'which treatment options would be best suited for your skin and lifestyle'}),
+    // Sam at Counsel, Oct 13: step 3 names acne.
+    items:startSteps({fit:'which treatment options would be best suited for your skin and lifestyle',start:'Start your acne treatment'}),
     screens:[
       {kind:'ai',question:'I’d like help clearing up my acne.',reply:'How long have you had breakouts, and what have you tried so far?'},
       {kind:'doctor',question:'I’d like help clearing up my acne.',title:'Your plan, physician-led.',body:'Medical history reviewed. Treatment tailored to your skin.'},

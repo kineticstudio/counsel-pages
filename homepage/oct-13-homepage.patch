@@ -1,0 +1,136 @@
+diff --git a/home-src/counsel-care-journey-v13.js b/home-src/counsel-care-journey-v13.js
+index e276a63..ccc4067 100644
+--- a/home-src/counsel-care-journey-v13.js
++++ b/home-src/counsel-care-journey-v13.js
+@@ -260,6 +260,13 @@ html[data-counsel-type="v13"] .cj-source { display: inline-flex; align-items: ce
+ .cj-typing-dots i:nth-child(2) { animation-delay: 140ms; }
+ .cj-typing-dots i:nth-child(3) { animation-delay: 280ms; }
+ .cj-stitch-active .is-current .cj-typing-dots i { animation-play-state: running; }
++/* Sam at Counsel, Oct 13: the doctor's condensed row is their message, with a round photo
++   like every doctor message; the follow-up ends on the doctor typing (no blur). */
++.cj-compact .cj-compact-avatar { border-radius: 50%; }
++.cj-doctor .cj-compact span { line-height: 1.25; }
++.cj-doctor-typing { display: flex; align-items: flex-end; gap: 8px; }
++.cj-doctor-typing .cj-typing-dots { background: var(--blue-2); border-radius: 12px 12px 12px 3px; }
++.cj-doctor-typing .cj-typing-dots i { background: var(--blue-9); }
+ @keyframes cj-typing { 0%, 60%, 100% { opacity: .4; transform: translateY(0); } 30% { opacity: 1; transform: translateY(-2px); } }
+ .cj-stream-word { opacity: var(--word-reveal, 0); }
+ @media (max-width: 900px) {
+@@ -302,10 +309,11 @@ html[data-counsel-type="v13"] .cj-source { display: inline-flex; align-items: ce
+     <div class="cj-stack">
+       <article class="cj-card cj-ask is-current" aria-label="Ask Counsel AI">
+         <div class="cj-transcript"><div class="cj-transcript-track">
+-          <div class="cj-event cj-outgoing" data-show="0"><div class="cj-question">I've had a sore throat for three days.</div></div>
++          <!-- Sam at Counsel, Oct 13 (Notion): Nora's story is fatigue, then labs, then low vitamin D. -->
++          <div class="cj-event cj-outgoing" data-show="0"><div class="cj-question">I’ve been feeling really tired lately</div></div>
+           <div class="cj-event cj-thought" data-show=".08" data-until=".3"><span class="counsel-thinking" aria-hidden="true">${thinking}</span><span>Thinking…</span></div>
+           <!-- Denny via Hunter, 2026-09-20: stream words and use the requested source-token label. Actual AI copy and citations remain illustrative, pending Counsel approval. -->
+-          <div class="cj-event cj-answer-copy" data-show=".3" data-stream><p class="cj-ui-copy">Thanks for sharing what’s been going on. I can help you work through your question and understand what comes next.<br><br>If you’d like a doctor’s help, you can add one here. They’ll be able to read this conversation, ask about your symptoms and discuss the next step with you.<br><br>Would you like to add a doctor to this chat?</p><div class="cj-sources"><span class="cj-source"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M2 6v4m3-7v10m3-8v6m3-9v12m3-8v4"/></svg>1 conversation</span><span class="cj-source"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="8" cy="8" r="6"/><ellipse cx="8" cy="8" rx="2.5" ry="6"/><path d="M2 8h12"/></svg>3 trusted sources</span><span class="cj-source" aria-label="Copy"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M10 3H3v7"/></svg></span></div></div>
++          <div class="cj-event cj-answer-copy" data-show=".3" data-stream><p class="cj-ui-copy">Let me get a better picture of what you’re experiencing. I’ll ask about the fatigue itself, sleep and daily habits, and a few health checks that can commonly affect energy.<br><br>If it makes sense, you can add a doctor to this chat, and they will have the full context of our conversation.<br><br>To start, can you describe what “really tired” feels like for you, and when it started?</p><div class="cj-sources"><span class="cj-source"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><path d="M2 6v4m3-7v10m3-8v6m3-9v12m3-8v4"/></svg>1 conversation</span><span class="cj-source"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><circle cx="8" cy="8" r="6"/><ellipse cx="8" cy="8" rx="2.5" ry="6"/><path d="M2 8h12"/></svg>3 trusted sources</span><span class="cj-source" aria-label="Copy"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor"><rect x="5" y="5" width="8" height="8" rx="1.5"/><path d="M10 3H3v7"/></svg></span></div></div>
+         </div></div>
+       </article>
+       <article class="cj-card cj-doctor" aria-label="Add a real doctor" aria-hidden="true" inert>
+@@ -314,16 +322,18 @@ html[data-counsel-type="v13"] .cj-source { display: inline-flex; align-items: ce
+         <p class="cj-ui-copy">A board-certified doctor will join this chat to start your treatment.</p>
+         <button class="ch-btn cj-add-doctor" type="button">Get started</button>
+       </article>
+-      <article class="cj-card cj-pharmacy" data-counsel-theme="green" aria-label="Prescription sent to the pharmacy" aria-hidden="true" inert>
+-        <div class="cj-label"><span>Prescription</span><span>Nora</span></div>
++      <article class="cj-card cj-pharmacy" data-counsel-theme="green" aria-label="Lab ordered at the nearest Quest" aria-hidden="true" inert>
++        <div class="cj-label"><span>Lab order</span><span>Nora</span></div>
+         <svg class="cj-map" viewBox="0 0 320 165" aria-hidden="true"><path d="M0 30H320M0 100H320M65 0V165M240 0V165" fill="none" stroke="#fff" stroke-width="22"/><path class="cj-route" pathLength="1" d="M25 100H65V30H240V102" fill="none" stroke="var(--green-7)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><circle cx="25" cy="100" r="7" fill="var(--green-7)"/><g class="cj-map-pin"><path d="M240 123s-25-26-25-43a25 25 0 0 1 50 0c0 17-25 43-25 43Z" fill="var(--green-7)"/><circle cx="240" cy="80" r="9" fill="var(--green-1)"/></g></svg>
+-        <div class="cj-delivery"><div><p class="cj-ui-title">Prescription sent</p><span class="cj-meta">Walgreens on Armitage</span></div><span class="cj-check" aria-hidden="true">✓</span></div>
++        <div class="cj-delivery"><div><p class="cj-ui-title">Lab ordered</p><span class="cj-meta">Quest Diagnostics · 0.6 mi</span></div><span class="cj-check" aria-hidden="true">✓</span></div>
+       </article>
+       <article class="cj-card cj-follow" aria-label="A seven-day visit with follow-up" aria-hidden="true" inert>
+         <!-- Denny via Hunter, 2026-09-20: start directly with the doctor’s message. -->
+-        <div class="cj-event cj-follow-copy" data-show="0"><img class="cj-follow-avatar" src="${doctorPortrait}" alt="Your doctor"><p class="cj-ui-copy">Hi Nora, it has been 3 days since we last spoke. How are you feeling today?</p></div>
++        <div class="cj-event cj-follow-copy" data-show="0"><img class="cj-follow-avatar" src="${doctorPortrait}" alt="Your doctor"><p class="cj-ui-copy">Hi Nora, your lab results are back, and your vitamin D levels were about 50% lower than the “normal” range. This could explain what you’re feeling, and you could start with some supplements right away.</p></div>
+         <div class="cj-event cj-thought cj-nora-typing" data-show=".16" data-until=".38" aria-label="Nora is typing"><span class="cj-typing-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+-        <div class="cj-event cj-outgoing" data-show=".38"><div class="cj-question">Much better, thank you.</div></div>
++        <div class="cj-event cj-outgoing" data-show=".38"><div class="cj-question">Oh wow. I’m going to pick some up right away, do you have any recommendations?</div></div>
++        <!-- Sam asked for the chat to blur out below to show it carries on. Hunter's rule is no fades or blurs, so the doctor is typing instead: the conversation continues, without its content. -->
++        <div class="cj-event cj-thought cj-doctor-typing" data-show=".6" aria-label="Your doctor is typing"><img class="cj-follow-avatar" src="${doctorPortrait}" alt=""><span class="cj-typing-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
+       </article>
+     </div>
+     ${platformComposer.markup(platformComposer.forStep(0))}
+@@ -355,8 +365,10 @@ html[data-counsel-type="v13"] .cj-source { display: inline-flex; align-items: ce
+   const stack = frame.querySelector('.cj-stack');
+   const summaries = [
+     '', // Hunter, 2026-09-11: conversation bubbles scroll away, never become summary rows.
+-    `<img src="${doctorPortrait}" alt=""><span>Your doctor joined</span><small>$29</small>`,
+-    '<i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></i><span>Prescription sent to Walgreens</span>',
++    // Sam at Counsel, Oct 13: no "Your doctor joined $29" row. The doctor card
++    // condenses into the doctor's own message, with their photo.
++    `<img class="cj-compact-avatar" src="${doctorPortrait}" alt=""><span>I’m ordering some labs to help figure out what’s going on.</span>`,
++    '<i aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><rect x="5" y="3" width="14" height="18" rx="3" stroke="currentColor" stroke-width="1.5"/><path d="M9 8h6M9 12h6M9 16h3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></i><span>Lab ordered at Quest</span>',
+     ''
+   ];
+   // Hunter, 2026-09-11: the doctor's incoming line matches its Blue 2 card.
+diff --git a/home-src/counsel-home-v13.js b/home-src/counsel-home-v13.js
+index 7d14f9e..316a96c 100644
+--- a/home-src/counsel-home-v13.js
++++ b/home-src/counsel-home-v13.js
+@@ -358,10 +358,10 @@
+   /* Hunter, 2026-09-10: marketing explains the story beside the chat.
+      Product messages live only in counsel-care-journey-v13.js, not in a second script. */
+   const WALK = [
+-    { title: 'Ask Counsel anything', chip: ['Chat', C.green3], copy: 'Nora asks about her sore throat at 11pm. Counsel AI helps her understand the next step, with no cost to get started.' }, // Hunter, 2026-09-15: match the shorter illustrated exchange.
+-    { title: 'Add a doctor to the chat', chip: ['Doctor', C.blue2], copy: 'A real doctor picks up where Counsel AI left off. Nora can share the same conversation and get a seven-day visit for $29.' },
+-    { title: 'From advice to action', chip: ['Prescription', C.yellow], copy: 'When treatment is needed, her doctor can arrange a prescription, lab order or referral. Nora’s next step stays in the same conversation.' },
+-    { title: 'Care that keeps going', chip: ['Follow-up', C.pink], copy: 'Nora’s visit stays open for seven days, so she can follow up as things change. Her next conversation starts with that context.' },
++    { title: 'Ask Counsel anything', chip: ['Chat', C.green3], copy: 'Nora has been unusually tired for a few weeks. She asks Counsel what could be going on.' }, // Sam at Counsel, Oct 13 (Notion): Nora's story is now fatigue, labs and low vitamin D.
++    { title: 'Add a doctor to the chat', chip: ['Doctor', C.blue2], copy: 'No appointments, or video calls. A doctor joins Nora’s chat in minutes to help her decide what to do next.' },
++    { title: 'From answer to action', chip: ['Action', C.yellow], copy: 'Her doctor orders labs. If she needed a prescription or referral instead, Counsel could handle that too.' },
++    { title: 'Care that keeps going', chip: ['Follow-up', C.pink], copy: 'Results, treatment, and follow-up stay connected, so Nora never has to start over.' },
+   ];
+ 
+   /* a weave line: the thread's colours in a run of caps, no two the same
+@@ -444,31 +444,32 @@
+ <section class="ch ch-price" data-counsel-theme="light" id="pricing">
+   <div class="ch-wrap">
+     <div class="ch-head">
+-      <h2 class="ch-rise" style="--d:0">Healthcare that's reliable and affordable</h2>
+-      <p class="ch-lede ch-rise" style="--d:1">No insurance necessary.</p>
++      <!-- Sam at Counsel, Oct 13 (Notion): pay per visit and a $300 membership. -->
++      <h2 class="ch-rise" style="--d:0">Start free. Add a doctor when you need one.</h2>
++      <p class="ch-lede ch-rise" style="--d:1">Ask Counsel anything at no cost. Pay $29 when you need a doctor, or get unlimited access for $300/year.</p>
+     </div>
+     <div class="ch-plans">
+       <article class="ch-plan ch-rise" data-counsel-theme="green" style="--d:2">
+-        <div class="ch-plan-name">Counsel</div>
+-        <div class="ch-price-big">$0</div>
+-        <p class="ch-plan-sub">Free, for as long as you like.</p>
++        <div class="ch-plan-name">Pay per visit</div>
++        <div class="ch-price-big">$29 <small>/ visit</small></div>
++        <p class="ch-plan-sub">Chat with Counsel for free. When you need a doctor, just pay for the visit.</p>
+         <ul>
+-          <li><i style="--w:${C.green3}"></i>24/7 medical AI</li>
+-          <li><i style="--w:${C.brightBlue}"></i>Unified health records</li>
+-          <li><i style="--w:${C.pink}"></i><span>Add a real doctor to any conversation <em>· $29 a visit</em></span></li>
++          <li><i style="--w:${C.green3}"></i>Board-certified doctors join your chat in minutes</li>
++          <li><i style="--w:${C.brightBlue}"></i>Visits stay open for 7 days</li>
++          <li><i style="--w:${C.pink}"></i>No subscription or commitment</li>
+         </ul>
+         <a class="ch-btn ch-btn--ghost" href="#">Get started for free</a>
+       </article>
+       <article class="ch-plan dark ch-rise" data-counsel-theme="dark" style="--d:3">
+-        <div class="ch-plan-name">Counsel Signature <span class="ch-pill">Members</span></div>
+-        <div class="ch-price-big">$199 <small>/ year</small></div>
+-        <p class="ch-plan-sub">Everything in Counsel, and a doctor whenever you want one.</p>
++        <div class="ch-plan-name">Membership</div>
++        <div class="ch-price-big">$300 <small>/ year</small></div>
++        <p class="ch-plan-sub">Unlimited access to doctors whenever you need care.</p>
+         <ul>
+-          <li><i style="--w:${C.yellow}"></i>Everything in Counsel</li>
+-          <li><i style="--w:${C.green3}"></i>Unlimited doctor visits</li>
+-          <li><i style="--w:${C.brightBlue}"></i>Exclusive access to new features</li>
++          <li><i style="--w:${C.yellow}"></i>Unlimited doctor visits</li>
++          <li><i style="--w:${C.green3}"></i>No per-visit fees</li>
++          <li><i style="--w:${C.brightBlue}"></i>Built for managing conditions and regular check-ins</li>
+         </ul>
+-        <a class="ch-btn ch-btn--light" href="#">Get Signature</a>
++        <a class="ch-btn ch-btn--light" href="#">Become a member</a>
+       </article>
+     </div>
+     <!-- Denny via Hunter, 2026-09-20: remove the pricing footnote. -->

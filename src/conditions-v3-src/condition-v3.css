@@ -8,6 +8,7 @@
 .condition-v3[data-theme="blue"]{--cv3-accent:var(--bright-blue);--cv3-tint:var(--blue-1)}
 .condition-v3[data-theme="lime"]{--cv3-accent:var(--chartreuse);--cv3-tint:#F2F5D3}
 .cv3-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.cv3-nowrap{white-space:nowrap}
 
 /* Hero (Hunter, Oct 6): live copy and a lifestyle portrait, no UI. The person
    sits on the V2 sky, cut by the next band; the thread runs behind them. */
@@ -59,6 +60,18 @@
 .cv3-how .ci-tab:focus-visible{outline-color:var(--blue-9)!important}
 .cv3-step-number{display:block;margin-bottom:6px;font:500 12.5px/1.2 var(--body-font);letter-spacing:0;color:var(--cv3-muted)}
 .cv3-how .wm-team img{border-color:var(--gray-0)}
+/* Treatment plan screen (Sam at Counsel, Oct 13): the prescription card with a
+   weight chart. Hairlines, a dashed goal and square points; no fills. */
+.cv3-how .ci-static-plan .ci-floating-card{top:122px;gap:14px}
+.cv3-plan-chart{display:block;width:100%;height:auto;overflow:visible}
+.cv3-plan-chart text{font:400 11px/1 var(--body-font);fill:var(--blue-7);font-variant-numeric:tabular-nums}
+.cv3-plan-chart text.is-goal{font-weight:500;fill:var(--blue-9)}
+.cv3-plan-grid{stroke:rgb(19 32 69 / .15);stroke-width:1}
+.cv3-plan-goal{stroke:var(--blue-9);stroke-width:1.25;stroke-dasharray:4 4}
+.cv3-plan-line{fill:none;stroke:var(--blue-9);stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+.cv3-plan-point{fill:var(--blue-9)}
+.cv3-plan-point.is-latest{fill:var(--cv3-accent);stroke:var(--blue-9);stroke-width:1.5}
+.cv3-how .ci-static-plan .ci-prescription-pharmacy{padding-bottom:0}
 
 /* Ongoing care: the check-in conversation, unframed on the program's tint. */
 .cv3-art{display:grid;place-items:center;padding:clamp(28px,5vw,64px);border-radius:20px;background:var(--cv3-tint)}

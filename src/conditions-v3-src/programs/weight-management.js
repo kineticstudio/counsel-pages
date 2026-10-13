@@ -18,21 +18,29 @@ export default {
   },
   steps:{
     heading:STEPS_HEADING,intro:STEPS_INTRO,
+    // Sam at Counsel, Oct 13: step bodies and step 3's title name weight loss.
     items:[
-      {title:'Tell us what you’re looking for',body:'Share your goals, medical history and what treatments you’re interested in.'},
-      {title:'A doctor builds your plan',body:'A doctor evaluates your information and follows up with any additional questions.'},
-      {title:'Discuss your treatment plan',body:'Ask questions and decide with your doctor which treatment makes sense for you.'},
-      {title:'Keep the conversation going',body:'Whether it’s a check-in, question, side effect, or dose adjustment, your care continues as your treatment does.'},
+      {title:'Tell us what you’re looking for',body:'Share your weight loss goals, medical history and what treatments you’re interested in.'},
+      {title:'A doctor builds your plan',body:'A doctor evaluates your information and follows up with weight loss treatment options.'},
+      {title:'Discuss your weight loss treatment plan',body:'Ask questions and decide with your doctor which weight loss treatment makes sense for you.'},
+      {title:'Keep the conversation going',body:'Whether it’s a check-in, question, side effect, or dose adjustment, your care continues as we adjust your treatment plan.'},
     ],
+    // Sam at Counsel, Oct 13: Counsel AI asks a question in step 1, as on the
+    // other condition pages; the doctor's step 2 reply is new; step 3 shows
+    // a treatment plan like Counsel's own, a weight graph toward a goal and one
+    // medication (Zepbound). The weights are illustrative.
     screens:[
-      {kind:'question',text:'I’d like help with weight management.'},
-      {kind:'ai',question:'I’d like help with weight management.',reply:'What are your goals, and have you tried any treatments for weight management before?',from:'Your doctor'},
-      {kind:'options',question:'Which treatment makes sense for me?',title:'Your treatment plan',body:'Compare options with your doctor before you decide.',options:['Zepbound®','Wegovy®','Foundayo™']},
+      {kind:'ai',question:'I’d like help with weight management.',reply:'What tactics have you tried for weight loss in the past? And is there a specific medication you’re interested in learning more about?'},
+      {kind:'ai',question:'I’d like help with weight management.',reply:'You’re a good fit for a GLP-1. You mentioned that you’re nervous about nausea and worried about needles. Want to hear about oral GLP-1s?',from:'Your doctor'},
+      {kind:'plan',greeting:'Your treatment plan.',label:'Weight',status:'Goal 180 lb',unit:'lb',goal:180,
+        weights:[['Mar',214],['Apr',210],['May',205],['Jun',201],['Jul',198],['Aug',195]],
+        medication:{name:'Zepbound®',detail:'Prescribed by your care team'}},
       {kind:'checkin',title:'How are you feeling?',body:'Share your progress and any questions with your care team.',options:['Discuss my progress','Ask about a dose change']},
     ],
   },
   ongoing:{
-    heading:'Care doesn’t stop with the first prescription',
+    // Sam at Counsel, Oct 13: this page's heading names GLP-1s; the shared line stays elsewhere.
+    heading:'Care doesn’t stop with the first GLP-1 prescription',
     body:'Weight loss treatment changes over time. Questions come up. Side effects happen. Doses change. Counsel proactively checks in, so staying on track doesn’t depend on you remembering to follow up.',
     cta:{label:'Get started',href:START},
     // Counsel's own live check-in demo, rebuilt as UI rather than a screenshot.

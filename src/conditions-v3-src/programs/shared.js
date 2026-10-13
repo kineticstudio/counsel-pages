@@ -10,10 +10,12 @@ export const LIVE='https://www.counselhealth.com/conditions/';
 export const STEPS_HEADING='No waiting rooms. No appointments.';
 export const STEPS_INTRO='Start by chatting with Counsel whenever you’re ready. We’ll gather the information your doctor needs before they review your case.';
 
-export const startSteps=({fit='which treatment options would be best suited for your body and lifestyle',start='Start your treatment'}={})=>[
+// Sam at Counsel, Oct 13: step 3's body can be set per page (birth control
+// names local and mail order pharmacies); the default is unchanged.
+export const startSteps=({fit='which treatment options would be best suited for your body and lifestyle',start='Start your treatment',startBody='Pick up your prescription from a local pharmacy. We’ll be here to monitor your progress and adjust your treatment through ongoing check-ins.'}={})=>[
   {title:'Confirm your eligibility in minutes',body:'Sign up for Counsel and answer a few simple questions (less than 3 minutes).'},
   {title:'Chat with a Counsel doctor',body:`Message with a board-certified doctor to discuss ${fit}.`},
-  {title:start,body:'Pick up your prescription from a local pharmacy. We’ll be here to monitor your progress and adjust your treatment through ongoing check-ins.'},
+  {title:start,body:startBody},
 ];
 
 // Hero: weight management's three short statements; the third is per program.
@@ -24,13 +26,16 @@ export const FROM_29={icon:'coins',text:'Care starting at $29'};
 // body and check-in conversation are drafted from its own live FAQ and steps
 // (new copy, illustrative UI, to confirm with Counsel's clinical team).
 export const ONGOING_HEADING='Care doesn’t stop with the first prescription';
-export const checkIn=({title,question,reply,handoff='Thanks for letting me know. Let’s bring your doctor into the chat to talk through some options.',doctor})=>({
+// Sam at Counsel, Oct 13: followUp adds turns after the handoff ({from,text}),
+// and the doctor is optional, so a chat can end on Counsel AI.
+export const checkIn=({title,question,reply,handoff='Thanks for letting me know. Let’s bring your doctor into the chat to talk through some options.',followUp=[],doctor})=>({
   title,
   messages:[
     {from:'ai',time:'Sunday - 12:40 PM',text:question},
     {from:'member',text:reply},
     {from:'ai',text:handoff},
-    {from:'doctor',time:'Sunday - 12:43 PM',name:'Your Counsel doctor',text:doctor},
+    ...followUp,
+    ...(doctor?[{from:'doctor',time:'Sunday - 12:43 PM',name:'Your Counsel doctor',text:doctor}]:[]),
   ],
   composer:'Ask a follow-up question...',
 });
