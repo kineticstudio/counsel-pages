@@ -2,6 +2,12 @@
 
 ## October 13, 2026: Counsel's October 12 updates, for the build
 
+- **Bento embeds:** all 22 tiles for the four audience pages are in
+  `embeds/<page>/`, one file per tile, numbered in tile order. In review with
+  Javi; paste once he signs off.
+- **Card Studio:** `embeds/README.md` explains the tool Counsel uses to make
+  and change these (bento tiles and walkthrough phone cards), and the one-time
+  setup it needs in Webflow so they can paste in themselves.
 - **Status:** the README opens with a "Where we're at" table: every page,
   whether it's built, what's next for Toqir, Kinetic and Counsel. It's
   updated with every push.

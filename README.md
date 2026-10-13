@@ -14,7 +14,7 @@ links open each page on its own.
 | --- | --- | --- | --- | --- | --- |
 | Home | [Home V13](https://counsel.kineticstudio.com/designs/counsel/01-home/home-hero-weave-v13) | Built | Pricing and step copy from `content/homepage-updates.md`, if Counsel doesn't edit it themselves | The walkthrough phone embed (screens 1, 3, 4 change) | |
 | Conditions (8) | [Weight management](https://counsel.kineticstudio.com/designs/counsel/03-conditions/weight-management-v3) and seven more | Built (CMS) | The three template changes at the end of `content/homepage-updates.md` | The weight management step 3 screen (weight graph, Zepbound) | Sam is making the copy changes in the CMS |
-| Health plans | [Health Plans V6](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-plans-v6) | Built, needs updating | New copy, five walkthrough steps, new tile order, copy-first tiles, Scope of care without its button, stats (`content/audience-pages.md`) | Bento embeds (after Javi's review), the five-screen walkthrough phone | Javi reviews the bento |
+| Health plans | [Health Plans V6](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-plans-v6) | Built, needs updating | New copy, five walkthrough steps, new tile order, copy-first tiles, Scope of care without its button, stats (`content/audience-pages.md`) | Five-screen walkthrough phone. Bento embeds are in `embeds/`, in review with Javi | Javi reviews the bento |
 | Health systems | [Health Systems V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-systems-v1) | Not started | Duplicate Health plans, then the same as above with this page's copy | Same as Health plans | Javi: map or EHR on tile 4 |
 | Consumer health | [Consumer Health V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/consumer-health-v1) | Not started | Duplicate Health plans, add the Oura section | Same as Health plans | |
 | Employers | [Employers V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/employers-v1) | Not started | Duplicate Health plans, its own third feature | Same as Health plans | Javi: body copy for tile 3; the real program card |
@@ -28,6 +28,8 @@ How work moves:
 - **Bugs on built pages** go in Kinetic's bug tracker, pinned to the spot on
   staging, grouped Home, Conditions, Audience pages. Counsel logs there too.
 - **This table** is updated with every push.
+- **Card Studio** makes every bento tile and walkthrough card, and Counsel
+  wants to paste its code into Webflow themselves: see `embeds/README.md`.
 
 ## Run it
 
