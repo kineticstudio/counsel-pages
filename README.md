@@ -21,8 +21,8 @@ still move.
 | Home | [Home](https://counsel.kineticstudio.com/designs/counsel/01-home) | Built | How it works and pricing text from `content/homepage-updates.md`; the phone code changes in `homepage/` | | Sam reviewing |
 | Conditions (8) | [Weight management](https://counsel.kineticstudio.com/designs/counsel/03-conditions/weight-management-v3) and seven more | Built (CMS) | Sam's copy on all eight, plus the template changes under "Condition pages" in `content/homepage-updates.md`. The re-synced `conditions/` and `src/` here show every one | | Sam reviewing; Ariela updating photography |
 | Health plans | [Health Plans V6](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-plans-v6) | Built, needs updating | Everything in `content/audience-pages.md`, starting with "Javi's review, October 13"; bento tiles from `embeds/health-plans/` | Five-screen walkthrough phone | Javi reviewed (Oct 13); thumbs-up to come |
-| Health systems | [Health Systems V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-systems-v1) | Not started | Duplicate Health plans, then this page's copy, the institution logos (`brand/partners/institutions/`) and `embeds/health-systems/` | Same as Health plans | Same as Health plans |
-| Consumer health | [Consumer Health V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/consumer-health-v1) | Not started | Duplicate Health plans, drop the logo row, add the Oura banner (photo in `brand/photography/oura-spotlight-app.webp`), `embeds/consumer-health/` | Same as Health plans | Same as Health plans |
+| Health systems | [Health Systems V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-systems-v1) | Not started | Duplicate Health plans, then this page's copy, the institution logos (`assets/audience-pages/institutions/`) and `embeds/health-systems/` | Same as Health plans | Same as Health plans |
+| Consumer health | [Consumer Health V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/consumer-health-v1) | Not started | Duplicate Health plans, drop the logo row, add the Oura banner (photo in `assets/audience-pages/oura-spotlight-app.webp`), `embeds/consumer-health/` | Same as Health plans | Same as Health plans |
 | Employers | [Employers V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/employers-v1) | Not started | Duplicate Health plans, its own third feature, `embeds/employers/` | Same as Health plans | Same as Health plans |
 | Counsel Studio | Explorations on the review site | Not started | Nothing yet | The next design round, on the direction Counsel gave on Oct 13 (centred type, a pixel field hero, the app with a theme tool) | Final say on the round |
 | Site-wide | | | Headings render in Georgia for visitors: set `--font-cooper-light: Cooper` in Global Styles. Buttons on the audience pages hold a visible hover colour (see `content/audience-pages.md`) | | Ariela uploads new photography straight into Webflow |
@@ -204,7 +204,9 @@ the final lines.
 
 `content/` holds Counsel's copy and structure notes set out for the build
 (`audience-pages.md`, `homepage-updates.md`). `homepage/` holds the homepage
-phone's code changes. `embeds/` holds every animated piece as a
+phone's code changes. `assets/` holds new images the audience pages need
+(Health systems' institution logos, the Oura banner photo); the sync never
+touches it. `embeds/` holds every animated piece as a
 self-contained code embed, with a table of where each one goes and the Card
 Studio guide.
 

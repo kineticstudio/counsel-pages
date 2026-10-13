@@ -1,5 +1,11 @@
 # Changelog
 
+## October 13, 2026, last thing: assets moved to `assets/`
+
+- The institution logos and the Oura banner photo now live in
+  `assets/audience-pages/`, where the Studio sync can't remove them (it
+  rebuilds `brand/` with only what the condition pages load). Same files.
+
 ## October 13, 2026, end of day: everything current
 
 - **Condition pages, re-synced:** their links now point at Home's new
