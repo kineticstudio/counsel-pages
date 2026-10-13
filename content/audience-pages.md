@@ -40,14 +40,15 @@ and in the copy below:
   rebrands the app. New embed.
 - **Health systems:** "physician capacity" in the hero body. The logos are
   the live site's institutions: Stanford Medicine, Google, UCSF, NVIDIA and
-  Massachusetts General Hospital (`brand/partners/institutions/` in the
-  Studio, the same SVGs as the live site). The EHR graphic has clearer
+  Massachusetts General Hospital (`brand/partners/institutions/` in this
+  repo, the same SVGs as the live site). The EHR graphic has clearer
   arrows and a roomier record (new embed).
 - **Consumer health:** no logo row. The Oura section is a dark banner like
   the live site's: a "Partner spotlight" tag in the green highlighter pill,
   the Oura logo in white, the quote at body size, a light "Learn more"
   button, and the live site's photo of the Oura app beside it (a solid panel
-  and a crisp edge, no gradient). The Care in one place graphic runs two
+  and a crisp edge, no gradient; the photo is
+  `brand/photography/oura-spotlight-app.webp`). The Care in one place graphic runs two
   columns in its narrow tile, so each kind of care keeps its own box (new
   embed).
 

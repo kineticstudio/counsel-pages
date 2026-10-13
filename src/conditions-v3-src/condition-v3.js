@@ -190,7 +190,7 @@ function mount(){
   });
   document.querySelectorAll('.cn-card,.cn-mcard').forEach(link=>{
     const text=link.textContent.toLowerCase();
-    link.href=text.includes('report')?'https://www.counselhealth.com/ai-report/llm-as-a-judge':text.includes('action')?routes['request a demo']:text.includes('build')?routes['about us']:'https://counsel.kineticstudio.com/designs/counsel/01-home/Home-Hero-Weave-V13.html';
+    link.href=text.includes('report')?'https://www.counselhealth.com/ai-report/llm-as-a-judge':text.includes('action')?routes['request a demo']:text.includes('build')?routes['about us']:'https://counsel.kineticstudio.com/designs/counsel/01-Home.html';
   });
   const nav=document.querySelector('nav'),mobile=document.querySelector('.cn-mobile');
   if(mobile){

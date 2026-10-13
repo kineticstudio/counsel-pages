@@ -39,7 +39,7 @@
     </div>
     <p class="ch-foot-note" id="footer-news-note" role="status" hidden>Your email has not been submitted. <a href="https://www.counselhealth.com/health-plans#emailForm" target="_blank" rel="noopener">Continue on Counsel’s website to sign up</a>.</p>
     <div class="ch-foot-bottom">
-      <a class="ch-logo" href="https://counsel.kineticstudio.com/designs/counsel/01-home/Home-Hero-Weave-V13.html" aria-label="Counsel home"><img src="/brand/logo.svg" alt="Counsel"></a>
+      <a class="ch-logo" href="https://counsel.kineticstudio.com/designs/counsel/01-Home.html" aria-label="Counsel home"><img src="/brand/logo.svg" alt="Counsel"></a>
       <span class="legal"><span>2026 © Counsel Inc.</span><a href="#">HIPAA statement</a><a href="#">Informed consent</a><a href="#">Terms</a><a href="#">Privacy policy</a><a href="#">Status</a></span>
       <span class="social">${SOCIAL.map(([name, href, glyph]) => `<a href="${href}" aria-label="${name}" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden>${glyph}</svg></a>`).join('')}</span>
       <span class="secure">${lock} HIPAA compliant &amp; SOC 2 secure</span>
@@ -56,7 +56,7 @@ window.CounselFooter.mount=function(root=document,{motion=true}={}){
   footer.dataset.mounted='true';
   const site='https://www.counselhealth.com';
   const routes={
-    'Individuals':'https://counsel.kineticstudio.com/designs/counsel/01-home/Home-Hero-Weave-V13.html',
+    'Individuals':'https://counsel.kineticstudio.com/designs/counsel/01-Home.html',
     'Health plans':'https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/Health-Plans-V6.html',
     'Health systems':site+'/health-systems','Consumer health':site+'/consumer-health','Employers':site+'/employers',
     'Counsel Studio':site+'/solutions/counsel-studio','Request a demo':site+'/contact-sales','Read the AI Report':site+'/ai-report/llm-as-a-judge',

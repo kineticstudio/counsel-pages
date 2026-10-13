@@ -222,3 +222,76 @@ export function createRepaint(canvas){
     },
   };
 }
+
+/**
+ * Counsel Studio V13's hero (Javi and Denny, Oct 13): V3's field of squares,
+ * with clusters that light up, each one a kind of data Counsel takes in. Pure
+ * layout and drawing: animations.js decides which cluster is lit and when.
+ * layout(zone) keeps the clusters off the centred copy (zone is a rect in the
+ * canvas's own pixels) and returns each cluster's label point.
+ * render(levels) draws one frame; levels[i] is cluster i's light, 0 to 1.
+ */
+export const SIGNAL_SOURCES=['Labs','Sleep score','Steps','Brand colors','Nutrition trends','Lifestyle trends','Prior diagnoses','Medications','Heart rate'];
+export function createSignals(canvas,{sources=SIGNAL_SOURCES,color='#AED9B0',pitch=14,size=5,base=.14,peak=.95,brand=['#80C48A','#0E7C66','#C2410C','#5B4BDB','#DBEDD8']}={}){
+  const view=setup(canvas);
+  let cols=0,rows=0,clusters=[];
+  const layout=(zone,{top=0}={})=>{
+    view.size();
+    cols=Math.ceil(view.w/pitch)+1;rows=Math.ceil(view.h/pitch)+1;
+    const random=seeded(11),taken=new Set(),key=(c,r)=>c+','+r;
+    // Cells under the copy (with a margin) and at the very edges are off limits.
+    const blocked=(c,r)=>{
+      if(c<1||r<1||c>cols-3||r>rows-3||r*pitch<top)return true;
+      if(!zone)return false;
+      const x=c*pitch,y=r*pitch,m=pitch*2.5;
+      return x>zone.x-m&&x<zone.x+zone.w+m&&y>zone.y-m&&y<zone.y+zone.h+m;
+    };
+    const near=(c,r,gap)=>{for(let dc=-gap;dc<=gap;dc++)for(let dr=-gap;dr<=gap;dr++)if(taken.has(key(c+dc,r+dr)))return true;return false;};
+    clusters=[];
+    sources.forEach((name,i)=>{
+      for(let attempt=0;attempt<220;attempt++){
+        const c=Math.floor(random()*cols),r=Math.floor(random()*rows);
+        if(blocked(c,r)||near(c,r,6))continue;
+        // Grow from the seed, one neighbour at a time, into a loose clump.
+        const target=20+Math.floor(random()*16),cells=[[c,r,0]],seen=new Set([key(c,r)]);
+        for(let guard=0;cells.length<target&&guard<400;guard++){
+          const [pc,pr,pd]=cells[Math.floor(random()*cells.length)];
+          const [dc,dr]=[[1,0],[-1,0],[0,1],[0,-1]][Math.floor(random()*4)];
+          const nc=pc+dc,nr=pr+dr;
+          // taken holds only the other clusters' cells, so this keeps a cell's gap from them.
+          if(seen.has(key(nc,nr))||blocked(nc,nr)||near(nc,nr,1))continue;
+          seen.add(key(nc,nr));cells.push([nc,nr,pd+1]);
+        }
+        if(cells.length<10)continue;
+        cells.forEach(([cc,rr])=>taken.add(key(cc,rr)));
+        const far=Math.max(...cells.map(cell=>cell[2]))||1;
+        const top=Math.min(...cells.map(cell=>cell[1])),left=Math.min(...cells.map(cell=>cell[0])),right=Math.max(...cells.map(cell=>cell[0]));
+        // Label above the clump, on the side away from the copy.
+        const rightSide=zone?c*pitch>zone.x+zone.w/2:c*pitch>view.w/2;
+        clusters.push({name,index:i,cells,far,brand:name==='Brand colors',label:{x:(rightSide?left:right)*pitch+(rightSide?0:size),y:top*pitch-10,align:rightSide?'left':'right'}});
+        break;
+      }
+    });
+    return clusters;
+  };
+  return{
+    layout,
+    get clusters(){return clusters;},
+    render(levels=[]){
+      const {ctx}=view;ctx.clearRect(0,0,view.w,view.h);ctx.fillStyle=color;
+      for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)view.square(c*pitch,r*pitch,size,base);
+      clusters.forEach((cluster,k)=>{
+        const level=clamp(levels[k]||0);if(level<=0)return;
+        // The seed lights first and the clump fills outward; it dims the same way back.
+        cluster.cells.forEach(([c,r,d],n)=>{
+          const lit=smooth(clamp(level*1.8-(d/cluster.far)*.8));
+          if(lit<=0)return;
+          ctx.fillStyle=cluster.brand?brand[n%brand.length]:color;
+          view.square(c*pitch,r*pitch,size,base+(peak-base)*lit);
+        });
+        ctx.fillStyle=color;
+      });
+      ctx.globalAlpha=1;
+    },
+  };
+}

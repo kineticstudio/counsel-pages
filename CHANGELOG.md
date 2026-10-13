@@ -1,5 +1,15 @@
 # Changelog
 
+## October 13, 2026, end of day: everything current
+
+- **Condition pages, re-synced:** their links now point at Home's new
+  address. No visible change otherwise.
+- **Assets:** the Health systems institution logos
+  (`brand/partners/institutions/`) and the Oura banner photo
+  (`brand/photography/oura-spotlight-app.webp`), both from the live site.
+- **Status:** the README's table is current for every page, including Javi's
+  review and Counsel Studio's direction.
+
 ## October 13, 2026: Javi's review of the audience pages
 
 - **Content:** `content/audience-pages.md` opens with Javi's October 13

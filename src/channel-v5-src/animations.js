@@ -8,7 +8,7 @@ import Lenis from '../vendor/lenis-1.3.26/lenis.mjs';
 import {careWeave} from '../channel-v2-src/care-accordion.js';
 import {createWeavePattern} from '../ui-src/counsel-weave-pattern.js';
 import {createWaveform,createField,STUDIO_COLORS} from '../studio-v1-src/weave-field.js';
-import {createPopulation,createStory,createFlow,createRepaint} from '../studio-src/squares.js';
+import {createPopulation,createStory,createFlow,createRepaint,createSignals} from '../studio-src/squares.js';
 
 const {gsap,ScrollTrigger,CustomEase}=window;
 const NS='http://www.w3.org/2000/svg';
@@ -1524,7 +1524,8 @@ function animateStudioV12Labels(env){
       const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{scroller:env.stage,trigger:partOf(call),start:'clamp(center 84%)',end:'center 56%',scrub:true}});
       tl.fromTo($('.r12-dot',call),{scale:0},{scale:1,duration:.12},0)
         .fromTo($('.r12-wire',call),{scaleX:0},{scaleX:1,duration:.5,ease:'power1.out'},.08)
-        .fromTo($('.r12-label',call),{clipPath:left?'inset(0% 0% 0% 100%)':'inset(0% 100% 0% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.42},.55);
+        // The reveal reaches above the label so its side tag ("Your brand", "Counsel") stays visible.
+        .fromTo($('.r12-label',call),{clipPath:left?'inset(-32px 0% -8px 100%)':'inset(-32px 100% -8px 0%)'},{clipPath:'inset(-32px 0% -8px 0%)',duration:.42},.55);
     });
   }else{
     $$('.r12-badge',phone).forEach(badge=>gsap.fromTo(badge,{scale:0},{scale:1,ease:'none',scrollTrigger:{scroller:env.stage,trigger:badge.parentElement,start:'clamp(center 88%)',end:'center 70%',scrub:true}}));
@@ -1536,9 +1537,121 @@ function animateStudioV12Labels(env){
  *  one scrolls in. */
 function animateStudioV12Points(env){
   if(env.reduce)return;
-  $$('.studio-v12 .r12-points svg').forEach(svg=>{
+  $$('.studio-r3 .r12-points svg').forEach(svg=>{
     const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{scroller:env.stage,trigger:svg,start:'top 88%',end:'top 52%',scrub:true}});
     tl.fromTo($$('.r7-line',svg),{strokeDasharray:'1 1',strokeDashoffset:1},{strokeDashoffset:0,duration:.7},0)
       .fromTo($$('.r7-sq',svg),{scale:0,transformOrigin:'50% 50%'},{scale:1,duration:.12,stagger:.05},.55);
   });
+}
+
+/* ---- V13, round four (Hunter, 2026-10-13): Denny's walkthrough and Javi's reply ---- */
+export function mountStudioV13(){return mountStudioRoundThree(env=>{animateStudioV13Signals(env);animateStudioV13Label(env);animateStudioV12Points(env);});}
+
+/** The hero's field: clusters of squares light up at random, each one a kind
+ *  of data Counsel takes in, labelled while it is lit. A few at a time, slowly;
+ *  paused off screen. Reduced motion shows three lit and still. */
+function animateStudioV13Signals(env){
+  const hero=$('.studio-v13 .studio-hero');if(!hero)return;
+  const copy=$('.r3-copy',hero),labels=$$('.r13-signal',hero),nav=$('nav',hero);
+  const field=createSignals($('.r13-field',hero),{color:window.CounselColors.green2});
+  const levels=[];let clusters=[];
+  const draw=()=>{
+    field.render(levels);
+    clusters.forEach((cluster,k)=>{labels[cluster.index].style.opacity=String(Math.min(1,Math.max(0,((levels[k]||0)-.45)/.35)));});
+  };
+  const place=()=>{
+    const box=hero.getBoundingClientRect(),parts=[...copy.children].map(child=>child.getBoundingClientRect());
+    const left=Math.min(...parts.map(r=>r.left)),right=Math.max(...parts.map(r=>r.right)),top=Math.min(...parts.map(r=>r.top)),bottom=Math.max(...parts.map(r=>r.bottom));
+    clusters=field.layout({x:left-box.left,y:top-box.top,w:right-left,h:bottom-top},{top:(nav?nav.getBoundingClientRect().bottom-box.top:96)+24});
+    labels.forEach(label=>{label.style.display='none';});
+    clusters.forEach(cluster=>{
+      const label=labels[cluster.index];label.style.display='block';label.style.left=`${cluster.label.x}px`;label.style.top=`${cluster.label.y}px`;
+      // Keep every label inside the hero: flip it to the cluster's other side when it would run off an edge.
+      const width=label.offsetWidth;let right=cluster.label.align==='right';
+      if(right&&cluster.label.x-width<8)right=false;else if(!right&&cluster.label.x+width>box.width-8)right=true;
+      label.classList.toggle('is-right',right);
+    });
+    levels.length=0;clusters.forEach((_,k)=>{levels[k]=env.reduce&&k%3===0?1:0;});
+    draw();
+  };
+  place();env.resize(hero,place);
+  env.cleanups.push(()=>labels.forEach(label=>{label.style.display='';label.style.opacity='';}));
+  if(env.reduce)return;
+  // Rise in .7s, hold 2.2s, settle in .9s; a new one every second or so, at most four lit.
+  const state={t:0},active=new Map();let next=.4;
+  const tick=()=>{
+    const t=state.t;
+    if(t>=next&&active.size<4&&clusters.length){
+      const free=clusters.map((_,k)=>k).filter(k=>!active.has(k));
+      if(free.length)active.set(free[Math.floor(Math.random()*free.length)],t);
+      next=t+.6+Math.random()*.6;
+    }
+    active.forEach((start,k)=>{
+      const age=t-start,v=age<.7?age/.7:age<2.9?1:age<3.8?1-(age-2.9)/.9:0;
+      levels[k]=Math.max(0,v);if(age>=3.8){active.delete(k);levels[k]=0;}
+    });
+    draw();
+  };
+  const loop=gsap.to(state,{t:'+=100000',duration:100000,ease:'none',repeat:-1,paused:true,onUpdate:tick});
+  inView(env,loop,hero,0);
+  env.cleanups.push(()=>{loop.kill();levels.fill(0);draw();});
+}
+
+/** The detail: a line of squares advances as you scroll, a little ahead of
+ *  you, and the app opens out of it (V11, which Javi liked). Hairline labels
+ *  draw out from the app's parts as each passes (V12). The theme tool swipes
+ *  the chosen partner's theme over the app, top to bottom, with a crisp edge. */
+function animateStudioV13Label(env){
+  const section=$('.studio-v13 .r13-label');if(!section)return;
+  const line=$('.r13-line',section),stage=$('.r13-stage',section),phone=$('.r13-phone',stage),screens=$('.r13-screens',phone),calls=$$('.r12-call',stage);
+  const current=()=>screens.lastElementChild;
+  const partOf=call=>$(`[data-part="${call.dataset.call}"]`,current());
+  // Squares for the line, one every 14px.
+  const fill=()=>{const count=Math.max(4,Math.floor((line.clientHeight+8)/14));if(line.children.length!==count)line.innerHTML='<i></i>'.repeat(count);};
+  fill();
+  const place=()=>{
+    if(!env.desktop)return;
+    const s=stage.getBoundingClientRect(),p=phone.getBoundingClientRect();
+    const room=Math.min(380,p.left-s.left),label=Math.max(150,Math.min(260,room-110));
+    calls.forEach(call=>{
+      const part=partOf(call)?.getBoundingClientRect();if(!part)return;
+      call.style.top=`${part.top+part.height/2-s.top}px`;call.style.setProperty('--label',`${label}px`);
+      if(call.classList.contains('is-left')){const x0=p.left-s.left-room;call.style.left=`${x0}px`;call.style.width=`${part.left-s.left+3.5-x0}px`;}
+      else{const x0=part.right-s.left-3.5;call.style.left=`${x0}px`;call.style.width=`${p.right-s.left+room-x0}px`;}
+    });
+  };
+  place();env.resize(stage,()=>{fill();place();});
+  env.cleanups.push(()=>calls.forEach(call=>{call.style.top=call.style.left=call.style.width='';}));
+  // The theme swipe, for everyone; instant for reduced motion.
+  let swipe;
+  env.on(stage,'studio:theme',({detail})=>{
+    swipe?.progress(1);
+    const holder=document.createElement('div');holder.innerHTML=detail.markup;const next=holder.firstElementChild;
+    screens.append(next);place();
+    const done=()=>{while(screens.children.length>1)screens.firstElementChild.remove();next.style.clipPath='';place();};
+    if(env.reduce){done();return;}
+    swipe=gsap.fromTo(next,{clipPath:'inset(0% 0% 100% 0%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.7,ease:'counsel-ease',onComplete:done});
+  });
+  const squares=()=>[...line.children];
+  if(env.reduce){squares().forEach(square=>square.classList.add('is-on'));return;}
+  // The line and the opening follow the scroll; nothing pins.
+  const top=element=>element.getBoundingClientRect().top+env.stage.scrollTop-env.stage.getBoundingClientRect().top;
+  const draw=()=>{
+    const tip=env.stage.scrollTop+innerHeight*.72,lineTop=top(line),lit=Math.floor((tip-lineTop)/14);
+    squares().forEach((square,i)=>square.classList.toggle('is-on',i<lit));
+    const open=Math.min(1,Math.max(0,(tip-top(phone))/(phone.offsetHeight*.35)));
+    phone.style.clipPath=open>=1?'':`inset(0% ${50*(1-open)}% 0% ${50*(1-open)}% round 48px)`;
+  };
+  ScrollTrigger.create({scroller:env.stage,start:0,end:'max',onUpdate:draw,onRefresh:draw});draw();
+  env.cleanups.push(()=>{phone.style.clipPath='';squares().forEach(square=>square.classList.remove('is-on'));});
+  if(env.desktop){
+    calls.forEach(call=>{
+      const left=call.classList.contains('is-left');
+      const tl=gsap.timeline({defaults:{ease:'none'},scrollTrigger:{scroller:env.stage,trigger:call,start:'clamp(center 84%)',end:'center 56%',scrub:true}});
+      tl.fromTo($('.r12-dot',call),{scale:0},{scale:1,duration:.12},0)
+        .fromTo($('.r12-wire',call),{scaleX:0},{scaleX:1,duration:.5,ease:'power1.out'},.08)
+        // The reveal reaches above the label so its side tag ("Your brand", "Counsel") stays visible.
+        .fromTo($('.r12-label',call),{clipPath:left?'inset(-32px 0% -8px 100%)':'inset(-32px 100% -8px 0%)'},{clipPath:'inset(-32px 0% -8px 0%)',duration:.42},.55);
+    });
+  }else $$('.r12-key li',section).forEach(item=>rise(env,item,18));
 }
