@@ -17,7 +17,7 @@ included. Until then they can still move.
 
 | Page | Design | Webflow | Toqir, after Counsel's thumbs-up | Kinetic, next | Counsel |
 | --- | --- | --- | --- | --- | --- |
-| Home | [Home V13](https://counsel.kineticstudio.com/designs/counsel/01-home/home-hero-weave-v13) | Built | How it works and pricing text from `content/homepage-updates.md`; the phone code changes in `homepage/` | | Sam reviewing |
+| Home | [Home](https://counsel.kineticstudio.com/designs/counsel/01-home) | Built | How it works and pricing text from `content/homepage-updates.md`; the phone code changes in `homepage/` | | Sam reviewing |
 | Conditions (8) | [Weight management](https://counsel.kineticstudio.com/designs/counsel/03-conditions/weight-management-v3) and seven more | Built (CMS) | Sam's copy on all eight, plus the template changes under "Condition pages" in `content/homepage-updates.md`. The re-synced `conditions/` and `src/` here show every one | | Sam reviewing; Ariela updating photography |
 | Health plans | [Health Plans V6](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-plans-v6) | Built, needs updating | New copy, five walkthrough steps, new tile order, copy-first tiles, Scope of care without its button, stats (`content/audience-pages.md`); bento tiles from `embeds/health-plans/` | Five-screen walkthrough phone | Javi reviewing |
 | Health systems | [Health Systems V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-systems-v1) | Not started | Duplicate Health plans, then the same with this page's copy and `embeds/health-systems/` | Same as Health plans | Javi reviewing |

@@ -1,5 +1,11 @@
 # Changelog
 
+## October 13, 2026: Home's new link
+
+- The homepage design is now called Home in the Studio, at
+  https://counsel.kineticstudio.com/designs/counsel/01-home (it was Home V13).
+  Same page, same content.
+
 ## October 13, 2026, after the call: Sam's changes in the designs, for the build
 
 - **Process:** the designs on the review site now carry everything Sam and

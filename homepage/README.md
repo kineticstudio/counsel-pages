@@ -1,7 +1,8 @@
 # Homepage: Sam's October 12 changes
 
-The Studio's Home V13 now carries all of Sam's homepage changes:
-https://counsel.kineticstudio.com/designs/counsel/01-home/home-hero-weave-v13
+The Studio's Home design (Home V13, now just called Home) carries all of
+Sam's homepage changes:
+https://counsel.kineticstudio.com/designs/counsel/01-home
 
 Build them once Counsel gives the thumbs-up in #counsel-health. Until then the
 design may still move.
