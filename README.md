@@ -153,6 +153,12 @@ the final lines.
   - the membership note on pages other than Weight Management
   - the cost lines
 
+## Content and embeds
+
+`content/` holds Counsel's copy and structure notes set out for the build
+(`audience-pages.md`, `homepage-updates.md`). `embeds/` holds every animated
+piece as a self-contained code embed, with a table of where each one goes.
+
 ## Updates
 
 Kinetic regenerates this repo from the Studio after each design change, with
