@@ -132,7 +132,7 @@ if(!PRERENDERED){
     physiciansMarkup(program.physicians),storiesMarkup(program.stories),faqMarkup,closing,
   ].join('');
   document.querySelector('#condition-footer').innerHTML=window.CounselFooter.markup();
-  document.querySelectorAll('.counsel-footer a').forEach(link=>{if(link.textContent.trim()==='Health plans')link.href='https://counsel.kineticstudio.com/designs/counsel/02-health-plans/Health-Plans-V5.html';});
+  document.querySelectorAll('.counsel-footer a').forEach(link=>{if(link.textContent.trim()==='Health plans')link.href='https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/Health-Plans-V6.html';});
 }
 if(!RENDER_ONLY)mount();
 
@@ -150,8 +150,8 @@ function mount(){
     'weight management':'/conditions/weight-management.html','birth control':'/conditions/birth-control.html',
     'hair loss':'/conditions/hair-loss.html','anti-aging skincare':'/conditions/anti-aging.html',
     'acne':'/conditions/acne.html','herpes':'/conditions/herpes.html',
-    'health plans':'https://counsel.kineticstudio.com/designs/counsel/02-health-plans/Health-Plans-V5.html',
-    'counsel studio':'https://counsel.kineticstudio.com/designs/counsel/04-counsel-studio/Counsel-Studio-V1.html',
+    'health plans':'https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/Health-Plans-V6.html',
+    'counsel studio':'https://counsel.kineticstudio.com/designs/counsel/05-counsel-studio/Counsel-Studio-V1.html',
     'sign in':'https://app.counselhealth.com/',
     'request a demo':'https://www.counselhealth.com/contact-sales',
     'about us':'https://www.counselhealth.com/about',

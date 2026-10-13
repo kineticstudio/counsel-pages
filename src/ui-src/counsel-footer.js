@@ -57,7 +57,7 @@ window.CounselFooter.mount=function(root=document,{motion=true}={}){
   const site='https://www.counselhealth.com';
   const routes={
     'Individuals':'https://counsel.kineticstudio.com/designs/counsel/01-home/Home-Hero-Weave-V13.html',
-    'Health plans':'https://counsel.kineticstudio.com/designs/counsel/02-health-plans/Health-Plans-V3.html',
+    'Health plans':'https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/Health-Plans-V6.html',
     'Health systems':site+'/health-systems','Consumer health':site+'/consumer-health','Employers':site+'/employers',
     'Counsel Studio':site+'/solutions/counsel-studio','Request a demo':site+'/contact-sales','Read the AI Report':site+'/ai-report/llm-as-a-judge',
     'Get started for free':'https://app.counselhealth.com/auth/signUp','Download the app':'https://app.counselhealth.com/download','Sign in':'https://app.counselhealth.com/',

@@ -1,12 +1,14 @@
 /* V13 showcase construction: long runs joined by short stitches, never overlaid.
    Geometry only. GSAP owns the animation clock and reduced-motion behavior. */
 const NS='http://www.w3.org/2000/svg';
-export function createWeavePattern(svg,path,group,{varied=false,focus=null}={}){
-  const runs=[
+// palette (optional, Counsel Studio V9, 2026-10-09): {runs:[[colour,weight]...], stitches:[...]}
+// for a monotone thread; same counts as the V13 default.
+export function createWeavePattern(svg,path,group,{varied=false,focus=null,palette=null}={}){
+  const runs=palette?palette.runs.map(run=>[...run]):[
     ['var(--blue-9)',1.2],['var(--green-6)',.42],['var(--bright-blue)',.42],
     ['var(--pink)',.42],['var(--yellow)',.42],['var(--blue-2)',1.8],
   ];
-  const stitches=['var(--blue-2)','var(--blue-9)','var(--gray-2)','var(--green-7)','var(--blue-9)'];
+  const stitches=palette?[...palette.stitches]:['var(--blue-2)','var(--blue-9)','var(--gray-2)','var(--green-7)','var(--blue-9)'];
   // Seeded variation keeps the composition organic without jumping on resize.
   let seed=137;
   const random=()=>{seed=(Math.imul(seed,1664525)+1013904223)>>>0;return seed/4294967296;};

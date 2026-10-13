@@ -15,6 +15,9 @@
 - **Embeds:** `embeds/README.md` lists every animated piece, where it goes
   and its status. The bento graphics are in progress; the walkthrough and
   homepage phones follow.
+- **Condition pages, re-synced:** the footer's Health plans link now points at
+  the new Health plans page (the old one is archived on the share), and the
+  weave pattern picked up a palette option. No visible change otherwise.
 
 ## October 8, 2026: first export
 

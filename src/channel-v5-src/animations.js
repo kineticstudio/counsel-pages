@@ -229,13 +229,13 @@ function animateNavigation(env){
 }
 
 /** A fixed SVG curve with flowing color bands and persistent square knots. */
-function weave(env,svg,target,{draw=false,varied=false,focus=null}={}){
+function weave(env,svg,target,{draw=false,varied=false,focus=null,palette=null}={}){
   const path=$('defs path',svg),uses=$$(':scope>use',svg);
   const group=svgNode('g',{'data-motion-weave':''});uses.forEach(el=>group.append(el));svg.append(group);
   const state={elapsed:0};
   // Rebuild as adjacent V13 runs and stitches, not squares floating over bands.
   uses.forEach(el=>el.remove());
-  const paintPattern=createWeavePattern(svg,path,group,{varied,focus});
+  const paintPattern=createWeavePattern(svg,path,group,{varied,focus,palette});
   const paint=()=>paintPattern(state.elapsed,!env.reduce);
   let mask;
   if(draw&&!env.reduce){
@@ -382,7 +382,7 @@ function animateCareExperience(env){
 function animateValueBento(env){
   $$('.v2-value-card').forEach(card=>reveal(env,card));
   if(env.reduce)return;
-  const marquee=$('.v5-care-marquee');let hovered=false,focused=false;
+  const marquee=$('.v5-care-marquee');if(!marquee)return;let hovered=false,focused=false;
   const syncs=$$('.v2-chip-track',marquee).map((track,i)=>{
     const motion=gsap.fromTo(track,{xPercent:i?-50:0},{xPercent:i?0:-50,duration:i?36:42,repeat:-1,ease:'none',paused:true});
     return inView(env,motion,marquee,.12,()=>!hovered&&!focused);
@@ -899,7 +899,7 @@ function animateStudioWave(env,section,canvas,text,{intro,pointer}){
 
 /** White-label preview: brand colors tween, screens arrive, brands cycle
  *  slowly on their own until someone picks one. */
-function animateStudioDemo(env,{brandDelay=0}={}){
+function animateStudioDemo(env,{brandDelay=0,autoplay=true}={}){
   const phone=$('.sp-phone');if(!phone)return;
   const api=window.CounselStudio;
   const apply=(brand,instant)=>gsap.to(phone,{'--b':brand.accent,'--b-soft':brand.soft,duration:instant||env.reduce?0:.6,delay:instant||env.reduce?0:brandDelay,ease:'counsel-ease',overwrite:true});
@@ -914,7 +914,8 @@ function animateStudioDemo(env,{brandDelay=0}={}){
     const dots=$$('.sp-thinking i',screen);
     if(dots.length)gsap.fromTo(dots,{opacity:.2},{opacity:1,duration:.22,stagger:.04,repeat:1,yoyo:true,ease:'sine.inOut'});
   });
-  if(env.reduce)return;
+  // Round two never autoplays (Hunter, Oct 9): brands change only when picked.
+  if(env.reduce||!autoplay)return;
   let index=0;
   const cycle=gsap.delayedCall(3.4,function tick(){
     if(!touched&&active&&!document.hidden){index=(index+1)%api.BRANDS.length;api.setBrand(api.BRANDS[index].id);}
@@ -1226,5 +1227,135 @@ function animateStudioV4Outcomes(env){
   function stopAuto(){if(touched)return;touched=true;auto?.kill();tabs.forEach(tab=>tab.style.removeProperty('--fill'));}
   if(auto)inView(env,auto,section,.25,()=>!touched);
   env.cleanups.push(()=>{auto?.kill();morph?.kill();tabs.forEach(tab=>tab.style.removeProperty('--fill'));labels.style.opacity='';});
+}
+
+/* ================ Counsel Studio round two (Hunter, 2026-10-09) ================
+   V5 to V9: five takes on the first few sections. Each page has one quiet
+   moment that plays once; nothing pins and nothing autoplays (Hunter: no
+   scroll jacking, restrained motion). Everything else is V1's gentle reveal. */
+function mountStudioRound(moment){
+  return mountStudioPage(env=>{
+    moment(env);
+    $$('.studio-r2 :is(.r2-copy>*,.studio-partner-inner,.r2-light .studio-section .channel-wrap>*,.r2-cta-inner)').forEach(element=>reveal(env,element));
+  },{ribbon:true});
+}
+
+/* ---- V5, "One row" ---- */
+export function mountStudioV5(){return mountStudioRound(animateStudioV5Row);}
+
+/** The week fills in, then today's top square carries the reading down into
+ *  Counsel's row as the row arrives. Once; reduced motion shows it settled. */
+function animateStudioV5Row(env){
+  const phone=$('.r5-phone');if(!phone||env.reduce)return;
+  const columns=$$('.r5-col',phone),slot=$('.r5-slot',phone),row=$('.r5-action',slot);
+  const today=$('i:last-child',columns.at(-1)),target=$$('.r5-mark i',row)[4];
+  const traveller=document.createElement('i');traveller.className='r5-traveller';traveller.setAttribute('aria-hidden','true');
+  gsap.set(slot,{height:0,overflow:'hidden'});gsap.set(row,{opacity:0,y:8});
+  const tl=gsap.timeline({paused:true,defaults:{ease:'counsel-settle'}});
+  tl.fromTo(phone,{opacity:0,y:24},{opacity:1,y:0,duration:.9},0);
+  columns.forEach((column,i)=>tl.fromTo($$('i',column),{opacity:0,scale:.3},{opacity:1,scale:1,duration:.3,stagger:.03},.35+i*.08));
+  tl.to(slot,{height:()=>row.offsetHeight,duration:.55,ease:'power2.inOut'},'>-.05')
+    .call(()=>{
+      phone.append(traveller);
+      const box=phone.getBoundingClientRect(),from=today.getBoundingClientRect(),to=target.getBoundingClientRect();
+      gsap.set(traveller,{x:from.left-box.left,y:from.top-box.top});
+      // Down out of the chart first, then across into the mark: a curve, not a diagonal over the bars.
+      gsap.to(traveller,{x:to.left-box.left,duration:.75,ease:'power2.in'});
+      gsap.to(traveller,{y:to.top-box.top,width:to.width,height:to.height,backgroundColor:window.CounselColors.green2,duration:.75,ease:'power2.out',onComplete:()=>traveller.remove()});
+    })
+    .to(row,{opacity:1,y:0,duration:.5},'+=.45')
+    .set(slot,{clearProps:'height,overflow'});
+  inView(env,tl,phone,.1);
+  env.cleanups.push(()=>{traveller.remove();gsap.set([phone,slot,row,...$$('.r5-col i',phone)],{clearProps:'all'});});
+}
+
+/* ---- V6, "Nine apps" ---- */
+export function mountStudioV6(){return mountStudioRound(env=>{animateStudioV6Apps(env);animateStudioDemo(env,{autoplay:false});});}
+
+/** Nine apps arrive, then each gains its square of care in reading order,
+ *  until the nine squares make Counsel's mark. Once. */
+function animateStudioV6Apps(env){
+  const grid=$('.r6-grid');if(!grid||env.reduce)return;
+  const apps=$$('.r6-app',grid),care=$$('.r6-care',grid);
+  gsap.set(care,{scale:0});
+  const tl=gsap.timeline({paused:true});
+  tl.fromTo(apps,{opacity:0,y:14},{opacity:1,y:0,duration:.7,stagger:.05,ease:'counsel-settle'},0)
+    .to(care,{scale:1,duration:.42,stagger:.11,ease:'back.out(1.7)'},.75);
+  inView(env,tl,grid,.1);
+  env.cleanups.push(()=>gsap.set([...apps,...care],{clearProps:'all'}));
+}
+
+/* ---- V7, "In your brand" ---- */
+export function mountStudioV7(){return mountStudioRound(animateStudioV7Brand);}
+
+/** The hero takes the picked brand's colours: background, highlighted words,
+ *  button and app. Only when someone picks; nothing plays on its own. */
+function animateStudioV7Brand(env){
+  const hero=$('.studio-v7 .studio-hero');if(!hero)return;
+  env.on(document,'studio:palette',({detail})=>{
+    gsap.to(hero,{'--brand':detail.palette.accent,'--brand-soft':detail.palette.soft,duration:env.reduce?0:.6,ease:'counsel-ease',overwrite:true});
+  });
+}
+
+/* ---- V8, "Two layers" ---- */
+export function mountStudioV8(){return mountStudioRound(animateStudioV8Layers);}
+
+/** The brand layer lifts off Counsel's care once, then the labels arrive. */
+function animateStudioV8Layers(env){
+  const stage=$('.r8-stage');if(!stage||env.reduce)return;
+  const stack=$('.r8-stack',stage),labels=$$('.r8-label',stage),lift=getComputedStyle(stack).getPropertyValue('--lift').trim()||'96px';
+  const tl=gsap.timeline({paused:true});
+  tl.fromTo(stack,{opacity:0,y:30},{opacity:1,y:0,duration:.9,ease:'counsel-settle'},0)
+    .fromTo(stack,{'--lift':'0px'},{'--lift':lift,duration:1.2,ease:'counsel-settle'},.5)
+    .fromTo(labels,{opacity:0,y:8},{opacity:1,y:0,duration:.6,stagger:.15,ease:'counsel-ease'},1.2);
+  inView(env,tl,stage,.1);
+  env.cleanups.push(()=>gsap.set([stack,...labels],{clearProps:'all'}));
+}
+
+/* ---- V9, "The thread" ---- */
+// Counsel's thread in the hero's greens: long light runs and shorter mid
+// ones, with knots alternating light and dark so each still reads.
+const MONO_THREAD={
+  runs:[['var(--green-2)',1.2],['var(--green-4)',.42],['var(--green-1)',.42],['var(--green-3)',.42],['var(--green-5)',.42],['var(--green-2)',1.8]],
+  stitches:['var(--green-1)','var(--green-6)','var(--green-1)','var(--green-6)','var(--green-1)'],
+};
+export function mountStudioV9(){return mountStudioRound(animateStudioV9Thread);}
+
+/** The thread draws in from the left; where it reaches the app, the app opens
+ *  out of the line; then the thread carries on out the other side and flows
+ *  as it does on the homepage. Once. */
+function animateStudioV9Thread(env){
+  const hero=$('.studio-v9 .studio-hero');if(!hero)return;
+  const svg=$('.r9-thread',hero),path=$('defs path',svg),phone=$('.r9-stage .sp-phone',hero);
+  const box=element=>{const a=element.getBoundingClientRect(),b=hero.getBoundingClientRect();return{x:a.left-b.left,y:a.top-b.top,w:a.width,h:a.height};};
+  let paint=()=>{},mask=null,at=.5;
+  const measure=()=>{
+    const w=hero.clientWidth,h=hero.clientHeight,p=box(phone),cx=p.x+p.w*.5,cy=p.y+p.h*.5;
+    svg.setAttribute('viewBox',`0 0 ${w} ${h}`);
+    // In low on the left, under the copy; through the app's middle; out high on the right.
+    path.setAttribute('d',w<=900
+      ?`M -60 ${cy-p.h*.18} C ${cx*.45} ${cy-p.h*.2} ${p.x-30} ${cy} ${cx} ${cy} S ${w*.86} ${cy+p.h*.24} ${w+60} ${cy+p.h*.2}`
+      :`M -60 ${h*.88} C ${w*.24} ${h*.9} ${p.x-p.w*.7} ${cy+30} ${cx} ${cy} S ${w-60} ${h*.2} ${w+60} ${h*.16}`);
+    // How far along the line the app's centre sits, for the opening.
+    const length=path.getTotalLength();let lo=0,hi=length;
+    for(let i=0;i<24;i++){const mid=(lo+hi)/2;if(path.getPointAtLength(mid).x<cx)lo=mid;else hi=mid;}
+    at=(lo+hi)/2/length;
+    if(mask){mask.setAttribute('width',w+200);mask.setAttribute('height',h+200);}
+    paint();
+  };
+  measure();paint=weave(env,svg,hero,{varied:true,palette:MONO_THREAD});
+  [hero,phone].forEach(element=>env.resize(element,measure));
+  if(env.reduce)return;
+  const group=$('[data-motion-weave]',svg);
+  mask=svgNode('mask',{id:'r9-thread-draw',maskUnits:'userSpaceOnUse',x:-100,y:-100,width:hero.clientWidth+200,height:hero.clientHeight+200});
+  const trace=svgNode('use',{href:'#r9-thread-path',fill:'none',stroke:'white','stroke-width':24,'vector-effect':'non-scaling-stroke','stroke-dasharray':'1000 1000','stroke-dashoffset':1000});
+  mask.append(trace);$('defs',svg).append(mask);group.setAttribute('mask','url(#r9-thread-draw)');
+  gsap.set(phone,{clipPath:'inset(50% 0% 50% 0% round 44px)'});
+  const tl=gsap.timeline({paused:true,onComplete:()=>group.removeAttribute('mask')});
+  tl.to(trace,{attr:{'stroke-dashoffset':()=>1000*(1-at)},duration:1.1,ease:'power2.in'},.3)
+    .to(phone,{clipPath:'inset(0% 0% 0% 0% round 44px)',duration:.9,ease:'counsel-settle',clearProps:'clipPath'},'>-.05')
+    .to(trace,{attr:{'stroke-dashoffset':0},duration:1,ease:'power2.out'},'<');
+  inView(env,tl,hero,0);
+  env.cleanups.push(()=>{mask.remove();group.removeAttribute('mask');gsap.set(phone,{clearProps:'clipPath'});});
 }
 
