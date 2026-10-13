@@ -16,12 +16,47 @@ Everything that animates (the walkthrough phone, the bento graphics) comes
 from Kinetic as code embeds; see `embeds/README.md`. Everything else is
 Webflow text and structure.
 
+## Javi's review, October 13
+
+Javi left comments on the designs on October 13. They are all in the designs
+and in the copy below:
+
+- **Every page:** the walkthrough heading breaks after "care," ("How
+  [members] get care, / step by step"). Step 4 is "Bring in a physician",
+  with "clinician" in its body; its phone card reads "A board-certified
+  physician will join the chat in minutes." Buttons hold a visible hover
+  colour (navy to Blue 7, light to Blue 2), after the sweep. Closing
+  headings sit on two lines, so their container is wider.
+- **Health plans:** the hero heading breaks "AI-native primary care / that
+  modernizes your / front door", and the hero body is wide enough for three
+  lines. A fifth stat: 2 min Average response time. Stat paragraphs line up
+  at the top. White label tile: "A white-labeled, custom experience", with
+  "white-labeled" kept on one line.
+- **Triage graphic (Health plans and Health systems):** the routes the live
+  site shows. Counsel AI routes to Counsel Physicians (in the tile's ink,
+  branching into Advice & triage, Medications & labs, Referrals), Your
+  benefits ecosystem & programs, and In-network providers. It is a new embed.
+- **White label graphic:** the brand chips are buttons; clicking one
+  rebrands the app. New embed.
+- **Health systems:** "physician capacity" in the hero body. The logos are
+  the live site's institutions: Stanford Medicine, Google, UCSF, NVIDIA and
+  Massachusetts General Hospital (`brand/partners/institutions/` in the
+  Studio, the same SVGs as the live site). The EHR graphic has clearer
+  arrows and a roomier record (new embed).
+- **Consumer health:** no logo row. The Oura section is a dark banner like
+  the live site's: a "Partner spotlight" tag in the green highlighter pill,
+  the Oura logo in white, the quote at body size, a light "Learn more"
+  button, and the live site's photo of the Oura app beside it (a solid panel
+  and a crisp edge, no gradient). The Care in one place graphic runs two
+  columns in its narrow tile, so each kind of care keeps its own box (new
+  embed).
+
 ## What changes on the template
 
 These apply to all four pages, including Health plans.
 
 1. **Walkthrough: five steps, not four.** The steps are now Start with a
-   question, Share symptoms, Receive initial guidance, Bring in a doctor,
+   question, Share symptoms, Receive initial guidance, Bring in a physician,
    Receive proactive follow-up (copy below). The phone shows five screens,
    one per step; that embed comes from Kinetic and replaces the current
    four-screen one. Step copy is Webflow text.
@@ -37,8 +72,8 @@ These apply to all four pages, including Health plans.
 5. **Logos:** Health plans and Employers keep "Trusted by leading
    organizations" (a16z, Insitro, Notable, Nowsta, Photon). Health systems
    uses "Built by senior physicians and AI scientists from leading
-   institutions" with the logos currently on the site. Consumer health adds an
-   Oura partner section after the logos (copy below).
+   institutions" with the logos currently on the site. Consumer health has no
+   logo row; its Oura partner section follows the hero (copy below).
 6. **Closing:** a heading per page, the same body, and the "Request a custom
    demo" button.
 
@@ -65,7 +100,7 @@ AI-native care model fixes that."
   front door, white-labeled to your brand and aligned with your clinical
   protocols, provider networks, and benefits ecosystem.
 
-### Walkthrough: How [members] get care, step by step
+### Walkthrough: How [members] get care, / step by step
 
 Intro: "Counsel's messaging-based interface aligns with how [members] seek
 care today, giving them the ability to navigate their health at their pace."
@@ -77,7 +112,7 @@ care today, giving them the ability to navigate their health at their pace."
    symptoms just like an expert physician would.
 3. **Receive initial guidance.** Counsel AI retrieves relevant context and
    guidelines from trusted sources to provide initial, personalized guidance.
-4. **Bring in a doctor.** [Members] can add a doctor to a chat any time.
+4. **Bring in a physician.** [Members] can add a clinician to a chat any time.
    Depending on the medical concern, Counsel AI will also escalate directly
    to a provider.
 5. **Receive proactive follow-up.** After providing a treatment plan,
@@ -121,8 +156,8 @@ deliver measurable impact for your organization from day one.") Button:
 
 ## Health plans
 
-- **Hero:** eyebrow "Health plans". Heading "AI-native primary care that
-  modernizes your front door". Body "Bring clinical actionability to your
+- **Hero:** eyebrow "Health plans". Heading "AI-native primary care / that
+  modernizes your / front door". Body "Bring clinical actionability to your
   member app, improving network performance, reducing unnecessary ED
   utilization, and expanding access at scale." Button "Request a custom
   demo".
@@ -133,7 +168,7 @@ deliver measurable impact for your organization from day one.") Button:
 | # | Tile | Columns | Copy first | Graphic (embed) |
 | --- | --- | --- | --- | --- |
 | 1 | Intelligently triage member needs | 8 | yes | Triage |
-| 2 | A white-labeled experience | 4 | yes | White label |
+| 2 | A white-labeled, custom experience | 4 | yes | White label |
 | 3 | Shift care upstream | 5 | yes | Chat in a phone |
 | 4 | Expand access at scale | 7 | | US access map |
 | 5 | Offer comprehensive care in one place | 5 | | Care in one place |
@@ -145,7 +180,7 @@ Tile copy:
    concerns, routing them to the appropriate care pathway. As members
    interact with Counsel, health memories are built, creating a continuous
    relationship.
-2. **A white-labeled experience.** Embed Counsel into your existing app,
+2. **A white-labeled, custom experience.** Embed Counsel into your existing app,
    customized to your trusted brand to promote member engagement and
    retention.
 3. **Shift care upstream.** Improve your network's efficiency by providing
@@ -167,23 +202,26 @@ Tile copy:
   ("Nearly all member concerns are resolved without escalation or claim
   submission."); 24% Reduction in ER visits ("Compared with consumer-facing
   AI tools."); 80 NPS ("High member satisfaction ensures long-term
-  engagement.").
+  engagement."); 2 min Average response time ("Physicians respond quickly
+  upon joining a conversation. Answers from our medical AI are
+  instantaneous.").
 - **Closing heading:** "Expand access to care at scale".
 
 ## Health systems
 
 - **Hero:** eyebrow "Health systems". Heading "AI-native primary care that
   powers your entire network". Body "Bring clinical actionability to your
-  app, expanding capacity, improving care continuity, and retaining patients
+  app, expanding physician capacity, improving care continuity, and retaining patients
   within your system." Button "Request a custom demo".
 - **Logos:** "Built by senior physicians and AI scientists from leading
-  institutions", the logos currently on the site.
+  institutions": Stanford Medicine, Google, UCSF, NVIDIA, Massachusetts
+  General Hospital, as on the live site.
 - **Bento heading:** "Strengthen every layer of your network".
 
 | # | Tile | Columns | Copy first | Graphic (embed) |
 | --- | --- | --- | --- | --- |
 | 1 | Intelligently triage member needs | 8 | yes | Triage |
-| 2 | A white-labeled experience | 4 | yes | White label |
+| 2 | A white-labeled, custom experience | 4 | yes | White label |
 | 3 | Shift care upstream | 5 | yes | Chat in a phone |
 | 4 | Improve care continuity | 7 | | EHR two-way (see note) |
 | 5 | Offer comprehensive care in one place | 5 | | Care in one place |
@@ -195,7 +233,7 @@ Tile copy:
    concerns, routing them to the appropriate care pathway and retaining them
    within your system. As members interact with Counsel, health memories are
    built, creating a continuous relationship.
-2. **A white-labeled experience.** As Health plans.
+2. **A white-labeled, custom experience.** As Health plans.
 3. **Shift care upstream.** Expand your system's capacity without adding
    headcount by enabling Counsel to address most medical concerns, enabling
    your providers to focus on more complex cases.
@@ -225,8 +263,8 @@ EHR, so Kinetic's graphic shows the EHR connection. Confirming with Javi.
   clinical action". Body "Extend your platform capabilities by integrating
   AI-native care that transforms a user's data into diagnosis, treatment,
   and ongoing support." Button "Request a custom demo".
-- **Logos:** "Trusted by leading organizations".
-- **Oura section (new, after the logos):** Oura logo. "By partnering with
+- **Logos:** none on this page.
+- **Oura section (new, after the hero):** "Partner spotlight" tag, Oura logo. "By partnering with
   Counsel, Oura members can now access on-demand clinical care directly
   within the Oura experience, bridging the gap between health insights and
   real physician actionability." Button "Learn more". With an image.

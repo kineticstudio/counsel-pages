@@ -1,5 +1,18 @@
 # Changelog
 
+## October 13, 2026: Javi's review of the audience pages
+
+- **Content:** `content/audience-pages.md` opens with Javi's October 13
+  changes (walkthrough heading and step 4, Health plans hero and fifth stat,
+  "A white-labeled, custom experience", Health systems' "physician capacity"
+  and institution logos, Consumer health without a logo row and with the
+  live site's Oura banner), and the copy below it is updated to match.
+- **Embeds, re-exported:** the triage tile shows the live site's routes
+  (Counsel Physicians and its three branches, your benefits ecosystem and
+  programs, in-network providers); the white label brands are clickable; the
+  EHR graphic has clearer arrows and a roomier record; Care in one place
+  runs two columns in narrow tiles.
+
 ## October 13, 2026: Home's new link
 
 - The homepage design is now called Home in the Studio, at
