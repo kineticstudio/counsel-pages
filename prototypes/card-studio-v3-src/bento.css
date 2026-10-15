@@ -1,0 +1,268 @@
+/* Card Studio V3 bento graphics, third pass. Each root .cb carries its tile's
+   colours (--cb-bg, --cb-ink, --cb-dark, --cb-light; see bento.js tileVars)
+   and is a size container, so one graphic fits a narrow or a wide tile.
+   Every graphic draws in two colours, the tile's ink on its ground, plus two
+   mixes of them for secondary lines and text; nothing else lands on a tile.
+   One type scale, sized to the tile's own copy. Exported verbatim, scoped
+   to the embed. Motion: animations.js initBentoMotion. Serif text asks for
+   "Cooper Light" (the Studio's name), then "Cooper" (Webflow's). */
+.cb-wrap{width:100%}
+/* Phones rise from the tile's bottom edge: the wrap sits at the bottom of the art area and reaches past its padding (V5: 38px, 30px under 1100, 28px under 700). */
+.cb-wrap.is-bleed{margin-top:auto;margin-bottom:-38px}
+@media(max-width:1100px){.cb-wrap.is-bleed{margin-bottom:-30px}}
+@media(max-width:700px){.cb-wrap.is-bleed{margin-bottom:-28px}}
+/* Bounded (Denny and Hunter, Oct 13 call: a few centred graphics felt
+   "floaty"). Hunter, same day: only the few that really float, not every
+   graphic. A bounded graphic (bound:true in bento.js; today only triage, a
+   small cluster in a wide tile) sits in one hairline frame that fills the
+   tile's art area, edges in line with the tile's copy, so it reads as placed. */
+.cb-wrap.is-bound{display:flex;flex:1;align-self:stretch}
+.cb-wrap.is-bound>.cb{display:flex;flex-direction:column;justify-content:center;padding:32px 28px} /* Hunter, Oct 14: no frame line. */
+@media(max-width:700px){.cb-wrap.is-bound>.cb{padding:24px 16px}}
+.cb{container-type:inline-size;box-sizing:border-box;width:100%;color:var(--cb-ink);font:400 15.5px/1.45 "GT America",sans-serif;-webkit-font-smoothing:antialiased;--mid:color-mix(in srgb,var(--cb-ink) 64%,var(--cb-bg));--faint:color-mix(in srgb,var(--cb-ink) 34%,var(--cb-bg));--serif:"Cooper Light",Cooper,Georgia,serif}
+/* Resets carry no weight, so each graphic's own rules always win. */
+:where(.cb) *{box-sizing:border-box}
+:where(.cb) :where(p,ul,ol,dl,dd){margin:0}
+:where(.cb) :where(ul,ol){padding:0;list-style:none}
+:where(.cb) svg{display:block}
+.cb-art{width:100%}
+.cb-grid{display:grid;grid-template-columns:repeat(3,4px);gap:3px;flex:none}
+.cb-grid i{display:block;width:4px;height:4px;background:currentColor}
+.cb-check{flex:none;width:14px;height:14px}
+.cb-mark{flex:none;width:18px;height:18px}
+/* A member's message: the tile's ink, with the ground showing through as text. */
+.cb-bubble{max-width:300px;padding:13px 16px;border-radius:16px 16px 4px 16px;background:var(--cb-ink);color:var(--cb-bg);font-size:15.5px;line-height:1.4}
+/* Counsel AI's label and reply, as in the product; replies arrive a word at a time. */
+.cb-ai{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:500;opacity:.75}
+.cb-reply{display:grid;gap:7px}
+.cb-reply p{font-size:15.5px;line-height:1.45}
+.cb-words i{font-style:normal}
+
+/* Phone: a line drawing in the tile's ink, tall, rising from the tile's bottom edge. The care phone's status bar and header, then the conversation. */
+.cb-phone{position:relative;display:flex;flex-direction:column;width:min(100% - 28px,300px);height:470px;margin:0 auto;padding:0 18px;border:1.5px solid var(--cb-ink);border-bottom:0;border-radius:38px 38px 0 0;background:var(--cb-bg)}
+.cb-phone-status{display:flex;align-items:center;justify-content:space-between;height:46px;padding:0 6px 0 10px;font:600 13px/1 "GT America",sans-serif}
+.cb-phone-island{position:absolute;left:50%;top:12px;width:78px;height:22px;border-radius:12px;background:var(--cb-ink);transform:translateX(-50%)}
+.cb-phone-icons{width:54px;height:11px}
+.cb-phone-nav{display:flex;align-items:center;gap:12px;height:56px}
+.cb-phone-btn{display:grid;flex:none;place-items:center;width:36px;height:36px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--faint)}
+.cb-phone-btn svg{width:17px;height:17px}
+.cb-phone-title{flex:1;min-width:0;overflow:hidden;font-size:15px;font-weight:500;text-align:center;white-space:nowrap;text-overflow:ellipsis}
+.cb-phone-brand{display:inline-flex;flex:1;min-width:0;align-items:center;gap:8px;font-size:15px;font-weight:500;white-space:nowrap}
+.cb-phone-body{display:grid;align-content:start;gap:14px;padding:6px 2px 0}
+.cb-phone-day{font-size:12px;text-align:center;color:var(--mid)}
+/* The member's message breaks the phone's right edge, as in Health Plans V5's walkthrough. */
+.cb-phone .cb-bubble{position:relative;justify-self:end;width:min(100% + 10px,268px);max-width:none;margin-right:-28px;box-shadow:0 14px 28px -18px rgb(0 0 0 / .45)}
+.cb-powered{font-size:12px;color:var(--mid)}
+
+/* White label: the brands above the phone are the story at rest; in motion the header swaps brand while the care beneath it stays. */
+.cb-brands{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin:0 auto 20px;max-width:360px}
+.cb-brand{display:inline-flex;align-items:center;gap:7px;margin:0;padding:7px 13px 7px 10px;border:0;border-radius:999px;background:none;box-shadow:inset 0 0 0 1.5px var(--faint);color:var(--mid);font:inherit;font-size:13.5px;font-weight:500;line-height:1.2;white-space:nowrap;cursor:pointer;transition:box-shadow .2s,color .2s}
+.cb-brand:hover{box-shadow:inset 0 0 0 1.5px var(--mid);color:var(--cb-ink)}
+.cb-brand:focus-visible{outline:2px solid var(--cb-ink);outline-offset:2px}
+.cb-brand .cb-mark{width:14px;height:14px}
+.cb-brand.is-on{background:var(--cb-ink);color:var(--cb-bg);box-shadow:none}
+
+/* Benefit card: a partner's offer that follows the reply and pops past the phone's edge (V5's walkthrough cards do this). */
+.cb-benefit .cb-phone-body{gap:8px}
+/* Javi, Oct 14: wider, so it is shorter and clear of the tile's bottom edge. */
+.cb-benefit-card{position:relative;justify-self:end;width:min(100% + 44px,320px);margin:2px -46px 0 0;padding:14px 16px 16px;border-radius:14px;background:var(--cb-ink);color:var(--cb-bg);box-shadow:0 22px 44px -24px rgb(0 0 0 / .5)}
+.cb-benefit-brand{display:flex;align-items:center;gap:7px;margin-bottom:8px;font-size:15px;font-weight:600;letter-spacing:-.01em}
+.cb-benefit-brand .cb-mark{width:13px;height:13px}
+.cb-benefit-card b{display:block;font-size:14px;font-weight:600;line-height:1.3}
+.cb-benefit-card p{margin-top:3px;font-size:13px;line-height:1.4;opacity:.8}
+.cb-benefit-btn{display:inline-flex;margin-top:12px;padding:8px 14px;border-radius:999px;background:var(--cb-bg);color:var(--cb-ink);font-size:13px;font-weight:500}
+
+/* Triage (Javi, Oct 13: mirror the live site's routes). The question drops
+   into Counsel AI, which routes it along one spine. The chosen pathway (first)
+   is drawn in the tile's ink, filled, and branches again; the others stay in
+   the faint mix. Rows are fixed heights so the lines meet exactly:
+   --r a branch row, --g the gap between branches, --rows how many. */
+.cb-triage{display:flex;align-items:center;justify-content:center}
+.cb-triage-body{--r:34px;--g:10px;--first:calc(var(--rows,1) * var(--r) + (var(--rows,1) - 1) * var(--g));display:flex;flex-direction:column;align-items:flex-start}
+.cb-triage-ask{max-width:340px}
+.cb-triage .cb-bubble{margin:0}
+/* The drop reaches down past the head's empty top half to the top of the Counsel AI mark (--x); the negative margin keeps the flow where it was. */
+.cb-drop{--x:calc(var(--first) / 2 - 9px);display:block;width:1.5px;height:calc(20px + var(--x));margin:0 0 calc(var(--x) * -1) 8px;background:var(--faint)}
+.cb-link{display:block;flex:none;height:1.5px;background:var(--faint)}
+.cb-link.is-lit{height:2px;background:var(--cb-ink)}
+.cb-triage-flow{display:flex;align-items:flex-start}
+.cb-triage-head{display:flex;flex:none;align-items:center;height:var(--first)}
+.cb-triage-head .cb-link{width:56px}
+.cb-triage-ai{display:flex;flex:none;align-items:center;gap:9px;padding:8px 2px 8px 0;font-size:15px;font-weight:500;white-space:nowrap}
+.cb-triage-paths{display:flex;flex-direction:column}
+.cb-triage-paths>li{position:relative;display:flex;align-items:center;padding-left:28px}
+.cb-triage-paths>li+li{padding-top:12px}
+.cb-triage-paths>li.is-chosen{min-height:var(--first)}
+/* The spine, one segment per row, and each row's stub. */
+.cb-triage-paths>li::before{content:"";position:absolute;left:0;top:0;bottom:0;width:1.5px;background:var(--faint)}
+.cb-triage-paths>li:first-child::before{top:50%}
+.cb-triage-paths>li:last-child::before{bottom:auto;height:calc(50% + 6px)}
+.cb-triage-paths>li:only-child::before{display:none}
+.cb-triage-paths>li::after{content:"";position:absolute;left:0;top:calc(50% + 6px);width:28px;height:1.5px;background:var(--faint)}
+.cb-triage-paths>li:first-child::after{top:calc(50% - 1px);height:2px;background:var(--cb-ink)}
+.cb-path{position:relative;display:inline-flex;align-items:center;padding:11px 16px;border-radius:9px;box-shadow:inset 0 0 0 1.5px var(--faint);font-size:15.5px;line-height:1.3;white-space:nowrap}
+.cb-path>span{position:relative}
+.is-chosen>.cb-path{color:var(--cb-bg);box-shadow:none;font-weight:500}
+.cb-fill{position:absolute;inset:0;border-radius:inherit;background:var(--cb-ink)}
+/* Javi, Oct 14: use more of the tile, and a longer line out of the chosen pathway. */
+.is-chosen>.cb-link{width:72px}
+/* The chosen pathway's branches: squares on an inked spine. */
+.cb-triage-sub{display:flex;flex-direction:column}
+.cb-triage-sub>li{position:relative;display:flex;align-items:center;gap:9px;height:var(--r);padding-left:22px;font-size:15px;line-height:1.2;white-space:nowrap}
+.cb-triage-sub>li+li{height:calc(var(--r) + var(--g));padding-top:var(--g)}
+.cb-triage-sub>li::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--cb-ink)}
+.cb-triage-sub>li:first-child::before{top:50%}
+.cb-triage-sub>li:last-child::before{bottom:auto;height:calc(50% + var(--g) / 2)}
+.cb-triage-sub>li:only-child::before{display:none}
+.cb-triage-sub>li::after{content:"";position:absolute;left:0;top:calc(50% + var(--g) / 2 - 1px);width:14px;height:2px;background:var(--cb-ink)}
+.cb-triage-sub>li:first-child::after{top:calc(50% - 1px)}
+.cb-dot{display:block;flex:none;width:7px;height:7px;background:var(--cb-ink)}
+/* Narrow tiles stack it: the spine runs down from Counsel AI, and the
+   chosen pathway's branches hang under it. */
+@container (max-width:540px){
+  .cb-triage-ask{max-width:100%}
+  .cb-drop{--x:0px}
+  .cb-triage-flow{flex-direction:column}
+  .cb-triage-head{flex-direction:column;align-items:flex-start;height:auto}
+  .cb-triage-head .cb-link{width:2px;height:14px;margin-left:8px}
+  .cb-triage-paths{margin-left:8px}
+  .cb-triage-paths>li{flex-direction:column;align-items:flex-start}
+  .cb-triage-paths>li.is-chosen{min-height:0}
+  .cb-triage-paths>li:first-child::before{top:0;width:2px;background:var(--cb-ink);bottom:auto;height:20px}
+  .cb-triage-paths>li:not(:first-child)::before{top:0;bottom:0;height:auto}
+  .cb-triage-paths>li:not(:first-child):not(:last-child)::before{bottom:0}
+  .cb-triage-paths>li:last-child:not(:first-child)::before{bottom:auto;height:28px}
+  .cb-triage-paths>li::after{top:27px}
+  .cb-triage-paths>li:first-child::after{top:19px}
+  .cb-path{white-space:normal}
+  .is-chosen>.cb-link{width:2px;height:12px;margin-left:16px}
+  .cb-triage-sub{margin-left:16px}
+}
+
+/* US access map: the lower 48 in dots, lit where members get care. */
+.cb-map{display:grid;justify-items:center;gap:16px}
+.cb-map-svg{width:100%;max-width:560px;height:auto;overflow:visible;color:var(--cb-ink)}
+.cb-map-base{opacity:.32}
+.cb-map-dot{fill:currentColor}
+.cb-map-ring{fill:none;stroke:currentColor;stroke-width:1.5;opacity:0}
+.cb-map-label{font-size:14px;font-weight:500}
+
+/* Lanes: Studio V4's dotted lanes, with squares riding them while the graphic plays. */
+.cb-lane{fill:none;stroke:var(--faint);stroke-width:1.6;stroke-linecap:round;stroke-dasharray:.1 5.5}
+.cb-lane-tip{fill:none;stroke:var(--faint);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+/* Javi, Oct 13: in the EHR graphic the two lanes read as arrows, in the tile ink. */
+.cb-ehr .cb-lane{stroke:var(--cb-ink);stroke-width:2.4;stroke-dasharray:.1 5}
+.cb-ehr .cb-lane-tip{stroke:var(--cb-ink);stroke-width:2.4}
+.cb-rider{fill:var(--cb-ink);opacity:0}
+
+/* EHR two-way: the record solid in ink, two lanes, the conversation. */
+.cb-ehr{display:grid;grid-template-columns:minmax(0,1fr) 80px minmax(0,1.15fr);align-items:center;width:min(100%,640px);margin:0 auto}
+.cb-ehr-record{padding:22px 20px 18px;border-radius:14px;background:var(--cb-ink);color:var(--cb-bg)}
+.cb-ehr-head{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:12px;font-size:15px}
+.cb-ehr-head b{font-weight:500}
+.cb-ehr-head small{font-size:13px;opacity:.7}
+.cb-ehr-record dl{display:grid}
+.cb-ehr-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:10px;padding:11px 0;font-size:14px;line-height:1.3}
+.cb-ehr-row dt{opacity:.62}
+.cb-ehr-row dd{font-weight:500}
+.cb-ehr-row.is-new{margin:6px -10px 0;padding:8px 10px;border-radius:8px;background:var(--cb-bg);color:var(--cb-ink)}
+.cb-ehr-row.is-new dt{opacity:.7}
+.cb-ehr-row.is-new dd{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.cb-ehr-row.is-new .cb-check{width:13px;height:13px}
+.cb-ehr-lanes{position:relative;width:80px;height:64px}
+.cb-ehr-lanes svg{width:80px;height:64px;overflow:visible}
+.cb-ehr-thread{display:grid;gap:22px;padding-left:4px}
+.cb-ehr-thread .cb-bubble{justify-self:end;max-width:94%;font-size:14.5px}
+.cb-ehr-thread .cb-reply p{font-size:14.5px}
+.cb-ehr-sync{display:inline-flex;align-items:center;justify-self:start;gap:6px;padding:6px 11px 6px 9px;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--faint);font-size:13px;font-weight:500}
+.cb-ehr-sync .cb-check{width:12px;height:12px}
+@container (max-width:600px){
+  .cb-ehr{grid-template-columns:minmax(0,1fr);justify-items:stretch;width:min(100%,340px)}
+  .cb-ehr-lanes{width:64px;height:80px;margin:0 auto}
+  .cb-ehr-lanes svg{position:absolute;left:-8px;top:8px;transform:rotate(90deg)}
+  .cb-ehr-thread{padding-left:0}
+}
+
+/* Care in one place: six kinds of care as six squares in ink. */
+.cb-place-frame{position:relative;width:min(100%,468px);margin:0 auto}
+/* No outline around the six (Hunter, Oct 14: borders around these are unnecessary). */
+.cb-place-line{display:none}
+.cb-place-grid{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}
+.cb-place-grid li{display:flex;flex-direction:column;justify-content:space-between;gap:16px;aspect-ratio:1.2;min-height:108px;padding:14px 15px;border-radius:10px;background:var(--cb-ink);color:var(--cb-bg);font-size:15px;font-weight:500;line-height:1.2}
+.cb-place-icon{display:block;width:24px;height:24px}
+.cb-place-icon svg{width:100%;height:100%}
+/* Javi, Oct 13: in a narrow tile three columns ran together; two keep every kind of care in its own box. */
+@container (max-width:420px){.cb-place-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Insight to action: the tile is the app. A partner's reading in big type, the week in squares, and one Counsel row beneath it (Studio V5). */
+.cb-insight{display:flex;justify-content:center}
+.cb-app{display:grid;gap:4px;width:min(100%,380px)}
+.cb-app-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:14px;padding-bottom:14px;border-bottom:1.5px solid var(--faint)}
+.cb-app-brand{display:inline-flex;align-items:center;gap:8px;font-size:15px;font-weight:500}
+.cb-app-bar small{font-size:13px;color:var(--mid)}
+.cb-app-metric{font-size:15px;font-weight:500}
+.cb-app-reading{display:flex;align-items:baseline;gap:7px}
+.cb-app-reading strong{font:300 60px/1 var(--serif);letter-spacing:-.03em}
+.cb-app-reading span{font-size:14px;color:var(--mid)}
+.cb-app-chart{display:flex;align-items:flex-end;gap:6px;height:104px;margin-top:10px}
+.cb-app-col{display:flex;flex:1;flex-direction:column-reverse;align-items:center;gap:3px}
+.cb-app-col i{width:8px;height:8px;background:var(--mid)}
+.cb-app-col.is-today i{background:var(--cb-ink)}
+.cb-app-note{margin-top:8px;font-size:14px;color:var(--mid)}
+.cb-app-action{display:flex;align-items:center;gap:12px;margin-top:16px;padding:14px 16px;border-radius:14px;background:var(--cb-ink);color:var(--cb-bg)}
+.cb-app-action .cb-grid{grid-template-columns:repeat(3,5px);gap:2px}
+.cb-app-action .cb-grid i{width:5px;height:5px}
+.cb-app-action>span{display:grid;gap:1px}
+.cb-app-action b{font-size:15px;font-weight:500}
+.cb-app-action small{font-size:13px;opacity:.72}
+.cb-app-action>svg{flex:none;width:16px;height:16px;margin-left:auto;opacity:.8}
+
+/* Data to answer: a question, the partner's sources, lanes into Counsel's grid, the answer. */
+.cb-data{display:grid;justify-items:center;gap:14px;width:min(100%,360px);margin:0 auto}
+.cb-data>.cb-bubble{justify-self:end;max-width:94%}
+.cb-sources{display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px;width:100%}
+.cb-sources li{display:grid;align-content:start;gap:2px;padding:12px 12px 13px;border-radius:10px;box-shadow:inset 0 0 0 1.5px var(--faint);font-size:13.5px;line-height:1.3}
+.cb-source-icon{display:block;width:18px;height:18px;margin-bottom:10px}
+.cb-source-icon svg{width:100%;height:100%}
+.cb-sources small{font-size:12.5px;color:var(--mid)}
+.cb-sources b{font-weight:500}
+.cb-flow-lanes{width:100%;height:auto;margin:-6px 0;overflow:visible}
+.cb-flow-grid{display:block}
+.cb-flow-grid .cb-grid{grid-template-columns:repeat(3,10px);gap:4px}
+.cb-flow-grid .cb-grid i{width:10px;height:10px}
+.cb-data .cb-reply{width:100%}
+
+/* Program card: the weight management card from the directory, in ink, with Counsel's own photograph. */
+.cb-program{display:flex;justify-content:center}
+.cb-prog{width:min(100%,320px);border-radius:16px;background:var(--cb-ink);color:var(--cb-bg);overflow:hidden}
+.cb-prog-photo{position:relative;aspect-ratio:16/9;overflow:hidden}
+.cb-prog-photo img{display:block;width:100%;height:100%;object-fit:cover}
+.cb-prog-tag{position:absolute;left:12px;bottom:12px;display:inline-flex;align-items:center;gap:6px;padding:6px 11px 6px 9px;border-radius:999px;background:var(--cb-bg);color:var(--cb-ink);font-size:12.5px;font-weight:500}
+.cb-prog-tag .cb-check{width:12px;height:12px}
+.cb-prog-body{display:grid;gap:5px;padding:14px 18px 16px}
+.cb-prog-body small{font-size:12.5px;opacity:.7}
+.cb-prog-body b{font:300 26px/1.1 var(--serif);letter-spacing:-.01em}
+.cb-prog-body p{font-size:14px;line-height:1.45;opacity:.85}
+.cb-prog-body ul{display:grid;gap:6px;margin-top:6px}
+.cb-prog-body li{display:flex;align-items:center;gap:8px;font-size:13.5px}
+.cb-prog-btn{display:grid;place-items:center;height:40px;margin-top:10px;border-radius:10px;background:var(--cb-bg);color:var(--cb-ink);font-size:14px;font-weight:500}
+
+/* Launch calendar: Health Plans V5's four weeks, ready days and launch day. */
+.cb-calendar{display:flex;justify-content:center}
+.cb-cal{width:100%;max-width:258px;padding:22px 18px;border-radius:12px;background:color-mix(in srgb,var(--cb-light) 24%,#fff)}
+.cb-cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:18px;border-bottom:1px solid color-mix(in srgb,var(--cb-dark) 15%,transparent)}
+.cb-cal-head i{display:block;width:35%;height:7px;border-radius:2px;background:color-mix(in srgb,var(--cb-light) 78%,var(--cb-dark))}
+.cb-cal-head i:last-child{width:15%;background:color-mix(in srgb,var(--cb-light) 45%,#fff)}
+.cb-cal-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.cb-cal-days span{aspect-ratio:1;border-radius:4px;background:color-mix(in srgb,var(--cb-light) 28%,#fff)}
+.cb-cal-days .is-ready{background:color-mix(in srgb,var(--cb-light) 72%,#fff)}
+.cb-cal-days .is-launch{background:var(--cb-dark)}
+.cb-cal-caption{margin-top:14px;color:var(--cb-dark);font-size:13px;font-weight:500}
+
+/* Care marquee: Health Plans V5's two rows, drifting in opposite directions. */
+.cb-marquee-rows{display:grid;gap:12px;padding-block:10px;overflow:hidden;border-radius:4px}
+.cb-marquee-rows:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.cb-marquee-row{overflow:hidden}
+.cb-marquee-track{display:flex;width:max-content}
+.cb-marquee-group{display:flex;flex:none;gap:10px;padding-right:10px}
+.cb-marquee-group span{padding:9px 13px;border-radius:7px;background:var(--cb-ink);color:var(--cb-bg);font-size:13px;font-weight:500;line-height:1.3;white-space:nowrap}

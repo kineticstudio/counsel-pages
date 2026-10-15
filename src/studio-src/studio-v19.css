@@ -1,0 +1,8 @@
+/* Counsel Studio V19 (Oct 14): V17 (studio-v17.css) with Denny's and Javi's
+   notes. Motion: animations.js mountStudioV19. */
+/* A deeper wave with fewer, bigger turns. */
+.studio-v19 .r17-edge{height:108px}
+.studio-v19 .r14-build{padding-bottom:clamp(130px,12vw,170px)}
+/* The audience heading on two lines (Javi). */
+.studio-v19 .r14-audiences .v2-heading{max-width:none}
+.studio-v19 .r14-audiences .v2-heading h2{max-width:22em}

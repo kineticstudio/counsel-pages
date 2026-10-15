@@ -1,0 +1,79 @@
+/* Counsel Studio V13, round four. Loads after centered.css and V12's sheet
+   (its labels, key and deployment figures are reused here). */
+
+/* Hero: V3's field of squares behind centred type, with data clusters. */
+.studio-v13 .studio-hero{isolation:isolate}
+.r13-field{position:absolute;inset:0;z-index:0;width:100%;height:100%;pointer-events:none}
+.r13-signals{position:absolute;inset:0;z-index:0;pointer-events:none}
+.r13-signal{position:absolute;display:none;font-size:12.5px;font-weight:500;line-height:1;letter-spacing:.01em;color:var(--green-1);white-space:nowrap;opacity:0;transform:translateY(-100%)}
+.r13-signal.is-right{transform:translate(-100%,-100%)}
+.studio-v13 .r3-copy{position:relative;z-index:1;margin-block:auto;padding-block:clamp(56px,9vh,110px) clamp(96px,14vh,160px)}
+
+/* The line: squares down the centre line, lit as you scroll. */
+.r13-line{display:flex;flex-direction:column;align-items:center;gap:8px;height:clamp(110px,14vw,180px);margin:clamp(32px,4vw,48px) auto 8px;overflow:hidden}
+.r13-line i{display:block;flex:none;width:6px;height:6px;background:rgb(7 42 28 / .14)}
+.r13-line i.is-on{background:var(--green-7)}
+
+/* The app, upright in the middle, with the labels either side. */
+.r13-stage{position:relative;display:flex;justify-content:center}
+.r13-phone{position:relative;z-index:1;width:min(100%,320px);aspect-ratio:9/18.8;padding:9px;border-radius:48px;background:var(--gray-9);box-shadow:0 40px 80px -40px rgb(7 42 28 / .45)}
+.r13-screens{position:relative;height:100%;overflow:hidden;border-radius:40px}
+
+/* Partner themes: colour, type, corner radius and spacing. */
+.r13-screen,.r13-chip{--t-bg:#F8F8F6;--t-ink:#072A1C;--t-muted:rgb(7 42 28 / .6);--t-accent:#005434;--t-bubble:#005434;--t-bubble-ink:#FFFFFF;--t-card:#FFFFFF;--t-line:rgb(7 42 28 / .1);--t-r:16px;--t-title:"Cooper Light",Cooper,Georgia,serif;--t-gap:14px}
+:is(.r13-screen,.r13-chip)[data-theme="midnight"]{--t-bg:#1A1F24;--t-ink:#E9EDF0;--t-muted:rgb(233 237 240 / .62);--t-accent:#A9C0D3;--t-bubble:rgb(255 255 255 / .14);--t-bubble-ink:#E9EDF0;--t-card:rgb(255 255 255 / .08);--t-line:rgb(255 255 255 / .12);--t-r:22px;--t-title:"GT America",sans-serif;--t-gap:16px}
+:is(.r13-screen,.r13-chip)[data-theme="clay"]{--t-bg:#FBF6EE;--t-ink:#2E2B28;--t-muted:rgb(46 43 40 / .6);--t-accent:#E2622B;--t-bubble:#3A3735;--t-bubble-ink:#FBF6EE;--t-card:#F2EBDF;--t-line:rgb(46 43 40 / .12);--t-r:6px;--t-title:"GT America",sans-serif;--t-gap:10px}
+:is(.r13-screen,.r13-chip)[data-theme="harbor"]{--t-bg:#FFFFFF;--t-ink:#14284B;--t-muted:rgb(20 40 75 / .6);--t-accent:#1F5FBF;--t-bubble:#1F5FBF;--t-bubble-ink:#FFFFFF;--t-card:#EEF3FA;--t-line:rgb(20 40 75 / .12);--t-r:10px;--t-title:"Cooper Light",Cooper,Georgia,serif;--t-gap:12px}
+
+.r13-screen{position:absolute;inset:0;display:flex;flex-direction:column;padding:12px 14px 12px;background:var(--t-bg);color:var(--t-ink);font:400 13px/1.42 "GT America",sans-serif}
+.r13-screen [data-part]{position:relative}
+.r13-status{display:flex;justify-content:space-between;align-items:center;padding:2px 12px 10px;font-size:12px;font-weight:500}
+.r13-status i{width:68px;height:20px;border-radius:12px;background:var(--gray-10)}
+.r13-bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:8px;padding:4px 2px 12px;border-bottom:1px solid var(--t-line)}
+.r13-logo{display:inline-flex;align-items:center;gap:6px;color:var(--t-accent);font-size:13px;font-weight:600;letter-spacing:-.01em}
+.r13-logo svg{width:16px;height:16px}
+.r13-logo.is-counsel{width:62px;height:18px;background:var(--t-accent);-webkit-mask:url(/brand/logo.svg) left center/contain no-repeat;mask:url(/brand/logo.svg) left center/contain no-repeat}
+.r13-title{font:300 17px/1.1 var(--t-title);letter-spacing:-.01em}
+.r13-close{justify-self:end;display:grid;place-items:center;width:26px;height:26px;color:var(--t-muted)}
+.r13-close svg{width:16px;height:16px}
+.r13-chat{display:flex;flex-direction:column;gap:var(--t-gap);padding:var(--t-gap) 2px 0}
+.r13-member{align-self:flex-end;max-width:86%;margin:0;padding:10px 13px;border-radius:var(--t-r) var(--t-r) 4px var(--t-r);background:var(--t-bubble);color:var(--t-bubble-ink)}
+.r13-ai{display:grid;gap:6px}
+.r13-ai p{margin:0}
+.r13-ai-head{display:flex;align-items:center;gap:7px;font-size:12px}
+.r13-ai-head b{font-weight:600}
+.r13-ai-head small{color:var(--t-muted);font-size:12px}
+.r13-grid{display:grid;grid-template-columns:repeat(3,3px);gap:2px}
+.r13-grid i{width:3px;height:3px;background:var(--t-accent)}
+.r13-compose{margin-top:auto;display:grid;gap:8px}
+.r13-doctor{display:flex;align-items:center;gap:8px;padding:9px 12px;border-radius:var(--t-r);background:var(--t-card);box-shadow:inset 0 0 0 1px var(--t-line);font-size:12.5px}
+.r13-doctor b{font-weight:500}
+.r13-doctor small{margin-left:auto;color:var(--t-muted);font-size:12px}
+.r13-doctor>svg{width:14px;height:14px;color:var(--t-muted)}
+.r13-doctors{display:flex;padding-left:6px}
+.r13-doctors img{width:22px;height:22px;margin-left:-6px;border-radius:50%;border:2px solid var(--t-bg);object-fit:cover}
+.r13-input{display:flex;align-items:center;justify-content:space-between;padding:8px 8px 8px 14px;border-radius:var(--t-r);box-shadow:inset 0 0 0 1px var(--t-line);color:var(--t-muted)}
+.r13-input i{display:grid;place-items:center;width:26px;height:26px;border-radius:calc(var(--t-r) * .7);background:var(--t-accent);color:var(--t-bg)}
+.r13-input svg{width:14px;height:14px}
+.r13-powered{display:flex;align-items:center;justify-content:center;gap:6px;margin:2px 0 0;font-size:10.5px;color:var(--t-muted)}
+.r13-powered-logo{width:38px;height:11px;background:var(--t-muted);-webkit-mask:url(/brand/logo.svg) center/contain no-repeat;mask:url(/brand/logo.svg) center/contain no-repeat}
+
+/* The theme tool, under the app. */
+.r13-tool{display:flex;flex-direction:column;align-items:center;gap:14px;margin-top:clamp(32px,4vw,44px);text-align:center}
+.r13-tool-label{font-size:14px;color:var(--sg-muted)}
+.r13-themes{display:flex;flex-wrap:wrap;justify-content:center;gap:10px}
+.r13-themes button{display:inline-flex;align-items:center;gap:10px;padding:6px 14px 6px 6px;border:0;border-radius:999px;background:rgb(7 42 28 / .06);color:var(--sg-muted);font:500 14px/1.2 "GT America",sans-serif;cursor:pointer;transition:background-color .2s,color .2s}
+.r13-themes button:hover{background:rgb(7 42 28 / .11);color:var(--sg-ink)}
+.r13-themes button[aria-checked="true"]{background:var(--green-9);color:var(--gray-1)}
+.r13-chip{display:grid;place-items:center;width:30px;height:30px;border-radius:min(var(--t-r),15px);background:var(--t-bg);color:var(--t-accent);box-shadow:inset 0 0 0 1px var(--t-line);font:400 13px/1 var(--t-title)}
+
+/* The key (phones only, as V12). */
+.r13-key{margin-inline:auto}
+
+@media(max-width:900px){
+  .r13-stage{flex-direction:column;align-items:center}
+  .r13-key{display:grid}
+}
+@media(max-width:580px){
+  .r13-phone{width:min(100%,300px)}
+}

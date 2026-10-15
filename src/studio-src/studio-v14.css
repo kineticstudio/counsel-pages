@@ -1,0 +1,197 @@
+/* Counsel Studio V14. Loads after centered.css and V12's and V13's sheets
+   (their callouts, key, figures, phone parts and partner themes). */
+.studio-v14{--peek:clamp(230px,32vh,330px)}
+
+/* Hero: the name, the whole story under it, and the data lighting up as
+   icons on the dot grid. The unlit dots are this background (4px grid, the
+   canvas draws only lit squares on the same grid), so the grid runs on
+   unbroken behind the phone. */
+.studio-v14 .studio-hero{isolation:isolate;min-height:0}
+/* The dot grid. On load the top of it is drawn dot by dot on a canvas
+   (animations.js) and this takes over below it (--dots-top), then everywhere. */
+.studio-v14 .studio-hero::before{content:'';position:absolute;inset:0;z-index:-1;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4'%3E%3Crect width='2.5' height='2.5' fill='%23AED9B0' fill-opacity='.13'/%3E%3C/svg%3E");background-position:0 0;clip-path:inset(var(--dots-top,0px) 0 0 0);pointer-events:none}
+.r14-field,.r14-signals{position:absolute;top:0;left:0;z-index:0;width:100%;height:var(--r14-field-h,100svh);pointer-events:none}
+.r14-signal{position:absolute;display:none;font-size:12.5px;font-weight:500;line-height:1;letter-spacing:.01em;color:var(--green-1);white-space:nowrap;transform:translateX(-50%)}
+.studio-v14 .r14-copy{position:relative;z-index:1;justify-content:center;min-height:calc(100svh - 96px - var(--peek));padding-block:16px 40px}
+html[data-counsel-type="v13"] .studio-v14 .r14-title{max-width:none;margin:0 auto 22px;font-size:clamp(60px,8.2vw,128px);line-height:.98;letter-spacing:-.035em}
+.studio-v14 .r14-lede{max-width:31em;font-size:clamp(18px,1.55vw,23px);line-height:1.45;text-wrap:balance}
+
+/* The phone, in the hero: Counsel's own phone furniture (counsel-phone-ui.css)
+   in a frosted border. The partner's app first, then Counsel over it as a
+   sheet; cards slide in from the sheet's edges. */
+.r14-build{position:relative;z-index:1;padding-bottom:clamp(72px,9vw,128px)}
+.r14-stage{position:relative}
+.r14-rig{position:relative;display:flex;justify-content:center}
+/* The border: frosted glass. Behind it is only the hero's even dot grid,
+   so it is painted as the solid that grid blurs to (a live backdrop blur
+   left seams inside the scrolling page, Hunter Oct 14). */
+.r14-frame{position:relative;z-index:1;flex:none;width:min(100%,340px);padding:10px;border-radius:54px;background:#2A5240}
+.r14-phone.cui-device{--cui-radius:44px;width:100%;background:var(--t-app);box-shadow:none;font-family:var(--t-font)}
+/* The app's look: the picker sets these on the phone (studio-v14.js LOOKS). */
+.r14-phone{--t-app:#DFEFF8;--t-app-card:#F3F9FC;--t-bg:#F7FBFD;--t-card:#E6F2F9;--t-ink:#132045;--t-muted:rgb(19 32 69 / .6);--t-line:rgb(19 32 69 / .12);--t-accent:#9ABDDB;--t-logo:#132045;--t-bubble:#132045;--t-bubble-ink:#F3F9FC;--t-compose:#E6F2F9;--t-field:#FFFFFF;--t-send-ink:#132045;--t-title:"Cooper Light",Cooper,Georgia,serif;--t-title-weight:300;--t-font:"GT America",sans-serif;--t-gap:10px;--t-pad:12px;--t-r:16px;color:var(--t-ink)}
+/* One small type scale in the app (Hunter, Oct 14: too many sizes, too
+   big): 10.5 meta, 12 body, 14.5 titles, 20 for the greeting and the number.
+   Cards are filled, never outlined, as on the site. */
+.r14-phone{--fs-xs:10.5px;--fs-s:12px;--fs-m:14.5px;--fs-l:20px;--cui-text:var(--fs-s);font-size:var(--fs-s);line-height:1.42}
+.r14-phone :is(.r13-ai-head,.r13-ai-head small){font-size:var(--fs-s)}
+.r14-phone .cui-status,.r14-phone .cui-island{z-index:3}
+/* A change of brand sweeps across the phone in the new brand's colour. */
+.r14-wipe{position:absolute;inset:0;z-index:5;display:none;pointer-events:none}
+.r14-phone .cui-status{color:var(--t-ink)}
+.r14-phone [data-card]{position:relative}
+.r14-phone .r13-title{font-family:var(--t-title);font-weight:var(--t-title-weight)}
+
+/* The partner's own app, behind. */
+.r14-app{position:absolute;inset:0;display:flex;flex-direction:column;padding:54px 16px 0;background:var(--t-app)}
+/* fern, the dark green brand after Oura: its app sits on a photo (Unsplash,
+   Philipp Hubert), its tiles dark glass over it. */
+.r14-phone[data-brand="fern"] .r14-app{background:#0E2A1C url(/brand/photography/studio-green-blur.webp) center/cover no-repeat}
+.r14-app-head{display:flex;justify-content:space-between;align-items:center;height:34px}
+.r14-avatar{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:var(--t-app-card);font-size:var(--fs-xs);font-weight:600;letter-spacing:.02em}
+.r14-app-hello{margin:14px 0 2px;font:var(--t-title-weight) var(--fs-l)/1.15 var(--t-title);letter-spacing:-.015em}
+.r14-app-date{margin:0;font-size:var(--fs-s);color:var(--t-muted)}
+.r14-app-tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
+.r14-app-tiles div{display:grid;gap:6px;padding:12px;border-radius:var(--t-r);background:var(--t-app-card)}
+.r14-app-tiles small{font-size:var(--fs-xs);color:var(--t-muted)}
+.r14-app-tiles b{display:flex;align-items:center;gap:4px;font:var(--t-title-weight) var(--fs-m)/1 var(--t-title);letter-spacing:-.01em}
+.r14-app-tiles b svg{width:13px;height:13px;color:var(--t-accent)}
+.r14-app-care{display:flex;align-items:center;gap:10px;margin-top:8px;padding:12px;border-radius:var(--t-r);background:var(--t-app-card)}
+.r14-app-care>svg:first-child{width:18px;height:18px;color:var(--t-accent)}
+.r14-app-care span{display:grid;flex:1;gap:1px}
+.r14-app-care b{font-size:var(--fs-s);font-weight:500}
+.r14-app-care small{font-size:var(--fs-xs);color:var(--t-muted)}
+.r14-app-care>svg:last-child{width:14px;height:14px;color:var(--t-muted)}
+.r14-app-tabs{display:flex;justify-content:space-around;margin:auto -16px 0;padding:10px 8px 26px;background:var(--t-app-card)}
+.r14-app-tabs span{display:grid;justify-items:center;gap:3px;font-size:var(--fs-xs);color:var(--t-muted)}
+.r14-app-tabs span.is-on{color:var(--t-accent)}
+.r14-app-tabs svg{width:18px;height:18px}
+
+/* Counsel, as a sheet over the app: the partner's logo stays on the app
+   behind it, muted as the sheet comes up (the scrim; animations.js). */
+.r14-scrim{position:absolute;inset:0;z-index:1;background:rgb(0 0 0 / .22);opacity:0;pointer-events:none}
+.r14-sheet{position:absolute;top:21%;left:0;right:0;bottom:0;z-index:2;display:flex;flex-direction:column;padding:6px 14px calc(var(--cui-compose-height) + var(--cui-compose-bottom) + 10px);border-radius:24px 24px 0 0;background:var(--t-bg);box-shadow:0 -10px 30px rgb(0 0 0 / .14);overflow:hidden}
+.r14-sheet-head{display:grid;grid-template-columns:26px 1fr 26px;align-items:center;padding:12px 0 6px;text-align:center}
+.r14-sheet .r13-title{font-size:var(--fs-m);line-height:1.2}
+.r14-grabber{position:absolute;top:0;left:50%;width:36px;height:4px;margin-left:-18px;border-radius:4px;background:color-mix(in srgb,var(--t-ink) 22%,transparent)}
+.r14-sheet-head .r13-title{grid-column:2}
+.r14-sheet-head .r13-close{grid-column:3}
+
+/* Made-up partner logos (not Counsel's); the picker's brand shows its own. */
+.r14-logos{display:flex;align-items:center;min-width:0}
+.r14-logo{display:none;align-items:center;gap:5px;color:var(--t-ink);white-space:nowrap}
+.r14-phone[data-brand="sky"] .r14-logo[data-brand="sky"],.r14-phone[data-brand="fern"] .r14-logo[data-brand="fern"],.r14-phone[data-brand="clay"] .r14-logo[data-brand="clay"]{display:inline-flex}
+.r14-logo svg{width:18px;height:18px}
+.r14-logo[data-brand="fern"] b{font:600 15px/1 "GT America",sans-serif;letter-spacing:-.02em}
+.r14-logo[data-brand="sky"] b{font:500 var(--fs-xs)/1 "GT America",sans-serif;letter-spacing:.2em}
+.r14-logo[data-brand="clay"] svg{width:20px;height:20px}
+.r14-chat{display:flex;flex-direction:column;gap:var(--t-gap);padding:var(--t-gap) 2px 0}
+.r14-sheet .r13-member{align-self:flex-end;padding:calc(var(--t-pad) - 2px) calc(var(--t-pad) + 1px)}
+/* Counsel's platform composer (counsel-platform-composer.css, as on Home),
+   in the app's look: the banner tab, the field half inside it, a round send. */
+.r14-phone{--cui-compose-height:calc((100cqw - 2 * var(--cui-inset)) * 165 / 622)}
+.r14-sheet>.cp-composer{--cp-surface:var(--t-compose);position:absolute;left:var(--cui-inset);right:var(--cui-inset);bottom:var(--cui-compose-bottom);z-index:1;width:auto;color:var(--t-muted);font-family:var(--t-font)}
+.r14-sheet .cp-composer .cp-banner-label{color:var(--t-ink)}
+.r14-sheet .cp-composer .cp-field{border-color:var(--t-line);background:var(--t-field)}
+.r14-sheet .cp-composer :is(.cp-placeholder,.cp-attachment){color:var(--t-muted)}
+.r14-sheet .cp-composer .cp-send{background:var(--t-accent);color:var(--t-send-ink)}
+/* The doctors are photos, not the reference crop, so they sit on any brand's surface. */
+.r14-sheet .cp-composer .cp-portraits{display:flex;align-items:center;width:auto;background:none}
+.r14-sheet .cp-composer .cp-portraits img{width:calc(35 * var(--cp-u));height:calc(35 * var(--cp-u));margin-right:calc(-9 * var(--cp-u));border:calc(3 * var(--cp-u)) solid var(--cp-surface);border-radius:50%;object-fit:cover}
+.r14-sheet .cp-composer .cp-portraits img:last-child{margin-right:0}
+.r14-sheet .cp-composer .r12-badge[data-for="doctors"]{top:-6px;left:-8px}
+/* A change of look is instant: a crossfade from light to dark passes through
+   a grey where the text disappears (Hunter, Oct 14: flicker). */
+
+/* Callouts sit on the dark ground: light hairlines and words. */
+.r14-rig .r12-call{z-index:2}
+.r14-rig .r12-dot{background:var(--green-2)}
+.r14-rig :is(.r12-wire,.r12-wire::after){background:rgb(219 237 216 / .45)}
+.r14-rig .r12-label{color:var(--green-1)}
+.r14-rig .r12-label span{color:rgb(219 237 216 / .62)}
+
+/* The member's data, as the partner's app shows it. */
+.r14-data{display:grid;gap:4px;padding:calc(var(--t-pad) - 1px) calc(var(--t-pad) + 1px);border-radius:var(--t-r);background:var(--t-card)}
+.r14-data-head{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:var(--fs-s)}
+.r14-data-head b{font-weight:500}
+.r14-data-head small{font-size:var(--fs-xs);color:var(--t-muted)}
+.r14-data-row{display:flex;align-items:flex-end;gap:5px}
+.r14-data-row strong{font:var(--t-title-weight) var(--fs-l)/1 var(--t-title);letter-spacing:-.02em}
+.r14-data-row>span:not(.r14-bars){margin-bottom:2px;font-size:var(--fs-xs);color:var(--t-muted)}
+.r14-bars{display:flex;align-items:flex-end;gap:4px;height:32px;margin-left:auto}
+.r14-bars i{width:6px;height:calc(var(--n) * 3px);background:color-mix(in srgb,var(--t-accent) 32%,var(--t-card))}
+.r14-bars i.is-today{background:var(--t-accent)}
+.r14-data-note{font-size:var(--fs-xs);color:var(--t-muted)}
+/* A care action. */
+.r14-action{display:flex;align-items:center;gap:10px;padding:calc(var(--t-pad) - 3px) var(--t-pad);border-radius:var(--t-r);background:var(--t-accent);color:var(--t-send-ink)}
+.r14-action-icon{display:grid;flex:none;place-items:center;width:28px;height:28px;border-radius:50%;background:color-mix(in srgb,var(--t-send-ink) 16%,transparent);color:var(--t-send-ink)}
+.r14-action-icon svg{width:15px;height:15px}
+.r14-action-text{display:grid;gap:1px}
+.r14-action-text b{font-size:var(--fs-s);font-weight:500}
+.r14-action-text small{font-size:var(--fs-xs);color:color-mix(in srgb,var(--t-send-ink) 72%,transparent)}
+.r14-action>svg{width:14px;height:14px;margin-left:auto;color:color-mix(in srgb,var(--t-send-ink) 72%,transparent)}
+.r14-key{margin:40px auto 0}
+
+/* The picker, above the phone and no wider than it: two housed pills,
+   typeface and brand, each a timed tab. No borders. */
+.r14-picker{display:flex;justify-content:center;gap:6px;width:min(100%,340px);margin:0 auto 20px}
+.r14-pick{position:relative;display:flex;gap:2px;padding:3px;border-radius:999px;background:#234635}
+/* One highlight per pill, sliding to the chosen option. It is a timed tab:
+   the chosen option's time runs out as a sweep across the highlight, which
+   drains away as it moves on (animations.js sets --progress and --origin). */
+.r14-thumb{position:absolute;top:3px;bottom:3px;left:0;width:0;border-radius:50%;background:var(--green-1);overflow:hidden;pointer-events:none}
+.r14-picker.is-ready .r14-thumb{transition:transform .45s cubic-bezier(.2,.8,.2,1),width .45s cubic-bezier(.2,.8,.2,1)}
+.r14-thumb::after{content:'';position:absolute;inset:0;background:rgb(0 84 52 / .16);transform:scaleX(var(--progress,0));transform-origin:var(--origin,left) center}
+.r14-pick button{position:relative;z-index:1;display:grid;place-items:center;width:32px;height:32px;padding:0;border:0;border-radius:50%;background:transparent;color:var(--green-1);cursor:pointer;transition:background-color .2s,color .3s}
+.r14-pick button:not([aria-checked="true"]):hover{background:rgb(219 237 216 / .1)}
+.r14-pick button[aria-checked="true"]{color:var(--green-9)}
+.r14-pick button:focus-visible{outline:2px solid var(--green-2);outline-offset:2px}
+.r14-pick-font span{font-size:14px;line-height:1}
+/* A soft circle behind each colour, so the dark navy reads on the pill. */
+.r14-pick-brand i{display:block;width:16px;height:16px;border-radius:50%;box-shadow:0 0 0 2.5px rgb(219 237 216 / .2)}
+.r14-key p{color:rgb(219 237 216 / .62)!important}
+.r14-key li{color:var(--green-1)!important}
+.r14-key li b{background:var(--green-2)!important;color:var(--green-9)!important}
+
+/* Below the hero: the audience pages' components, in their own scope
+   (.channel-v2 .channel-v5 .ap), left-aligned and light. */
+.r14-site{background:var(--gray-1);color:var(--navy);--ink:var(--navy);--sg-ink:var(--navy)}
+.r14-site .v2-heading{margin-left:0;margin-right:auto;text-align:left;align-items:flex-start}
+.r14-site .v2-heading h2{margin-inline:0}
+/* The light section after the green stats rises over it with rounded top
+   corners, as the site's sections stack (32px, as .v2-integration). */
+.r14-site:not(.is-next) .r14-deploy,.r14-site .r14-audiences{position:relative;z-index:1;margin-top:-32px;border-radius:32px 32px 0 0;background:var(--gray-1)}
+/* Where to go next: one filled card per audience page, in the bento's
+   colours, radius and gap. */
+.r14-audience-grid{display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:4px;margin:clamp(40px,5vw,64px) 0 0;padding:0;list-style:none}
+.r14-audience{display:flex;flex-direction:column;gap:14px;height:100%;min-height:260px;padding:30px 28px 28px;border-radius:12px;background:var(--bento-bg);color:var(--bento-ink);text-decoration:none;transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.r14-audience:hover{transform:translateY(-4px)}
+.r14-audience:focus-visible{outline:2px solid var(--navy);outline-offset:3px}
+html[data-counsel-type="v13"] .r14-audience-name{font:300 clamp(26px,2.2vw,32px)/1.12 var(--display-font);letter-spacing:-.01em}
+.r14-audience-line{font-size:16px;line-height:1.45}
+.r14-audience-go{display:inline-flex;align-items:center;gap:6px;margin-top:auto;font-size:15px;font-weight:500}
+.r14-audience-go svg{width:16px;height:16px;transition:transform .25s ease}
+.r14-audience:hover .r14-audience-go svg{transform:translateX(3px)}
+.r14-site .r14-deploy .v2-scope-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.r14-site .r14-deploy .v2-scope-grid p{margin:0;font-size:16px;line-height:1.5;color:var(--theme-text-2,rgb(7 42 28 / .72))}
+.r14-site .v2-scope-marker svg{width:16px;height:16px}
+.r14-impact-body{max-width:28em;margin:18px 0 0;font-size:17px;line-height:1.5}
+
+/* The hero nav's button turns white on hover over the dark green, not navy. */
+html[data-counsel-type="v13"] .studio-v14 nav:not(.cn-fixed):not(.cn-open):not(.cn-mopen) .actions .demo-btn:hover{background:var(--gray-0);color:var(--green-9)}
+
+@media(max-width:900px){
+  .r14-site .r14-deploy .v2-scope-grid{grid-template-columns:minmax(0,1fr)}
+  .r14-audience-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  /* Tablets and phones: each bento tile takes the full width. */
+  .r14-site .v2-value-grid{grid-template-columns:minmax(0,1fr)}
+  .r14-site .v2-value-card{grid-column:1/-1}
+}
+/* Phones: a row for the icons between the nav and the name; one stat per row. */
+@media(max-width:600px){
+  .r14-audience-grid{grid-template-columns:minmax(0,1fr)}
+  .r14-audience{min-height:0}
+  .r14-site .v2-impact .v2-metrics{grid-template-columns:minmax(0,1fr)}
+  .r14-site .v2-impact .v2-metric{grid-column:auto}
+  .studio-v14 .r14-copy{justify-content:flex-start;padding-top:150px}
+  .r14-frame,.r14-picker{width:min(100%,320px)}
+}

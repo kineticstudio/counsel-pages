@@ -1,0 +1,140 @@
+/* September 22: the follow-up requests previously blocked by read-only access. */
+
+/* Review pins: the stitch changes color only. Both entry cards share it. */
+@keyframes v2-square-color{0%,100%{background-color:var(--blue-3)}25%{background-color:var(--green-3)}50%{background-color:var(--pink)}75%{background-color:var(--yellow)}}
+.channel-v2 .v2-stitch i{animation-name:v2-square-color;opacity:1;transform:none;scale:1}
+
+/* Four upright chips circle the fixed Counsel mark once every 84 seconds. */
+.v2-context-world{container-type:inline-size;--orbit-radius:clamp(70px,calc(50cqw - 34px),105px)}
+.v2-context-ring{inset:auto;left:50%;top:50%;width:calc(var(--orbit-radius)*2);height:calc(var(--orbit-radius)*2);translate:-50% -50%}
+.v2-context-you{width:46px;height:46px}
+.v2-context-you img{width:24px;height:29px;filter:brightness(0) invert(1)}
+.v2-context-orbit{position:absolute;inset:0;pointer-events:none;transform:rotate(var(--phase));animation:v2-context-orbit 84s linear infinite;animation-play-state:paused}
+.v2-context-world .v2-context-item{inset:50% auto auto calc(50% + var(--orbit-radius));font-size:clamp(9px,3.8cqw,11px);padding:8px 9px;line-height:1.25;max-width:90px;transform:translate(-50%,-50%) rotate(calc(-1 * var(--phase)));animation:v2-context-upright 84s linear infinite;animation-play-state:paused;opacity:1;scale:1}
+.v2-context-world.v2-motion-started .v2-context-item{animation:v2-context-upright 84s linear infinite;animation-play-state:paused}
+.v2-motion-visible .v2-context-world.v2-motion-active .v2-context-orbit,.v2-motion-visible .v2-context-world.v2-motion-active .v2-context-item{animation-play-state:running}
+@keyframes v2-context-orbit{from{transform:rotate(var(--phase))}to{transform:rotate(calc(var(--phase) + 360deg))}}
+@keyframes v2-context-upright{from{transform:translate(-50%,-50%) rotate(calc(-1 * var(--phase)))}to{transform:translate(-50%,-50%) rotate(calc(-1 * var(--phase) - 360deg))}}
+
+/* A branded entry point, not an empty conversation with a detached composer. */
+.v2-embedded{gap:13px;padding-bottom:22px}
+.v2-embedded>.v2-entry-label{font-size:10px;color:var(--blue-7);margin-top:8px}
+.v2-art-3 .v2-embedded>.v2-entry-card{display:grid;grid-template-columns:20px 1fr;gap:9px;padding:17px 12px;background:var(--blue-1)}
+.v2-entry-card>.v2-stitch{grid-column:1;align-self:center}
+.v2-embedded .v2-entry-card>b{font:400 15px/1.2 var(--body-font);align-self:center}
+.v2-embedded .v2-entry-card>span:not(.v2-stitch){grid-column:1/-1;font-size:10px}
+.v2-embedded .v2-entry-card .v2-entry-action{display:flex;align-items:center;justify-content:space-between;gap:6px;margin-top:12px;padding:11px 9px;background:var(--blue-9);color:var(--gray-0);border-radius:8px;font-size:11px}
+.v2-entry-action svg{width:15px;height:15px;flex:none}
+
+/* Home V13 FAQ treatment: same type roles, question / weave / answer order,
+   chevron, inset hover, dimming and open/close timing. */
+.ci-item{position:relative}
+.ci-item .ci-tab{width:100%;padding:22px 0;border:0;color:var(--blue-9);background:none}
+.ci-item .ci-tab:last-child{border:0}
+.ci-item .ci-tab-heading{display:grid;grid-template-columns:1fr 24px;gap:12px;font:300 var(--type-xs)/var(--leading-heading) var(--display-font);letter-spacing:var(--tracking-display);text-wrap:balance}
+.ci-item .ci-tab[aria-selected="false"] .ci-tab-heading{color:inherit}
+.ci-item .ci-tab-heading>.ci-tab-label{font:inherit;color:inherit;transition:transform 240ms ease}
+.ci-item .ci-tab-heading>.ci-chevron{display:grid;place-items:center;width:24px;height:24px;color:inherit;transition:transform 320ms cubic-bezier(.2,.8,.2,1)}
+.ci-chevron svg{width:14px;height:14px}
+.ci-item.is-open .ci-chevron{transform:rotate(180deg)}
+.ci-item.is-thread .ci-tab-label{transform:translateX(8px)}
+.ci-rule{position:relative;height:2px}
+.ci-rule::before{content:'';position:absolute;inset:0;border-radius:3px;background:rgb(19 32 69 / .14);transition:opacity 300ms ease}
+.ci-weave{position:absolute;left:0;right:0;bottom:-4px;height:10px;pointer-events:none;opacity:0;clip-path:inset(0 100% 0 0);transition:opacity 200ms ease,clip-path 900ms cubic-bezier(.6,0,0,1)}
+.ci-weave svg{display:block;width:100%;height:10px}
+.ci-item.is-thread .ci-rule::before{opacity:0}
+.ci-item.is-thread .ci-weave{opacity:1;clip-path:inset(0)}
+.ci-item>.ci-tab,.ci-rule,.ci-answer{transition:opacity 240ms ease}
+.ci-tabs:has(.is-thread) .ci-item:not(.is-thread)>.ci-tab,.ci-tabs:has(.is-thread) .ci-item:not(.is-thread)>.ci-rule,.ci-tabs:has(.is-thread) .ci-item:not(.is-thread)>.ci-answer{opacity:.42}
+.ci-item .ci-answer{display:grid;grid-template-rows:0fr;transition:grid-template-rows 560ms cubic-bezier(.2,.8,.2,1),opacity 240ms ease}
+.ci-item.is-open .ci-answer{grid-template-rows:1fr}
+.ci-answer>div{min-height:0;overflow:hidden}
+.ci-item .ci-tab-copy:not([hidden]){padding:20px 36px 26px 0;margin:0;font:400 var(--type-body)/var(--leading-body) var(--body-font);letter-spacing:var(--tracking-body);color:var(--blue-9);max-width:640px;opacity:0;transform:translateY(-8px);transition:opacity 320ms ease,transform 420ms cubic-bezier(.2,.8,.2,1)}
+.ci-item.is-open .ci-tab-copy{opacity:1;transform:none;transition:opacity 420ms ease 140ms,transform 560ms cubic-bezier(.2,.8,.2,1) 80ms}
+
+/* One attached top-to-bottom escalation stack. White backs every stage. */
+.ce-connected-stack{background:var(--gray-0);border-radius:22px;padding-bottom:10px;overflow:hidden}
+.ce-conversation-stack{width:100%;max-width:none}
+.ce-query{box-shadow:none;border-radius:22px 22px 0 0;padding:20px}
+.ce-ai{margin:0 10px;border-radius:16px}
+.ce-pathway-reveal,.ce-outcome-reveal{margin:0}
+.ce-pathway-content{padding:16px 10px 0}
+.ce-outcome-content{padding:16px 10px 8px}
+.ce-pathway{min-height:112px;border-radius:12px;font-size:12px;padding:15px 7px}
+.ce-outcomes>span{background:var(--blue-1);border-radius:10px;font-size:11px;min-height:57px}
+.ce-canvas{min-height:560px}
+
+/* Clear access story, with copy on the same blue ground. */
+.v2-value-0{background:var(--blue-1)}
+.v2-value-0 .v2-value-art{background:transparent;padding:35px;min-height:370px}
+.v2-access-frontdoor{width:100%;max-width:480px;display:grid;justify-items:center;padding-top:20px}
+.v2-access-questions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.v2-access-questions .channel-chip{font-size:11px}
+.v2-access-entry{width:100%;max-width:350px;background:var(--gray-0);border-radius:20px 20px 0 0;padding:25px;display:grid;gap:12px;position:relative}
+.v2-access-entry>span{font-size:11px;color:var(--blue-7)}
+.v2-access-entry>strong{font:300 30px/1.15 var(--display-font);letter-spacing:-.02em}
+.v2-access-input{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px;background:var(--blue-1);border-radius:10px;font-size:12px;color:var(--blue-7);margin-top:7px}
+.v2-access-input>span{display:grid;place-items:center;width:27px;height:27px;background:var(--blue-9);color:var(--gray-0);border-radius:6px;font-size:17px}
+.v2-access-team{display:flex;align-items:center;justify-content:center;gap:12px;max-width:350px;width:100%;padding:16px;background:var(--blue-9);color:var(--gray-0);border-radius:0 0 20px 20px;font-size:12px}
+.v2-access-team .v2-stitch{display:none}
+.v2-access-team .v2-doctors{padding:0;flex:none}
+.v2-access-team .v2-doctors img{width:29px;height:33px;border-radius:8px;border-width:2px;margin:0 -5px}
+.v2-access-options{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%;position:relative;padding-top:32px}
+.v2-access-options::before{content:'';position:absolute;top:0;left:50%;height:16px;width:2px;background:var(--blue-4)}
+.v2-access-options>span{position:relative;padding:12px 5px;background:var(--blue-2);border-radius:9px;font-size:12px;text-align:center}
+.v2-access-options>span::before{content:'';position:absolute;left:50%;bottom:100%;width:2px;height:17px;background:var(--blue-4)}
+.v2-access-options::after{content:'';position:absolute;left:16.67%;right:16.67%;top:15px;height:2px;background:var(--blue-4)}
+
+/* Two seamless chip belts. Duplicate groups are visual only. */
+.v2-value-2 .v2-value-art{padding:20px 0;height:180px}
+.v2-plan-marquee{width:100%;overflow:hidden;display:grid;gap:12px;padding-block:10px}
+.v2-chip-row{overflow:hidden}
+.v2-chip-track{display:flex;width:max-content;animation:v2-chip-drift var(--marquee-time) linear infinite;animation-play-state:paused}
+.v2-chip-row:nth-child(2) .v2-chip-track{animation-direction:reverse}
+.v2-chip-group{display:flex;flex:none;gap:10px;padding-right:10px}
+.v2-chip-group .channel-chip{white-space:nowrap;padding:9px 13px;font-size:13px}
+.v2-motion-visible .v2-plan-marquee.v2-motion-active .v2-chip-track{animation-play-state:running}
+.v2-motion-visible .v2-plan-marquee.v2-motion-active:hover .v2-chip-track,.v2-motion-visible .v2-plan-marquee.v2-motion-active:focus-within .v2-chip-track{animation-play-state:paused}
+.v2-plan-marquee:focus-visible{outline:2px solid var(--blue-9);outline-offset:3px}
+@keyframes v2-chip-drift{to{transform:translateX(-50%)}}
+
+/* More width for the evidence, less height and a two-column reading order. */
+.v2-impact-layout{grid-template-columns:minmax(0,.85fr) minmax(0,1.45fr);gap:7%}
+.v2-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:35px 32px}
+.v2-metric,.v2-metric:nth-child(n+4){grid-column:auto;padding-top:22px}
+.v2-metric>span{font-size:clamp(46px,4vw,58px)}
+.v2-metric h3{font-size:18px;margin:13px 0 9px}
+.v2-metric>p{font-size:15px;line-height:1.5}
+.v2-impact-intro h2{font-size:clamp(34px,3.4vw,48px);margin:0}
+
+/* Sky/photo retain rounded clipping. Only the thread crosses the right gutter. */
+.v2-closing-card{overflow:visible;clip-path:inset(0 calc(-1 * var(--closing-bleed,10vw)) 0 0)}
+.v2-closing-card::before{border-radius:inherit}
+.v2-closing-photo-clip{position:absolute;inset:0;z-index:2;border-radius:inherit;overflow:hidden;pointer-events:none}
+.v2-closing-thread{left:0;right:auto;width:calc(100% + var(--closing-bleed,10vw));transform:none}
+.v2-closing-card .v2-closing-thread{animation-name:v2-closing-followup;transform:none}
+@keyframes v2-closing-followup{0%,100%{transform:translateY(0)}50%{transform:translateY(10px)}}
+@media(max-width:1100px){.v2-value-0 .v2-value-art{padding:28px 22px}.v2-access-questions{gap:6px}.v2-access-team{gap:9px;font-size:11px}}
+@media(max-width:900px){.v2-impact-layout{grid-template-columns:1fr;gap:40px}.v2-impact-intro{position:static}.v2-impact-intro h2{max-width:16em}.v2-integration .ci-experience{align-items:center}}
+@media(max-width:760px){
+  .ci-item .ci-tab{padding:18px 0}.ci-item .ci-tab-copy:not([hidden]){padding:18px 8px 22px 0}
+  .v2-value-0 .v2-value-art{min-height:350px;padding:26px 24px 0}.v2-access-frontdoor{padding:0}
+  .v2-metric:last-child{grid-column:auto}.v2-metric>span{font-size:48px}
+  .v2-closing-photo-clip{position:relative;grid-column:1;grid-row:2;inset:auto;border-radius:0 0 28px 28px;margin-top:-28px}
+  .v2-closing-photo-clip .v2-closing-person{margin:0;left:-2%;width:104%}
+}
+@media(max-width:580px){
+  .v2-embedded{gap:16px;padding:22px 18px}.v2-embedded>.v2-entry-label{font-size:12px}
+  .v2-art-3 .v2-embedded>.v2-entry-card{padding:22px 15px;gap:13px}.v2-embedded .v2-entry-card>b{font-size:17px}
+  .v2-embedded .v2-entry-card>span:not(.v2-stitch){font-size:12px}.v2-embedded .v2-entry-card .v2-entry-action{font-size:13px}
+  .ce-stack{padding:22px 12px}.ce-canvas{min-height:540px}.ce-query{padding:17px 14px}.ce-pathway{font-size:10px;gap:10px;padding:14px 6px}.ce-outcomes>span{font-size:10px;padding:9px 5px}
+  .v2-access-options{gap:8px}.v2-access-options>span{font-size:11px}
+  .v2-access-entry{padding:22px}.v2-access-entry>strong{font-size:28px}
+  .v2-metrics{gap:32px 24px}.v2-metric h3{font-size:17px}.v2-metric>p{font-size:14px}
+}
+@media(max-width:380px){.v2-metrics{grid-template-columns:1fr}.v2-metric>span{font-size:46px}.v2-access-team{gap:8px;font-size:10px}.v2-access-team .v2-doctors img{width:25px;height:29px}.v2-access-entry{padding:18px}.v2-access-options{gap:6px}.v2-access-options>span{font-size:10px}.ce-pathways{gap:5px}.ce-doctors img{width:23px;height:28px}}
+@media(prefers-reduced-motion:reduce){
+  .v2-context-orbit{animation:none}.v2-context-world .v2-context-item{animation:none!important;transform:translate(-50%,-50%) rotate(calc(-1 * var(--phase)))}
+  .ci-item *{transition:none!important}.v2-closing-card .v2-closing-thread{animation:none;transform:none}
+  .v2-chip-track{animation:none;transform:none;width:auto}.v2-chip-group{flex-wrap:wrap;justify-content:center;padding:0 14px;gap:8px;flex:1}.v2-chip-group[aria-hidden="true"]{display:none}.v2-value-2 .v2-value-art{height:auto;min-height:180px}
+}

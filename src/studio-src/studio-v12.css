@@ -1,0 +1,69 @@
+/* Counsel Studio V12, "Anatomy". A light green hero. Loads after
+   centered.css; the app is V5's (studio-v5.css). */
+.studio-v12 .studio-hero{--sg-ink:var(--green-9);--sg-muted:rgb(7 42 28 / .72);--sg-faint:rgb(7 42 28 / .52);background:var(--green-1)}
+.studio-v12 nav:not(.cn-open):not(.cn-fixed){color:var(--green-9);--ink:var(--green-9);--cn-ghost:rgb(7 42 28 / .08)}
+.studio-v12 nav:not(.cn-open):not(.cn-fixed) .cn-burger{color:var(--green-9)}
+.studio-v12 nav:not(.cn-open):not(.cn-fixed) .demo-btn{background:var(--green-9);color:var(--gray-1)}
+.studio-v12 nav:not(.cn-open):not(.cn-fixed) .logo img{filter:brightness(0)}
+html[data-counsel-type="v13"] .studio-v12 .studio-hero .channel-btn.light{background:var(--green-9);color:var(--gray-1)}
+
+/* The app on the centre line, the labels either side (placed by animations.js). */
+.r12-stage{position:relative;display:flex;justify-content:center;padding:clamp(48px,7vh,80px) 0 clamp(80px,11vh,128px)}
+.r12-phone{gap:12px;background:var(--gray-1);box-shadow:0 0 0 8px rgb(255 255 255 / .5),0 40px 80px -40px rgb(7 42 28 / .35)}
+.r12-phone [data-part]{position:relative}
+.r12-phone .r5-chart{height:88px;margin-top:6px}
+.r12-ai{position:relative;padding:2px 6px 0 22px;font-size:13.5px;line-height:1.45}
+.r12-ai p{margin:0}
+.r12-think{position:absolute;left:4px;top:7px;display:grid;grid-template-columns:repeat(3,3px);gap:2px}
+.r12-think i{width:3px;height:3px;background:var(--green-7)}
+.r12-row{display:flex;align-items:center;gap:12px;padding:10px 14px;border-radius:14px;background:var(--gray-0);box-shadow:inset 0 0 0 1px rgb(7 42 28 / .08)}
+.r12-row.is-action{box-shadow:inset 0 0 0 1.5px var(--green-7)}
+.r12-row>svg{flex:none;width:16px;height:16px;margin-left:auto;opacity:.6}
+.r12-doctors{display:flex;flex:none;padding-left:6px}
+.r12-doctors img{width:26px;height:26px;margin-left:-6px;border-radius:50%;border:2px solid var(--gray-0);object-fit:cover}
+.r12-icon{display:grid;flex:none;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--green-1);color:var(--green-7)}
+.r12-icon svg{width:16px;height:16px}
+.r12-row-text{display:grid;gap:1px}
+.r12-row-text b{font-size:13.5px;font-weight:500}
+.r12-row-text small{font-size:11.5px;color:rgb(7 42 28 / .6)}
+
+/* A label: a square on the part, a hairline out to a tick, then the words. */
+.r12-call{position:absolute;display:flex;align-items:center;transform:translateY(-50%)}
+.r12-call.is-left{flex-direction:row-reverse}
+.r12-dot{position:relative;z-index:1;flex:none;width:7px;height:7px;background:var(--green-7)}
+.r12-wire{position:relative;flex:1;height:1px;background:rgb(0 84 52 / .5)}
+.r12-wire::after{content:'';position:absolute;top:-4px;width:1px;height:9px;background:rgb(0 84 52 / .5)}
+.r12-call.is-left .r12-wire::after{left:0}
+.r12-call.is-right .r12-wire::after{right:0}
+.r12-call.is-left .r12-wire{transform-origin:100% 50%}
+.r12-call.is-right .r12-wire{transform-origin:0 50%}
+.r12-label{position:relative;flex:none;width:var(--label,200px);margin:0;padding:0 16px;font-size:15.5px;line-height:1.35;color:var(--green-9)}
+.r12-call.is-left .r12-label{text-align:right}
+/* The side sits above the words, out of the flow, so the hairline meets the words' line. */
+.r12-label span{position:absolute;bottom:100%;left:16px;right:16px;margin-bottom:3px;font-size:12px;color:rgb(7 42 28 / .58)}
+.r12-badge,.r12-key{display:none}
+
+/* Deployment, centred, each point drawn in squares. */
+.r12-points{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,56px);margin:clamp(48px,6vw,80px) 0 0;padding:0;list-style:none}
+.r12-points li{display:flex;flex-direction:column;align-items:center;gap:22px;padding-top:32px;border-top:1px solid var(--sg-rule);text-align:center}
+.r12-points svg{width:min(100%,220px);height:auto;overflow:visible}
+.r12-points p{max-width:22em;margin:0;font-size:16.5px;line-height:1.55;color:var(--sg-muted)}
+.r12-points .r7-line{fill:none;stroke:rgb(0 84 52 / .45);stroke-width:1.5}
+.r12-points .r7-sq{fill:var(--green-3)}
+.r12-points .r7-sq.is-on{fill:var(--green-7)}
+
+/* Phones: no room either side, so the parts are numbered and keyed below. */
+@media(max-width:900px){
+  .r12-stage{flex-direction:column;align-items:center}
+  .r12-call{display:none}
+  .r12-badge{position:absolute;z-index:2;left:-12px;top:-8px;display:grid;place-items:center;width:18px;height:18px;background:var(--green-7);color:var(--gray-0);font:500 10.5px/1 var(--body-font)}
+  .r12-key{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;width:min(100%,440px);margin-top:40px}
+  .r12-key p{margin:0 0 12px;font-size:12.5px;color:rgb(7 42 28 / .6)}
+  .r12-key ul{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+  .r12-key li{display:flex;align-items:flex-start;gap:10px;font-size:14.5px;line-height:1.35;color:var(--green-9)}
+  .r12-key li b{display:grid;flex:none;place-items:center;width:18px;height:18px;background:var(--green-7);color:var(--gray-0);font:500 10.5px/1 var(--body-font)}
+  .r12-points{grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:580px){
+  .r12-phone{width:min(100%,310px)}
+}

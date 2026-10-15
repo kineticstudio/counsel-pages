@@ -8,7 +8,8 @@ import Lenis from '../vendor/lenis-1.3.26/lenis.mjs';
 import {careWeave} from '../channel-v2-src/care-accordion.js';
 import {createWeavePattern} from '../ui-src/counsel-weave-pattern.js';
 import {createWaveform,createField,STUDIO_COLORS} from '../studio-v1-src/weave-field.js';
-import {createPopulation,createStory,createFlow,createRepaint,createSignals} from '../studio-src/squares.js';
+import {createPopulation,createStory,createFlow,createRepaint,createSignals,createPictograms} from '../studio-src/squares.js';
+import {LUCIDE} from '../ui-src/counsel-icons.js';
 
 const {gsap,ScrollTrigger,CustomEase}=window;
 const NS='http://www.w3.org/2000/svg';
@@ -1655,3 +1656,509 @@ function animateStudioV13Label(env){
     });
   }else $$('.r12-key li',section).forEach(item=>rise(env,item,18));
 }
+
+/* ---- V14 (Hunter, 2026-10-14) ---- */
+export function mountStudioV14(){return mountStudioRoundThree(env=>{animateStudioV14Intro(env);animateStudioV14Hero(env);animateStudioV14Build(env);animateStudioV14Picker(env);animateStudioV14Stats(env);});}
+
+/** Counsel Studio V15 (Denny, Oct 14): V14 with V3's ambient, random motion
+ *  in the hero in place of the icons (on V3's 14px grid), and the brand
+ *  switcher holding still once the annotations start. */
+export function mountStudioV15(){return mountStudioRoundThree(env=>{animateStudioV14Intro(env,{pitch:14,dot:5,alpha:.12});animateStudioV15Hero(env);animateStudioV14Build(env);animateStudioV14Picker(env,{holdAfterBuild:true});animateStudioV14Stats(env);});}
+
+/** V3's population over the hero's grid: a slow band of light crosses it and
+ *  single squares light up and fade, at random. The grid itself is the page
+ *  background (CSS), so the canvas draws only the light. Starts once the
+ *  grid has built on load; still with reduced motion. */
+function animateStudioV15Hero(env,{band=true,spark=.9}={}){
+  const hero=$('.studio-v14 .studio-hero'),canvas=$('.r14-field',hero),build=$('.r14-build',hero);if(!hero||!canvas)return;
+  const size=()=>hero.style.setProperty('--r14-field-h',`${(build?build.getBoundingClientRect().top:hero.getBoundingClientRect().bottom)-hero.getBoundingClientRect().top}px`);
+  size();
+  const field=createPopulation(canvas,{color:window.CounselColors.green2,pitch:14,size:5,base:0,spark,band});
+  env.resize(hero,()=>{size();field.resize();});
+  env.cleanups.push(()=>{hero.style.removeProperty('--r14-field-h');canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);});
+  if(env.reduce)return;
+  const state={t:0};
+  const loop=gsap.to(state,{t:'+=100000',duration:100000,ease:'none',repeat:-1,paused:true,onUpdate:()=>field.render({time:state.t,reveal:1})});
+  inView(env,loop,canvas,0);
+  if(env.stage.scrollTop<=40)gsap.set(state,{t:-V14_INTRO.dots});
+  env.cleanups.push(()=>loop.kill());
+}
+
+/** Counsel Studio V17 (Javi, Oct 14): V15's hero (random squares only, no
+ *  band of light; Hunter, Oct 14: the grid and the lit squares quieter) with Counsel's data callouts taking turns beside the type,
+ *  the hero's bottom edge as a slow wave, one brand toggle (it sets the type
+ *  too) and the switcher holding once the annotations start. */
+export function mountStudioV17(){return mountStudioRoundThree(env=>{animateStudioV14Intro(env,{pitch:14,dot:5,alpha:.07});animateStudioV15Hero(env,{band:false,spark:.45});animateStudioV17Callouts(env);animateStudioV17Edge(env);animateStudioV14Build(env);animateStudioV14Picker(env,{holdAfterBuild:true});animateStudioV14Stats(env);});}
+
+/** The data callouts (V17 and V18): every couple of seconds one appears in
+ *  a random clear spot on the hero's 14px grid (not beside the type, not
+ *  near the last one, not on another card), holds while its numbers and
+ *  marks count up, then leaves; at most two show. Each frame is drawn from
+ *  the clock, so a card can never be left half shown. style 'clean' (V17)
+ *  rises in and lifts out; 'field' (V18) is built from the dot field: the
+ *  squares under it light up first (drawn by the hero, env.v17bursts) and
+ *  the card resolves in steps. Hidden under 1100px. Reduced motion: two
+ *  cards, still. */
+function animateStudioV17Callouts(env,{style='clean',edges=false}={}){
+  const hero=$('.studio-v14 .studio-hero'),layer=$('.r17-callouts',hero);if(!hero||!layer)return;
+  const cards=$$('.r17-card',layer),copy=$('.r14-copy',hero),build=$('.r14-build',hero),nav=$('nav',hero);
+  const P=14,STEP=2.7,IN=style==='field'?1:.7,OUT_AT=4.6,OUT=.5,LIFE=OUT_AT+OUT;
+  const parts=cards.map(card=>({counts:$$('[data-count]',card).map(el=>[el,Number(el.dataset.count)]),arc:$('.r17-arc',card),marker:$('.r17-marker',card),bars:$$('.r17-bars i',card),bar:$('.r17-progress i',card)}));
+  const ease3=k=>1-Math.pow(1-k,3),ease2=k=>1-Math.pow(1-k,2),clamp01=k=>Math.min(1,Math.max(0,k));
+  let active=[],turn=0,last=null,next=!env.reduce&&env.stage.scrollTop<=40?V14_INTRO.dots+.6:.4;
+  env.v17bursts=[];
+  // Values at k (0 to 1): numbers, ring, marker, bars, progress.
+  const fill=(i,k)=>{
+    const part=parts[i];
+    part.counts.forEach(([el,to])=>{el.textContent=Math.round(to*k).toLocaleString('en-US');});
+    if(part.arc)part.arc.style.strokeDashoffset=String(100-70*k);
+    if(part.marker)part.marker.style.left=`${81*k}%`;
+    part.bars.forEach((bar,n)=>{bar.style.transform=`scaleY(${clamp01(k*1.4-n*.06)})`;});
+    if(part.bar)part.bar.style.transform=`scaleX(${.78*k})`;
+  };
+  const hide=a=>{gsap.set(cards[a.i],{visibility:'hidden',clearProps:'clipPath,transform'});};
+  // A clear spot: on the grid, inside the hero, above the switcher (and the
+  // dots' wave in V18), off the type, away from the other cards.
+  const pick=i=>{
+    const box=hero.getBoundingClientRect(),card=cards[i],w=card.offsetWidth,h=card.offsetHeight;
+    // V19 (Denny): well clear of the title and body, out at the edges.
+    const gap=edges?80:28;
+    const zones=[...copy.children].map(child=>{const r=child.getBoundingClientRect();return{x:r.left-box.left-gap,y:r.top-box.top-20,r:r.right-box.left+gap,b:r.bottom-box.top+20};});
+    active.forEach(o=>zones.push({x:o.x-40,y:o.y-40,r:o.x+o.w+40,b:o.y+o.h+40}));
+    const top=(nav?nav.getBoundingClientRect().bottom-box.top:96)+28;
+    const floor=build.getBoundingClientRect().top-(Number(gsap.getProperty(build,'y'))||0)-box.top-24;
+    const wave=env.v16yAt;
+    const spots=[];
+    for(let y=Math.ceil(top/P)*P;y+h<=floor;y+=P)for(let x=Math.ceil(40/P)*P;x+w<=box.width-40;x+=P){
+      if(zones.some(z=>x<z.r&&x+w>z.x&&y<z.b&&y+h>z.y))continue;
+      if(wave&&y+h+P>Math.min(wave(x),wave(x+w/2),wave(x+w)))continue;
+      if(edges&&x>40+P*4&&x+w<box.width-40-P*4)continue;
+      spots.push({x,y,w,h});
+    }
+    if(!spots.length)return null;
+    const far=last?spots.filter(s=>Math.hypot(s.x-last.x,s.y-last.y)>320):spots;
+    const pool=far.length?far:spots;
+    return pool[Math.floor(Math.random()*pool.length)];
+  };
+  const draw=(a,age)=>{
+    const card=cards[a.i];
+    if(style==='field'){
+      // In steps, like squares filling; out the same way.
+      const inK=Math.ceil(clamp01((age-.35)/.6)*8)/8,outK=Math.ceil(clamp01((age-OUT_AT)/OUT)*8)/8;
+      gsap.set(card,{x:a.x,y:a.y,clipPath:outK>0?`inset(0% 0% ${outK*100}% 0% round 12px)`:`inset(${(1-inK)*100}% 0% 0% 0% round 12px)`});
+      fill(a.i,ease2(clamp01((age-.6)/1.1)));
+    }else{
+      const inK=ease3(clamp01(age/IN)),outK=clamp01((age-OUT_AT)/OUT)**2;
+      gsap.set(card,outK>0?{x:a.x,y:a.y-10*outK,clipPath:`inset(0% 0% ${outK*100}% 0% round 12px)`}:{x:a.x,y:a.y+16*(1-inK),clipPath:`inset(${(1-inK)*100}% 0% 0% 0% round 12px)`});
+      fill(a.i,ease2(clamp01((age-.15)/1.1)));
+    }
+  };
+  const state={t:0};
+  const tick=()=>{
+    const t=state.t;
+    if(innerWidth<1100){active.forEach(hide);active=[];env.v17bursts=[];return;}
+    if(t>=next&&active.length<2){
+      const free=cards.map((_,i)=>i).filter(i=>!active.some(o=>o.i===i));
+      const i=free.find(n=>n>=turn%cards.length)??free[0];
+      const spot=i==null?null:pick(i);
+      if(spot){active.push({i,...spot,start:t,seed:Math.random()*1000});last=spot;turn=i+1;gsap.set(cards[i],{visibility:'visible'});fill(i,0);}
+      next=t+STEP;
+    }
+    active=active.filter(o=>{const age=t-o.start;if(age>=LIFE){hide(o);return false;}draw(o,age);return true;});
+    env.v17bursts=active.map(o=>({x:o.x,y:o.y,w:o.w,h:o.h,age:t-o.start,seed:o.seed}));
+  };
+  env.cleanups.push(()=>{active.forEach(hide);active=[];env.v17bursts=[];parts.forEach((_,i)=>fill(i,1));cards.forEach(card=>gsap.set(card,{clearProps:'all'}));});
+  if(env.reduce){
+    const show=()=>{active.forEach(hide);active=[];if(innerWidth<1100)return;[0,1].forEach(i=>{const spot=pick(i);if(!spot)return;active.push({i,...spot});last=spot;gsap.set(cards[i],{visibility:'visible',x:spot.x,y:spot.y});fill(i,1);});};
+    show();env.resize(hero,show);return;
+  }
+  const loop=gsap.to(state,{t:'+=100000',duration:100000,ease:'none',repeat:-1,paused:true,onUpdate:tick});
+  inView(env,loop,hero,0);
+  env.cleanups.push(()=>loop.kill());
+}
+
+/** The hero's bottom edge as a wave (Javi, Oct 14: bring the wave in here,
+ *  not as a straight cut): two slow swells roll along it. Still with
+ *  reduced motion. */
+function animateStudioV17Edge(env,{smooth=false}={}){
+  const hero=$('.studio-v17 .studio-hero'),svg=$('.r17-edge',hero);if(!hero||!svg)return;
+  const path=$('path',svg);let W=0;const H=smooth?108:84;
+  const draw=t=>{
+    W=svg.clientWidth||hero.clientWidth;svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+    let d=`M0 ${H}`;
+    // V19 (Denny, Javi): fewer, bigger, more pronounced turns, about one and
+    // a half across the page, rolling slowly.
+    for(let x=0;x<=W+24;x+=24){const y=smooth?58+30*Math.sin(Math.PI*2*x/(W*.72)-t*.28+.6)+5*Math.sin(Math.PI*2*x/(W*.36)+t*.18):44+16*Math.sin(x/300-t*.45)+9*Math.sin(x/137+t*.3+1.1);d+=` L${Math.min(x,W)} ${y.toFixed(1)}`;}
+    path.setAttribute('d',d+` L${W} ${H} Z`);
+  };
+  const state={t:0};draw(0);
+  env.resize(hero,()=>draw(state.t));
+  if(env.reduce)return;
+  const loop=gsap.to(state,{t:'+=100000',duration:100000,ease:'none',repeat:-1,paused:true,onUpdate:()=>draw(state.t)});
+  inView(env,loop,svg,0);
+  env.cleanups.push(()=>loop.kill());
+}
+
+/** Counsel Studio V19 (Oct 14): V17 with Denny's and Javi's notes: the
+ *  callouts out at the edges, clear of the title and body; the hero's
+ *  bottom wave with fewer, bigger turns; a crossfade between brands. */
+export function mountStudioV19(){return mountStudioRoundThree(env=>{animateStudioV14Intro(env,{pitch:14,dot:5,alpha:.07});animateStudioV15Hero(env,{band:false,spark:.45});animateStudioV17Callouts(env,{edges:true});animateStudioV17Edge(env,{smooth:true});animateStudioV14Build(env);animateStudioV14Picker(env,{holdAfterBuild:true,fade:true});animateStudioV14Stats(env);});}
+
+/** Counsel Studio V18 (Oct 14): V16's hero (squares only, ending on the
+ *  moving wave above the switcher; quieter, as V17) with the data callouts growing out of the
+ *  dot field, plain-label annotations, one brand toggle (it sets the type
+ *  too) and the switcher holding once the annotations start. */
+export function mountStudioV18(){return mountStudioRoundThree(env=>{animateStudioV14Intro(env,{dots:false});animateStudioV16Hero(env,{bursts:true,base:.07,spark:.45,glow:.35});animateStudioV17Callouts(env,{style:'field'});animateStudioV14Build(env,{plain:true});animateStudioV14Picker(env,{holdAfterBuild:true});animateStudioV14Stats(env);});}
+
+/** Counsel Studio V16 (Hunter, Oct 14): V15, but the field of squares ends
+ *  on a wave across the hero (after his sketch): it rises at the left, dips
+ *  just above the switcher and climbs to the top right, so the phone sits on
+ *  plain green. */
+export function mountStudioV16(){return mountStudioRoundThree(env=>{animateStudioV14Intro(env,{dots:false});animateStudioV16Hero(env);animateStudioV14Build(env,{plain:true});animateStudioV14Picker(env,{holdAfterBuild:true});animateStudioV14Stats(env);});}
+
+/** The field, drawn whole on the canvas: V3's random squares (no band of
+ *  light), every square either fully in or out along the wave (no clipping,
+ *  no fade). On load the squares switch on one by one, roughly top-down. */
+function animateStudioV16Hero(env,{bursts=false,base=.12,spark=.9,glow=.55}={}){
+  const hero=$('.studio-v14 .studio-hero'),canvas=$('.r14-field',hero),build=$('.r14-build',hero);if(!hero||!canvas||!build)return;
+  // The wave: through points tied to the top of the switcher (dip) and the
+  // hero's width; a smooth curve through them (Catmull-Rom).
+  let wave=[],deepest=0;
+  const shape=()=>{
+    // Where the switcher rests (not where it waits, lower, for its rise on load).
+    const box=hero.getBoundingClientRect(),W=box.width,rest=build.getBoundingClientRect().top-(Number(gsap.getProperty(build,'y'))||0),dip=rest-box.top-(env.desktop?56:40);
+    const lift=Math.min(1,W/1200);
+    wave=[[-.05,dip+90*lift],[0,dip+75*lift],[.22,dip-85*lift],[.47,dip],[.83,dip-100*lift],[1,dip-260*lift],[1.05,dip-300*lift]].map(([x,y])=>[x*W,y]);
+    deepest=Math.max(...wave.map(point=>point[1]));
+    hero.style.setProperty('--r14-field-h',`${Math.ceil(deepest+44)}px`);
+  };
+  const yAt=x=>{
+    let i=1;while(i<wave.length-3&&x>wave[i+1][0])i++;
+    const [p0,p1,p2,p3]=[wave[i-1],wave[i],wave[i+1],wave[i+2]],t=Math.min(1,Math.max(0,(x-p1[0])/(p2[0]-p1[0]||1)));
+    const t2=t*t,t3=t2*t;
+    return .5*((2*p1[1])+(-p0[1]+p2[1])*t+(2*p0[1]-5*p1[1]+4*p2[1]-p3[1])*t2+(-p0[1]+3*p1[1]-3*p2[1]+p3[1])*t3);
+  };
+  shape();
+  // The callouts keep above the wave (its lowest swell).
+  env.v16yAt=x=>yAt(x)-28;
+  // No band of light (Hunter: it read as a gradient); only single squares, at random.
+  // The edge moves like a wave (Hunter, Oct 14): two slow swells roll along
+  // the curve, so squares at the edge come and go. Still with reduced motion.
+  let now=0;
+  const swell=x=>env.reduce?0:16*Math.sin(x/170-now*.9)+9*Math.sin(x/83+now*.55+1.3);
+  const field=createPopulation(canvas,{color:window.CounselColors.green2,pitch:14,size:5,base,spark,scatter:true,band:false,sparkRate:.006,mask:(x,y)=>y<yAt(x)+swell(x)});
+  const state={t:0,reveal:env.reduce||env.stage.scrollTop>40?1:0};
+  // V18: around each callout the squares light up first and go out after
+  // (env.v17bursts, from animateStudioV17Callouts), in random order.
+  const ctx=canvas.getContext('2d'),hash=(x,y,s)=>{const v=Math.sin(x*127.1+y*311.7+s*74.7)*43758.5453;return v-Math.floor(v);};
+  const burst=()=>{
+    (env.v17bursts||[]).forEach(b=>{
+      const c0=Math.round(b.x/14)-1,r0=Math.round(b.y/14)-1,c1=Math.round((b.x+b.w)/14),r1=Math.round((b.y+b.h)/14);
+      ctx.fillStyle=window.CounselColors.green2;
+      for(let r=r0;r<=r1;r++)for(let c=c0;c<=c1;c++){
+        const h=hash(c,r,b.seed),h2=hash(r,c,b.seed+1);
+        const on=(b.age<1.4&&h<b.age/.45&&h2>(b.age-.9)/.5)||(b.age>4.5&&h<(b.age-4.5)/.35&&h2>(b.age-4.7)/.45);
+        if(on){ctx.globalAlpha=glow;ctx.fillRect(c*14,r*14,5,5);}
+      }
+    });
+    ctx.globalAlpha=1;
+  };
+  const draw=()=>{now=Math.max(0,state.t);field.render({time:now,reveal:state.reveal});if(bursts)burst();};
+  env.resize(hero,()=>{shape();field.resize();draw();});
+  env.cleanups.push(()=>{hero.style.removeProperty('--r14-field-h');canvas.getContext('2d').clearRect(0,0,canvas.width,canvas.height);});
+  draw();
+  if(env.reduce)return;
+  if(state.reveal<1)gsap.to(state,{reveal:1,duration:V14_INTRO.dots,ease:'power1.in',onUpdate:draw});
+  const loop=gsap.to(state,{t:'+=100000',duration:100000,ease:'none',repeat:-1,paused:true,onUpdate:draw});
+  inView(env,loop,canvas,0);
+  env.cleanups.push(()=>loop.kill());
+}
+
+/** The page load (Hunter, Oct 14): the hero's dot grid builds from the top
+ *  down, then the phone (with its picker) rises up from the bottom of the
+ *  screen. Only from the top of the page; reduced motion shows it all. */
+const V14_INTRO={dots:1.3,rise:1.1,at:.75};
+function animateStudioV14Intro(env,{pitch=4,dot=2.5,alpha=.13,dots=true}={}){
+  const hero=$('.studio-v14 .studio-hero'),build=$('.studio-v14 .r14-build');if(!hero||!build)return;
+  if(env.reduce||env.stage.scrollTop>40)return;
+  if(!dots){
+    // V16 draws its own grid (animateStudioV16Hero); only the phone rises here.
+    const from=Math.max(0,window.innerHeight-build.getBoundingClientRect().top+24);
+    const tl=gsap.timeline({onComplete:()=>ScrollTrigger.refresh()}).fromTo(build,{y:from},{y:0,duration:V14_INTRO.rise,ease:'expo.out'},V14_INTRO.at);
+    env.cleanups.push(()=>{tl.kill();gsap.set(build,{clearProps:'transform'});});
+    return;
+  }
+  // The dots switch on one by one, roughly from the top down but each at its
+  // own moment (Hunter, Oct 14: staggered, a bit random, not a single wipe).
+  // Drawn on a canvas over the first screen; the CSS grid takes over after.
+  const W=hero.clientWidth,H=Math.min(hero.offsetHeight,Math.ceil(window.innerHeight*1.15)),ratio=Math.min(2,window.devicePixelRatio||1),P=pitch,S=dot,B=96;
+  const canvas=document.createElement('canvas');canvas.setAttribute('aria-hidden','true');
+  canvas.width=Math.round(W*ratio);canvas.height=Math.round(H*ratio);
+  canvas.style.cssText=`position:absolute;top:0;left:0;width:${W}px;height:${H}px;z-index:-1;pointer-events:none`;
+  hero.prepend(canvas);hero.style.setProperty('--dots-top',`${H}px`);
+  const ctx=canvas.getContext('2d');ctx.fillStyle=window.CounselColors.green2;ctx.globalAlpha=alpha;
+  const cols=Math.ceil(W/P),rows=Math.ceil(H/P),size=Math.max(1,Math.round(S*ratio)),buckets=Array.from({length:B},()=>[]);
+  for(let r=0;r<rows;r++)for(let c=0;c<cols;c++)buckets[Math.min(B-1,Math.floor(((r/rows)*.6+Math.random()*.4)*B))].push(r*cols+c);
+  let drawn=0;const state={p:0};
+  const paint=()=>{const upto=Math.min(B,Math.ceil(state.p*B));for(;drawn<upto;drawn++)for(const k of buckets[drawn])ctx.fillRect(Math.round((k%cols)*P*ratio),Math.round(((k/cols)|0)*P*ratio),size,size);};
+  const finish=()=>{hero.style.removeProperty('--dots-top');canvas.remove();};
+  const from=Math.max(0,window.innerHeight-build.getBoundingClientRect().top+24);
+  const tl=gsap.timeline({onComplete:()=>{finish();ScrollTrigger.refresh();}});
+  tl.to(state,{p:1,duration:V14_INTRO.dots,ease:'power1.in',onUpdate:paint},0)
+    .fromTo(build,{y:from},{y:0,duration:V14_INTRO.rise,ease:'expo.out'},V14_INTRO.at);
+  env.cleanups.push(()=>{tl.kill();finish();gsap.set(build,{clearProps:'transform'});});
+}
+
+/* Each hero icon's small loop while it is lit (Hunter, Oct 14: "it'd be
+   cool if each one was animated a little bit"). Given seconds since it
+   started to switch on and its pixels, return the grid cells to light (x, y
+   on Lucide's 24 grid, t its switch moment). One colour, one tone: parts
+   switch on and off, never dim; the icon never leaves its spot. */
+const V14_DITHER=p=>(p.x+p.y)%2===0;
+const V14_MOTIONS={
+  // Heart rate: the trace runs across, like a monitor.
+  'heart-pulse':(s,{on})=>{const head=(s*15)%34-5;return on.filter(p=>p.part!==1||(p.x<=head&&p.x>head-12));},
+  // Steps: one foot, then the other.
+  'footprints':(s,{on})=>{const left=Math.floor(s/.55)%2===0;return on.filter(p=>(p.x<12)===left);},
+  // Sleep: two stars twinkle in the moon's curve.
+  'moon':(s,{on})=>[...on,
+    ...(Math.sin(s*3.2)>-.3?[[18,5],[17,5],[19,5],[18,4],[18,6]]:[]).map(([x,y])=>({x,y,t:.5})),
+    ...(Math.sin(s*3.2+2.2)>-.3?[[21,9]]:[]).map(([x,y])=>({x,y,t:.5}))],
+  // Labs: bubbles rise through the liquid to its line.
+  'flask-conical':(s,{on})=>[...on,...[[10,0],[13,1.7],[15,3.4]].map(([x,o])=>({x,y:20-Math.floor((s*2.6+o)%5),t:.5}))],
+  // Nutrition: the apple fills from the bottom (dithered), holds, empties.
+  'apple':(s,{on,inside})=>{const k=(s%4.2)/4.2,fill=k<.4?k/.4:k<.6?1:k<.85?1-(k-.6)/.25:0,top=21.5-fill*15;return[...on,...inside.filter(p=>p.y>=top&&V14_DITHER(p))];},
+  // Lifestyle: the wheels turn.
+  'bike':(s,{on})=>{const turn=s*4.2;return on.filter(p=>{for(const cx of [5.5,18.5]){const dx=p.x+.5-cx,dy=p.y+.5-17.5,r=Math.hypot(dx,dy);if(r>1.8&&r<5.2){let d=(((Math.atan2(dy,dx)-turn)%Math.PI)+Math.PI)%Math.PI;d=Math.min(d,Math.PI-d);return d>=.42;}}return true;});},
+  // Prior diagnoses: the list writes itself, row by row, then clears.
+  'clipboard-list':(s,{on})=>{const k=s%3.4;return on.filter(p=>{
+    const row=p.y>=9&&p.y<=12?0:p.y>=14&&p.y<=17?1:-1;if(row<0||p.x<6||p.x>17)return true;
+    const local=k-.4-row*.8;if(k>2.8||local<0)return false;return p.x<10||p.x<=11+local*12;});},
+  // Medications: the capsule opens a little and closes.
+  'pill':(s,{on})=>{const k=s%2.8;if(k<1.2||k>2)return on;return on.map(p=>p.x<p.y?{...p,x:p.x-1,y:p.y+1}:{...p,x:p.x+1,y:p.y-1});},
+  // Brand colors: the paint dots go on one at a time, round the palette.
+  'palette':(s,{on})=>{const shown=[3,4,1,2].slice(0,Math.min(4,Math.floor(s/.4)%6));return on.filter(p=>p.part===0||shown.includes(p.part));},
+};
+
+/** The hero: one kind of data at a time lights up as its icon, its pixels
+ *  switching on in a stagger, labelled underneath, moving a little in its own
+ *  way. Then it switches off in a stagger and the next lights up somewhere
+ *  else (Hunter, Oct 14: one at a time, no flying, no colour changes). All
+ *  nine take turns. Reduced motion shows one icon, still. */
+function animateStudioV14Hero(env){
+  const hero=$('.studio-v14 .studio-hero');if(!hero)return;
+  const canvas=$('.r14-field',hero),labels=$$('.r14-signal',hero),copy=$('.r14-copy',hero),nav=$('nav',hero);
+  const field=createPictograms(canvas,{color:window.CounselColors.green2,icons:labels.map(label=>({name:label.textContent,svg:LUCIDE[label.dataset.icon]||''}))});
+  const IN=.8,HOLD=3.8,OUT=.7,GAP=.3;
+  const state={t:0};let slots=[],scene=null,queue=[];
+  const waitUntil=!env.reduce&&env.stage.scrollTop<=40?V14_INTRO.dots:0;
+  const nextIcon=not=>{if(!queue.length)queue=labels.map((_,i)=>i).filter(i=>i!==not).sort(()=>Math.random()-.5);return queue.shift();};
+  const nextSlot=from=>{
+    const others=slots.map((_,k)=>k).filter(k=>k!==from);if(from==null||!others.length)return Math.floor(Math.random()*slots.length);
+    const far=others.filter(k=>Math.hypot(slots[k].x-slots[from].x,slots[k].y-slots[from].y)>260);
+    const pool=far.length?far:others;return pool[Math.floor(Math.random()*pool.length)];
+  };
+  const showLabel=(icon,slot)=>{
+    const label=labels[icon];label.style.display='block';label.style.left=`${slots[slot].label.x}px`;label.style.top=`${slots[slot].label.y}px`;
+    if(!env.reduce)gsap.fromTo(label,{clipPath:'inset(0% 50% 0% 50%)'},{clipPath:'inset(0% 0% 0% 0%)',duration:.4,ease:'power2.out'});
+  };
+  const hideLabel=icon=>gsap.to(labels[icon],{clipPath:'inset(0% 50% 0% 50%)',duration:.3,ease:'power2.in',onComplete:()=>{labels[icon].style.display='none';}});
+  const start=(icon,slot)=>{scene={icon,slot,start:state.t,shown:false,hidden:false,motion:V14_MOTIONS[labels[icon].dataset.icon]};};
+  const frame=()=>{
+    if(!scene)return;
+    const age=state.t-scene.start,bitmap=field.bitmap(scene.icon);
+    const cells=env.reduce||!scene.motion?bitmap.on:scene.motion(age,bitmap);
+    if(env.reduce){field.draw(scene.slot,cells);return;}
+    let list=cells;
+    if(age<IN){const k=age/IN;list=cells.filter(p=>k>=p.t*.9+.05);}
+    else if(age>=IN+HOLD){const k=(age-IN-HOLD)/OUT;list=cells.filter(p=>k<p.t*.9+.05);}
+    field.draw(scene.slot,list);
+    if(age>=IN&&!scene.shown){scene.shown=true;showLabel(scene.icon,scene.slot);}
+    if(age>=IN+HOLD&&!scene.hidden){scene.hidden=true;hideLabel(scene.icon);}
+    if(age>=IN+HOLD+OUT+GAP&&slots.length)start(nextIcon(scene.icon),nextSlot(scene.slot));
+  };
+  const place=()=>{
+    const box=hero.getBoundingClientRect(),rect=r=>({x:r.left-box.left,y:r.top-box.top,w:r.width,h:r.height});
+    // The field covers the hero down to the end of the copy; the phone is below.
+    hero.style.setProperty('--r14-field-h',`${copy.getBoundingClientRect().bottom-box.top}px`);
+    // Keep the type clear, and the column under the button, so nothing sits
+    // between it and the phone.
+    const zones=[...copy.children].map(child=>rect(child.getBoundingClientRect())),column=zones.reduce((a,b)=>b.w>a.w?b:a,zones[0]),last=zones[zones.length-1];
+    if(column&&last)zones.push({x:column.x,y:last.y,w:column.w,h:box.height});
+    slots=field.layout(zones,{top:(nav?nav.getBoundingClientRect().bottom-box.top:96)+(env.desktop?28:16),bottom:12});
+    gsap.killTweensOf(labels);labels.forEach(label=>{label.style.display='none';});
+    scene=null;if(!slots.length){field.clear();return;}
+    start(nextIcon(),nextSlot(null));
+    // On first load the first icon waits for the dot grid to build.
+    scene.start=Math.max(scene.start,waitUntil);
+    if(env.reduce){frame();showLabel(scene.icon,scene.slot);}
+  };
+  field.ready.then(()=>{place();env.resize(hero,place);});
+  env.cleanups.push(()=>{scene=null;gsap.killTweensOf(labels);labels.forEach(label=>{label.style.display=label.style.left=label.style.top=label.style.clipPath='';});});
+  if(env.reduce)return;
+  const loop=gsap.to(state,{t:'+=100000',duration:100000,ease:'none',repeat:-1,paused:true,onUpdate:frame});
+  inView(env,loop,canvas,0);
+  env.cleanups.push(()=>loop.kill());
+}
+
+/** The build: the phone sits in the hero showing the partner's own app.
+ *  As it scrolls up the page, in turn: the brand's callout draws on the app;
+ *  Counsel rises over it as a sheet (Hunter, Oct 14), with its composer and
+ *  Add a doctor; then each card slides in from the sheet's edge on its
+ *  callout's side and stacks, its callout drawing after (V12's square,
+ *  hairline and words); last, the doctors' callout on the composer. Each
+ *  step plays when the phone reaches it and undoes when you scroll back.
+ *  The picker's changes of look re-place the callouts as the app eases
+ *  over. Phones number the parts and key them below. */
+function animateStudioV14Build(env,{plain=false}={}){
+  const stage=$('.studio-v14 .r14-stage');if(!stage)return;
+  const rig=$('.r14-rig',stage),phone=$('.r14-phone',rig),sheet=$('.r14-sheet',phone),scrim=$('.r14-scrim',phone),calls=$$('.r12-call',rig);
+  const partOf=id=>$(`[data-card="${id}"]`,phone),callFor=id=>calls.find(call=>call.dataset.call===id);
+  // Where a part settles: without its own slide, or the sheet's.
+  const shift=(el,axis)=>(Number(gsap.getProperty(el,axis+'Percent'))||0)*(axis==='x'?el.offsetWidth:el.offsetHeight)/100+(Number(gsap.getProperty(el,axis))||0);
+  const settled=part=>{const r=part.getBoundingClientRect(),dx=shift(part,'x'),dy=sheet.contains(part)?shift(sheet,'y'):0;return{left:r.left-dx,right:r.right-dx,top:r.top-dy,height:r.height};};
+  const place=()=>{
+    if(!env.desktop)return;
+    const s=rig.getBoundingClientRect(),p=phone.getBoundingClientRect();
+    // V16 (Ariela, Oct 14): plain labels, no square or rule, so they sit a short gap from the phone.
+    const room=plain?Math.min(p.left-s.left,300):Math.min(380,p.left-s.left),label=plain?Math.max(150,room-48):Math.max(150,Math.min(260,room-110));
+    calls.forEach(call=>{
+      const part=partOf(call.dataset.call);if(!part)return;
+      const r=settled(part);
+      call.style.top=`${r.top+r.height/2-s.top}px`;call.style.setProperty('--label',`${label}px`);
+      if(call.classList.contains('is-left')){const x0=p.left-s.left-room;call.style.left=`${x0}px`;call.style.width=`${r.left-s.left+3.5-x0}px`;}
+      else{const x0=r.right-s.left-3.5;call.style.left=`${x0}px`;call.style.width=`${p.right-s.left+room-x0}px`;}
+    });
+  };
+  place();env.resize(rig,place);
+  // A new look moves the cards a little: follow them while the app eases over.
+  const follow=()=>{place();gsap.to({},{duration:.45,onUpdate:place});};
+  phone.addEventListener('studio:look',follow);
+  env.cleanups.push(()=>{phone.removeEventListener('studio:look',follow);calls.forEach(call=>{call.style.top=call.style.left=call.style.width='';});});
+  // Reduced motion: the sheet is up and the app behind it muted.
+  if(env.reduce){gsap.set(scrim,{opacity:1});env.cleanups.push(()=>gsap.set(scrim,{clearProps:'opacity'}));return;}
+  const drawCall=(tl,id,at)=>{
+    const call=callFor(id);if(!call||!env.desktop)return;
+    const left=call.classList.contains('is-left');
+    tl.fromTo($('.r12-dot',call),{scale:0},{scale:1,duration:.18,ease:'back.out(3)'},at)
+      .fromTo($('.r12-wire',call),{scaleX:0},{scaleX:1,duration:.5,ease:'power3.out'},at+.08)
+      .fromTo($('.r12-label',call),{clipPath:left?'inset(-32px 0% -8px 100%)':'inset(-32px 100% -8px 0%)'},{clipPath:'inset(-32px 0% -8px 0%)',duration:.5,ease:'power2.out'},at+.36);
+  };
+  const slide=(tl,id)=>{const card=partOf(id),side=card.dataset.from==='right'?1:-1;tl.fromTo(card,{xPercent:side*118},{xPercent:0,duration:.8,ease:'expo.out'},0);};
+  // The steps, in order, each when the phone's top reaches its line on the
+  // screen (percent from the top). The partner's app is seen whole before the
+  // sheet rises.
+  const LINES=[68,58,48,40,32,24,16];
+  const STEPS=[
+    tl=>drawCall(tl,'brand',0),
+    // The sheet comes up and the app behind it is muted.
+    tl=>{tl.fromTo(sheet,{yPercent:101},{yPercent:0,duration:.9,ease:'expo.out'},0).fromTo(scrim,{opacity:0},{opacity:1,duration:.5,ease:'power1.out'},0);drawCall(tl,'app',.55);},
+    tl=>{slide(tl,'data');drawCall(tl,'data',.42);},
+    tl=>slide(tl,'ask'),
+    tl=>{slide(tl,'ai');drawCall(tl,'ai',.42);},
+    tl=>{slide(tl,'actions');drawCall(tl,'actions',.42);},
+    tl=>drawCall(tl,'doctors',0),
+  ];
+  STEPS.forEach((step,k)=>{
+    const tl=gsap.timeline({paused:true});step(tl);
+    ScrollTrigger.create({scroller:env.stage,trigger:phone,start:`top ${LINES[k]}%`,end:'max',onEnter:()=>tl.timeScale(1).play(),onLeaveBack:()=>tl.timeScale(1.6).reverse()});
+    env.cleanups.push(()=>tl.kill());
+  });
+  if(!env.desktop)$$('.r14-key li',stage.parentElement).forEach(item=>rise(env,item,18));
+  env.cleanups.push(()=>gsap.set([sheet,scrim,...$$('[data-from]',phone)],{clearProps:'transform,opacity'}));
+}
+
+/** The stat cards as on the audience pages (Javi, Oct 14: "I like how these
+ *  squares animate"): each card rises in and its number counts up when it is
+ *  in view (animateImpactStats, without the pinned intro). */
+function animateStudioV14Stats(env){
+  const section=$('.studio-v14 .r14-site .v2-impact');if(!section)return;
+  $$('.v2-metric',section).forEach(card=>{
+    reveal(env,card);
+    const el=$('[data-stat-number]',card);if(!el)return;
+    if(!finalNumbers.has(el))finalNumbers.set(el,el.textContent.trim());
+    const final=finalNumbers.get(el),match=final.match(/^([^\d]*)([\d,]+(?:\.\d+)?)(.*)$/),places=(match?.[2].split('.')[1]||'').length;
+    if(!match||env.reduce||finished.has(el)){el.textContent=final;return;}
+    const state={value:0},target=Number(match[2].replaceAll(',',''));
+    el.textContent=match[1]+(0).toFixed(places)+match[3];
+    const motion=gsap.to(state,{value:target,duration:1.4,ease:'power2.out',paused:true,
+      onUpdate:()=>el.textContent=match[1]+(places?state.value.toFixed(places):Math.round(state.value).toLocaleString('en-US'))+match[3],
+      onComplete:()=>{el.textContent=final;finished.add(el);}});
+    inView(env,motion,card,.25);env.cleanups.push(()=>el.textContent=final);
+  });
+}
+
+/** The picker as timed tabs (Hunter, Oct 14): each pill moves on to its
+ *  next option by itself, the chosen one showing its time running out as a
+ *  sweep across it. Type runs half a beat behind colour, so they never change
+ *  together. Choosing one restarts its timer from there; pointing at or
+ *  focusing the picker holds both. Runs only while the phone is in view;
+ *  reduced motion leaves the choice to the reader. */
+function animateStudioV14Picker(env,{holdAfterBuild=false,fade=false}={}){
+  const picker=$('.studio-v14 .r14-picker'),phone=$('.studio-v14 .r14-phone');if(!picker||!phone||env.reduce)return;
+  // A change of brand: a solid sweep in the new brand's colour crosses the
+  // phone; the look changes while it covers the screen (studio-v14.js look).
+  const wipe=document.createElement('i');wipe.className='r14-wipe';wipe.setAttribute('aria-hidden','true');phone.append(wipe);
+  // V19 (Denny): a smooth crossfade instead: a still copy of the old look
+  // sits over the phone while the new look goes on underneath, then fades.
+  let ghost=null;
+  if(fade)phone.r14Wipe=(color,apply)=>{
+    if(ghost){gsap.killTweensOf(ghost);ghost.remove();}
+    const frame=phone.parentElement;
+    ghost=phone.cloneNode(true);ghost.removeAttribute('role');ghost.removeAttribute('aria-label');ghost.setAttribute('aria-hidden','true');ghost.inert=true;
+    ghost.querySelector('.r14-wipe')?.remove();
+    Object.assign(ghost.style,{position:'absolute',left:`${phone.offsetLeft}px`,top:`${phone.offsetTop}px`,width:`${phone.offsetWidth}px`,height:`${phone.offsetHeight}px`,margin:'0',zIndex:'2',pointerEvents:'none'});
+    frame.append(ghost);apply();
+    const done=ghost;gsap.to(done,{opacity:0,duration:.9,ease:'power1.inOut',onComplete:()=>{done.remove();if(ghost===done)ghost=null;}});
+  };
+  else phone.r14Wipe=(color,apply)=>{
+    gsap.killTweensOf(wipe);
+    gsap.timeline().set(wipe,{display:'block',backgroundColor:color,xPercent:-101})
+      .to(wipe,{xPercent:0,duration:.34,ease:'power2.in'}).add(apply)
+      .to(wipe,{xPercent:101,duration:.46,ease:'power2.out'}).set(wipe,{display:'none'});
+  };
+  env.cleanups.push(()=>{gsap.killTweensOf(wipe);wipe.remove();if(ghost){gsap.killTweensOf(ghost);ghost.remove();ghost=null;}delete phone.r14Wipe;});
+  const STEP=4.8,DRAIN=.4;
+  const groups=$$('[role="radiogroup"]',picker).map(group=>{
+    const buttons=$$('button',group);
+    // Colour starts at once; type waits half a beat.
+    return{set:buttons[0].dataset.set,buttons,thumb:$('.r14-thumb',group),t:buttons[0].dataset.set==='brand'?0:-STEP/2,shown:0,draining:false};
+  });
+  const active=group=>group.buttons.find(button=>button.getAttribute('aria-checked')==='true')||group.buttons[0];
+  const paint=group=>{group.thumb.style.setProperty('--progress',String(group.shown));group.thumb.style.setProperty('--origin',group.draining?'right':'left');};
+  let held=false,last=0;
+  const state={t:0};
+  // V15 (Denny, Oct 14): the looks change by themselves only until the
+  // annotations start; after that only when clicked. Scroll back above and
+  // they carry on.
+  let built=false;
+  if(holdAfterBuild)ScrollTrigger.create({scroller:env.stage,trigger:phone,start:'top 68%',end:'max',onToggle:self=>{built=self.isActive;if(built)groups.forEach(group=>{if(group.shown>.02)group.draining=true;group.t=0;});}});
+  const tick=()=>{
+    const dt=Math.max(0,state.t-last);last=state.t;
+    groups.forEach(group=>{
+      // As the highlight slides on, the old sweep drains out of its right side.
+      if(group.draining){group.shown=Math.max(0,group.shown-dt/DRAIN);if(!group.shown)group.draining=false;paint(group);}
+      if(held||built)return;
+      group.t+=dt;
+      if(!group.draining){group.shown=Math.min(1,Math.max(0,group.t/STEP));paint(group);}
+      if(group.t>=STEP){const buttons=group.buttons;buttons[(buttons.indexOf(active(group))+1)%buttons.length].click();}
+    });
+  };
+  // Any change of look (the timer's or the reader's) restarts that pill's
+  // timer, after the old sweep has drained.
+  const restart=event=>{const group=groups.find(item=>item.set===event.detail?.set);if(!group)return;group.draining=group.shown>.02;group.t=group.draining?-DRAIN:0;if(!group.draining)group.shown=0;paint(group);};
+  phone.addEventListener('studio:look',restart);
+  const enter=()=>{held=true;},leave=()=>{held=false;},blur=event=>{if(!picker.contains(event.relatedTarget))held=false;};
+  picker.addEventListener('pointerenter',enter);picker.addEventListener('pointerleave',leave);
+  picker.addEventListener('focusin',enter);picker.addEventListener('focusout',blur);
+  groups.forEach(paint);
+  const loop=gsap.to(state,{t:'+=100000',duration:100000,ease:'none',repeat:-1,paused:true,onUpdate:tick});
+  inView(env,loop,phone,0);
+  env.cleanups.push(()=>{
+    loop.kill();phone.removeEventListener('studio:look',restart);
+    picker.removeEventListener('pointerenter',enter);picker.removeEventListener('pointerleave',leave);
+    picker.removeEventListener('focusin',enter);picker.removeEventListener('focusout',blur);
+    groups.forEach(group=>{group.thumb.style.removeProperty('--progress');group.thumb.style.removeProperty('--origin');});
+  });
+}
+

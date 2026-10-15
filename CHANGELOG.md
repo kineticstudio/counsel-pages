@@ -1,5 +1,18 @@
 # Changelog
 
+## October 15, 2026: Counsel Studio V20, and Javi's October 14 review
+
+- **Counsel Studio:** the round Counsel landed on (V20), in
+  `content/counsel-studio.md` section by section, with
+  `studio/counsel-studio.html` running the page (the sync now covers it) and
+  its four bento tiles in `embeds/counsel-studio/`. Card Studio has a Counsel
+  Studio page for them.
+- **Audience pages:** Javi's October 14 changes at the top of
+  `content/audience-pages.md` (Health systems drops "physician", a larger
+  triage graphic, no tile frames, a wider Employers card, graphics centred in
+  their tiles, the Oura photo showing the whole phone).
+- **Embeds, re-exported:** every tile on all four audience pages.
+
 ## October 13, 2026, last thing: assets moved to `assets/`
 
 - The institution logos and the Oura banner photo now live in

@@ -7,11 +7,12 @@ current; the Studio is the source of truth.
 
 ## Where we're at
 
-Updated October 13, 2026, end of day. Webflow staging: counsel-inc.webflow.io.
+Updated October 15, 2026. Webflow staging: counsel-inc.webflow.io.
 Design links open each page on its own.
 
 The designs on the review site carry everything Sam and Javi have sent,
-including Javi's October 13 review of the audience pages. Counsel will give a
+including Javi's October 13 and 14 reviews of the audience pages and the
+Counsel Studio round Counsel landed on (V20). Counsel will give a
 thumbs-up in #counsel-health. **Once they do, the designs are the source of
 truth and we build them in Webflow**, text included. Until then they can
 still move.
@@ -20,11 +21,11 @@ still move.
 | --- | --- | --- | --- | --- | --- |
 | Home | [Home](https://counsel.kineticstudio.com/designs/counsel/01-home) | Built | How it works and pricing text from `content/homepage-updates.md`; the phone code changes in `homepage/` | | Sam reviewing |
 | Conditions (8) | [Weight management](https://counsel.kineticstudio.com/designs/counsel/03-conditions/weight-management-v3) and seven more | Built (CMS) | Sam's copy on all eight, plus the template changes under "Condition pages" in `content/homepage-updates.md`. The re-synced `conditions/` and `src/` here show every one | | Sam reviewing; Ariela updating photography |
-| Health plans | [Health Plans V6](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-plans-v6) | Built, needs updating | Everything in `content/audience-pages.md`, starting with "Javi's review, October 13"; bento tiles from `embeds/health-plans/` | Five-screen walkthrough phone | Javi reviewed (Oct 13); thumbs-up to come |
+| Health plans | [Health Plans V6](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-plans-v6) | Built, needs updating | Everything in `content/audience-pages.md`, starting with "Javi's review, October 14"; bento tiles from `embeds/health-plans/` | Five-screen walkthrough phone | Javi reviewed (Oct 13); thumbs-up to come |
 | Health systems | [Health Systems V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-systems-v1) | Not started | Duplicate Health plans, then this page's copy, the institution logos (`assets/audience-pages/institutions/`) and `embeds/health-systems/` | Same as Health plans | Same as Health plans |
 | Consumer health | [Consumer Health V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/consumer-health-v1) | Not started | Duplicate Health plans, drop the logo row, add the Oura banner (photo in `assets/audience-pages/oura-spotlight-app.webp`), `embeds/consumer-health/` | Same as Health plans | Same as Health plans |
 | Employers | [Employers V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/employers-v1) | Not started | Duplicate Health plans, its own third feature, `embeds/employers/` | Same as Health plans | Same as Health plans |
-| Counsel Studio | Explorations on the review site | Not started | Nothing yet | The next design round, on the direction Counsel gave on Oct 13 (centred type, a pixel field hero, the app with a theme tool) | Final say on the round |
+| Counsel Studio | [Counsel Studio V20](https://counsel.kineticstudio.com/designs/counsel/05-counsel-studio/counsel-studio-v20) | Not started (replaces the live page) | Everything in `content/counsel-studio.md`: most sections duplicate the audience pages; bento tiles from `embeds/counsel-studio/`; `studio/counsel-studio.html` runs the page | The hero background and the phone section as embeds | Javi: "99% there"; thumbs-up to come |
 | Site-wide | | | Headings render in Georgia for visitors: set `--font-cooper-light: Cooper` in Global Styles. Buttons on the audience pages hold a visible hover colour (see `content/audience-pages.md`) | | Ariela uploads new photography straight into Webflow |
 
 How work moves:

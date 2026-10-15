@@ -1,0 +1,92 @@
+<!-- Counsel Card Studio V3: Counsel Studio, Go live in weeks, not years. Load Counsel's fonts on the host page. -->
+<style>.counsel-card-0f56f925 .cb-wrap{width:100%}.counsel-card-0f56f925 .cb{container-type:inline-size;box-sizing:border-box;width:100%;color:var(--cb-ink);font:400 15.5px/1.45 "GT America",sans-serif;-webkit-font-smoothing:antialiased;--mid:color-mix(in srgb,var(--cb-ink) 64%,var(--cb-bg));--faint:color-mix(in srgb,var(--cb-ink) 34%,var(--cb-bg));--serif:"Cooper Light",Cooper,Georgia,serif}.counsel-card-0f56f925 :where(.cb) *{box-sizing:border-box}.counsel-card-0f56f925 :where(.cb) :where(p,.counsel-card-0f56f925 ul,.counsel-card-0f56f925 ol,.counsel-card-0f56f925 dl,.counsel-card-0f56f925 dd){margin:0}.counsel-card-0f56f925 :where(.cb) :where(ul,.counsel-card-0f56f925 ol){padding:0;list-style:none}.counsel-card-0f56f925 :where(.cb) svg{display:block}.counsel-card-0f56f925 .cb-art{width:100%}.counsel-card-0f56f925 .cb-calendar{display:flex;justify-content:center}.counsel-card-0f56f925 .cb-cal{width:100%;max-width:258px;padding:22px 18px;border-radius:12px;background:color-mix(in srgb,var(--cb-light) 24%,#fff)}.counsel-card-0f56f925 .cb-cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:18px;border-bottom:1px solid color-mix(in srgb,var(--cb-dark) 15%,transparent)}.counsel-card-0f56f925 .cb-cal-head i{display:block;width:35%;height:7px;border-radius:2px;background:color-mix(in srgb,var(--cb-light) 78%,var(--cb-dark))}.counsel-card-0f56f925 .cb-cal-head i:last-child{width:15%;background:color-mix(in srgb,var(--cb-light) 45%,#fff)}.counsel-card-0f56f925 .cb-cal-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}.counsel-card-0f56f925 .cb-cal-days span{aspect-ratio:1;border-radius:4px;background:color-mix(in srgb,var(--cb-light) 28%,#fff)}.counsel-card-0f56f925 .cb-cal-days .is-ready{background:color-mix(in srgb,var(--cb-light) 72%,#fff)}.counsel-card-0f56f925 .cb-cal-days .is-launch{background:var(--cb-dark)}</style><div class="counsel-card-0f56f925" style="width:100%"><div class="cb-wrap"><div class="cb" data-graphic="calendar" style="--cb-bg:#005434;--cb-ink:#9ADB90;--cb-dark:#005434;--cb-light:#9ADB90"><div class="cb-art cb-calendar"><div class="cb-cal"><div class="cb-cal-head"><i></i><i></i></div><div class="cb-cal-days"><span class="is-ready"></span><span class="is-ready"></span><span class="is-ready"></span><span class="is-ready"></span><span class="is-ready"></span><span class="is-ready"></span><span class="is-ready"></span><span class="is-ready"></span><span class="is-ready"></span><span class="is-ready"></span><span class="is-ready"></span><span class="is-ready"></span><span class="is-ready"></span><span class="is-launch"></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div></div></div></div></div><script>(function(){
+ const root=document.currentScript.previousElementSibling;
+ const deps=[["gsap","gsap"],["ScrollTrigger","ScrollTrigger"],["CustomEase","CustomEase"]];
+ window.__counselCardGSAP=window.__counselCardGSAP||deps.reduce((chain,[key,file])=>chain.then(()=>window[key]||new Promise((resolve,reject)=>{const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/"+file+".min.js";s.onload=resolve;s.onerror=reject;document.head.append(s);})),Promise.resolve());
+ window.__counselCardGSAP.then(()=>{(function initBentoMotion(root, { enabled = true, scroller } = {}) {
+  // White label (Javi, Oct 13: "I can't click into these"): the brands are
+  // buttons. Picking one rebrands the app at once, with or without motion,
+  // and the intro's own swaps stop for good.
+  const brandButtons = root ? [...root.querySelectorAll('.cb-brands button')] : [];
+  brandButtons.forEach((button, i) => button.addEventListener('click', () => {
+    const card = root.querySelector('.cb'), name = card.querySelector('.cb-phone-name'), mark = card.querySelector('.cb-phone-brand .cb-mark');
+    card.dataset.picked = 'true';
+    if (name) { name.textContent = button.querySelector('span').textContent; name.style.opacity = ''; name.style.transform = ''; }
+    if (mark) { mark.innerHTML = button.querySelector('.cb-mark').innerHTML; mark.style.opacity = ''; mark.style.transform = ''; }
+    brandButtons.forEach((other, k) => { other.classList.toggle('is-on', k === i); other.setAttribute('aria-pressed', String(k === i)); });
+  }));
+  const { gsap, ScrollTrigger, CustomEase } = window;
+  if (!gsap || !ScrollTrigger || !CustomEase || !root) return () => {};
+  gsap.registerPlugin(ScrollTrigger, CustomEase);
+  CustomEase.create('card-settle', '.2,.7,.2,1');
+  const media = gsap.matchMedia();
+  media.add({ reduce: '(prefers-reduced-motion: reduce)', standard: '(prefers-reduced-motion: no-preference)' }, context => {
+    if (context.conditions.reduce || !enabled) return;
+    const art = root.querySelector('.cb');
+    if (!art) return;
+    const find = selector => [...art.querySelectorAll(selector)];
+    const one = selector => art.querySelector(selector);
+    const tl = gsap.timeline({ paused: true, defaults: { duration: .9, ease: 'card-settle' } });
+    const loops = [], cleanups = [];
+    let held = false;
+    // Where each element rests (some are dimmed in CSS), so every entrance ends on the static frame.
+    const natural = new Map(find('*').map(el => [el, getComputedStyle(el).opacity]));
+    const rest = (i, el) => natural.get(el) ?? 1;
+    const some = targets => targets && (!Array.isArray(targets) || targets.length);
+    const rise = (targets, at, y = 16, stagger = 0) => { if (some(targets)) tl.fromTo(targets, { opacity: 0, y }, { opacity: rest, y: 0, stagger }, at); };
+    const fade = (targets, at, duration = .4) => { if (some(targets)) tl.fromTo(targets, { opacity: 0 }, { opacity: rest, duration }, at); };
+    // A message lands the way the product's do: up and into place from its corner.
+    const land = (bubble, at) => { if (bubble) tl.fromTo(bubble, { opacity: 0, y: 10, scale: .96, transformOrigin: 'right bottom' }, { opacity: 1, y: 0, scale: 1, duration: .6 }, at); };
+    // Thinking squares pulse and finish lit.
+    const think = (dots, at, pulses = 1) => { if (dots.length) tl.fromTo(dots, { opacity: .2 }, { opacity: 1, duration: .22, stagger: .045, repeat: pulses * 2, yoyo: true, ease: 'sine.inOut' }, at); };
+    // Counsel AI answering: its label, a moment of thinking, then the words, one after another.
+    const stream = (selector, at) => {
+      const box = one(selector);
+      if (!box) return;
+      fade(box.querySelector('.cb-ai'), at, .3);
+      think([...box.querySelectorAll('.cb-grid i')], at + .1);
+      const words = [...box.querySelectorAll('.cb-words i')];
+      if (words.length) tl.fromTo(words, { opacity: 0, y: 3 }, { opacity: 1, y: 0, duration: .3, stagger: .04, ease: 'power1.out' }, at + .8);
+      else rise(box.querySelector('p'), at + .8, 6);
+    };
+    // A square riding a lane from one end to the other, then gone.
+    const ride = (rect, path, at, duration = .8, back = false) => {
+      if (!rect || !path) return;
+      const length = path.getTotalLength(), state = { t: 0 };
+      const place = () => { const p = path.getPointAtLength((back ? 1 - state.t : state.t) * length); rect.setAttribute('x', p.x - 3); rect.setAttribute('y', p.y - 3); };
+      tl.fromTo(state, { t: 0 }, { t: 1, duration, ease: 'power1.inOut', onStart: place, onUpdate: place }, at)
+        .fromTo(rect, { opacity: 1 }, { opacity: 1, duration: duration - .2 }, at)
+        .to(rect, { opacity: 0, duration: .2 }, at + duration - .2);
+    };
+    const graphics = {
+      calendar() {
+        const days = find('.cb-cal-days span'), ready = find('.cb-cal-days .is-ready'), launch = one('.cb-cal-days .is-launch');
+        const plain = days.find(day => !day.className);
+        rise(one('.cb-cal'), 0);
+        tl.fromTo(days.filter(day => day !== launch), { opacity: 0 }, { opacity: 1, duration: .3, stagger: .012, ease: 'power1.out' }, .3);
+        if (plain && ready.length) tl.fromTo(ready, { backgroundColor: getComputedStyle(plain).backgroundColor }, { backgroundColor: getComputedStyle(ready[0]).backgroundColor, duration: .35, stagger: .05, ease: 'power1.out' }, .75);
+        if (launch) tl.fromTo(launch, { opacity: 0, scale: .4 }, { opacity: 1, scale: 1, duration: .6 }, .85 + ready.length * .05);
+        const caption = one('.cb-cal-caption');
+        if (caption) tl.fromTo(caption, { opacity: 0, y: 6 }, { opacity: 1, y: 0, duration: .5 }, '>-.2');
+      },
+    };
+    let trigger;
+    function sync() {
+      const active = !document.hidden && (!!trigger?.isActive || (!scroller && ScrollTrigger.isInViewport(root)));
+      tl.paused(!active);
+      loops.forEach(({ motion, after }) => motion.paused(!active || held || (after && tl.progress() < 1)));
+    }
+    graphics[art.dataset.graphic]?.();
+    tl.eventCallback('onComplete', sync);
+    trigger = ScrollTrigger.create({ trigger: root, ...(scroller ? { scroller } : {}), start: 'top bottom', end: 'bottom top', onToggle: sync, onRefresh: sync });
+    document.addEventListener('visibilitychange', sync);
+    sync();
+    return () => {
+      document.removeEventListener('visibilitychange', sync);
+      cleanups.forEach(fn => fn());
+      trigger.kill(); tl.kill(); loops.forEach(({ motion }) => motion.kill());
+    };
+  }, root);
+  return () => media.revert();
+})(root);}).catch(()=>{console.warn("Counsel card motion unavailable; showing the static card.");});
+})();</script>

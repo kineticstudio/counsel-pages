@@ -1,0 +1,11 @@
+/* Flat, abstract calendar in the dark-green Go live block. */
+.channel-v5 .v5-calendar{width:100%;max-width:258px;padding:22px 18px;border-radius:12px;background:#EAF3E4;box-shadow:none}
+.channel-v5 .v5-calendar-heading{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;margin-bottom:16px;border-bottom:1px solid #00543426}
+.channel-v5 .v5-calendar-heading i{display:block;width:35%;height:7px;border-radius:2px;background:#7CB589}
+.channel-v5 .v5-calendar-heading i:last-child{width:15%;background:#C4DCC0}
+.channel-v5 .v5-calendar-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:5px}
+.channel-v5 .v5-calendar-days>span{aspect-ratio:1;border-radius:4px;background:#DDE8D8}
+.channel-v5 .v5-calendar-days .is-ready{background:#AED9B0}
+.channel-v5 .v5-calendar-days .is-launch{background:var(--green-7)}
+/* The comprehensive-care marquee keeps its motion and uses only green. */
+.channel-v5 .v5-care-marquee .channel-chip{background:var(--green-7);color:#DDEED7}

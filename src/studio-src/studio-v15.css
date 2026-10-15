@@ -1,0 +1,9 @@
+/* Counsel Studio V15 (Denny, Oct 14): V14 (studio-v14.css, studio-v14.js)
+   with V3's ambient, random motion in the hero instead of the icons, on V3's
+   14px grid (motion: animations.js mountStudioV15). */
+.studio-v15 .studio-hero::before{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14'%3E%3Crect width='5' height='5' fill='%23AED9B0' fill-opacity='.12'/%3E%3C/svg%3E")}
+.studio-v15 .r14-signals{display:none}
+/* No icon row above the name on phones. */
+@media(max-width:600px){
+  .studio-v15 .r14-copy{justify-content:center;padding-top:16px}
+}

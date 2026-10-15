@@ -1,0 +1,101 @@
+/* V5 duplicates V4, retaining its three modern-era benefit cards. */
+/* Three authored lines, sized to the copy column rather than the viewport. */
+.channel-v5 .hero-layout{grid-template-columns:1.1fr 1fr;gap:5%}
+.channel-v5 .hero-copy{container-type:inline-size;min-width:0}
+html[data-counsel-type="v13"] .channel-v5 .hero-copy h1{max-width:none;font-size:clamp(28px,10cqw,64px)}
+.channel-v5 .hero-copy h1>span{display:block;white-space:nowrap}
+@media(max-width:900px){.channel-v5 .hero-layout{grid-template-columns:1fr;gap:40px}}
+/* Reuse the shared section radius: 48px desktop, 32px below 900px. */
+.channel-v5 .v2-section{border-top-left-radius:var(--channel-radius);border-top-right-radius:var(--channel-radius)}
+/* Authored two-line titles, with a shared height above all three descriptions. */
+.channel-v5 .v2-feature{container-type:inline-size}
+.channel-v5 .v2-feature h3{max-width:none;min-height:calc(2em * var(--leading-heading));font-size:clamp(20px,9.7cqw,28px)}
+.channel-v5 .v2-feature h3>span{display:block;white-space:nowrap}
+
+/* The homepage's inset benefit cards, retaining the three selected feature graphics. */
+.channel-v5 .v2-modern{background:var(--gray-0)}
+.channel-v5 .v2-modern .v2-heading{margin-bottom:64px;text-align:center}
+.channel-v5 .v2-feature-grid{position:relative;--feature-gap:24px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:var(--feature-gap);align-items:stretch}
+.channel-v5 .v2-feature{
+  display:flex;flex-direction:column;min-width:0;padding:8px;
+  background:var(--gray-1);border-radius:var(--card-r,16px);
+}
+.channel-v5 .v2-feature .v2-feature-art{flex:none;width:100%;height:auto;aspect-ratio:1;border-radius:calc(var(--card-r,16px) - 6px)}
+.channel-v5 .v5-feature-copy{display:flex;flex:1;flex-direction:column;justify-content:space-between;gap:22px;padding:24px 16px 22px;min-width:0}
+.channel-v5 .v5-feature-copy h3{margin:0;font-size:clamp(20px,8.5cqw,28px);line-height:1.12;min-height:2.24em}
+.channel-v5 .v5-feature-copy p{margin:0;font-size:16px;line-height:1.5;color:var(--blue-7)}
+/* Preserve each coded scene's proportions within the square graphic inset. */
+.channel-v5 .v2-feature-art :is(.v2-health-history,.v2-embedded-app){inset:auto 0;top:50%;height:auto;aspect-ratio:1;transform:translateY(-50%)}
+.channel-v5 .v2-art-0 .v2-messages{gap:18px}
+.channel-v5 .v2-art-0 .v2-bubble{padding:12px 14px;font-size:12px}
+.channel-v5 .v2-art-1{gap:14px}
+.channel-v5 .v2-feature-art .v2-doctors img{width:clamp(78px,26cqw,108px);height:auto;aspect-ratio:66/78;flex:none;border-radius:18px}
+.channel-v5 .v5-feature-tie{position:absolute;z-index:2;top:0;display:grid;grid-template-columns:repeat(4,4px);gap:6px;transform:translate(-50%,-50%);pointer-events:none}
+.channel-v5 .v5-feature-tie-0{left:calc((100% - 2 * var(--feature-gap)) / 3 + var(--feature-gap) / 2)}
+.channel-v5 .v5-feature-tie-1{left:calc((100% - 2 * var(--feature-gap)) / 3 * 2 + 1.5 * var(--feature-gap));top:auto;bottom:0;transform:translate(-50%,50%)}
+.channel-v5 .v5-feature-tie i{width:4px;height:4px;background:var(--green-7)}
+.channel-v5 .v5-feature-tie i:nth-child(4),.channel-v5 .v5-feature-tie i:nth-child(13){visibility:hidden}
+
+/* Trusted organizations belong to the hero, not a separate gray band. */
+.channel-v5 .channel-hero .v5-hero-logos{position:relative;z-index:2;background:transparent;margin-top:clamp(48px,6vw,88px);padding:0}
+.channel-v5 .v5-hero-logos p{color:var(--green-7)}
+
+/* Four retained metrics: original numbers and copy, one color per row. */
+.channel-v5 .v2-impact-layout{grid-template-columns:repeat(2,minmax(0,1fr));gap:36px;align-items:start}
+.channel-v5 .v2-impact-intro h2{font-size:clamp(38px,4vw,56px);max-width:11em;margin:0}
+.channel-v5 .v2-metrics{display:grid;grid-template-columns:minmax(0,1fr);gap:14px}
+.channel-v5 .v2-metric,.channel-v5 .v2-metric:nth-child(n+4){
+  --stat-bg:var(--green-1);--stat-ink:var(--green-7);
+  grid-column:1;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);
+  align-items:end;gap:24px;min-height:166px;padding:24px;border:0;border-radius:14px;
+  background:var(--stat-bg);color:var(--stat-ink);
+}
+.channel-v5 .v2-metric-1{--stat-bg:var(--yellow);--stat-ink:var(--maroon)}
+.channel-v5 .v2-metric-2{--stat-bg:var(--blue-10);--stat-ink:var(--blue-2)}
+.channel-v5 .v2-metric.v2-metric-3{--stat-bg:var(--pink-1);--stat-ink:var(--maroon)}
+.channel-v5 .v5-metric-summary{min-width:0}
+.channel-v5 .v5-metric-summary>span{display:block;font:300 clamp(64px,6vw,96px)/.95 var(--body-font);letter-spacing:-.055em;color:var(--stat-ink);white-space:nowrap;font-variant-numeric:lining-nums}
+.channel-v5 .v5-metric-summary h3{font:400 20px/1.2 var(--body-font);letter-spacing:-.015em;margin:12px 0 0;color:var(--stat-ink)}
+.channel-v5 .v2-metric>p{margin:0;font-size:16px;line-height:1.4;max-width:none;color:color-mix(in srgb,var(--stat-ink) 80%,var(--stat-bg))}
+.channel-v5 .v2-impact .v2-source{margin-top:24px}
+
+@media(max-width:1100px){
+  .channel-v5 .v2-impact-layout{gap:26px}
+  .channel-v5 .v5-feature-copy{padding:26px 20px;gap:26px}
+  .channel-v5 .v5-feature-copy h3{font-size:clamp(24px,7.8cqw,30px)}
+  .channel-v5 .v2-art-0 .v2-bubble{font-size:14px;padding:16px 18px}
+  .channel-v5 .v2-metric,.channel-v5 .v2-metric:nth-child(n+4){gap:18px;padding:20px}
+  .channel-v5 .v5-metric-summary h3{font-size:18px}
+  .channel-v5 .v2-metric>p{font-size:15px}
+}
+@media(max-width:900px){
+  .channel-v5 .v2-impact-layout{grid-template-columns:1fr;gap:40px}
+  .channel-v5 .v2-impact-intro{position:static}
+  .channel-v5 .v2-impact-intro h2{max-width:15em}
+  .channel-v5 .v5-metric-summary>span{font-size:76px}
+}
+@media(max-width:760px){
+  .channel-v5 .v2-feature-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+  .channel-v5 .v2-feature:nth-child(even){flex-direction:column}
+  .channel-v5 .v5-feature-tie{display:none}
+}
+@media(max-width:580px){
+  .channel-v5 .v2-modern .v2-heading{margin-bottom:40px;text-align:left}
+  .channel-v5 .v2-feature-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+  .channel-v5 .v2-feature:nth-child(even){flex-direction:column}
+  .channel-v5 .v5-feature-copy{padding:24px 20px;gap:18px}
+  .channel-v5 .v5-feature-copy h3{font-size:clamp(24px,8cqw,30px)}
+  .channel-v5 .v5-feature-tie{display:none}
+  .channel-v5 .v2-metric,.channel-v5 .v2-metric:nth-child(n+4){grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:146px;gap:16px;padding:20px 18px}
+  .channel-v5 .v5-metric-summary>span{font-size:clamp(48px,12vw,68px)}
+  .channel-v5 .v5-metric-summary h3{font-size:17px}
+  .channel-v5 .v2-metric>p{font-size:14px}
+}
+.channel-v5 .ci-chat-intro{display:block;margin-bottom:10px;font-weight:500}
+.channel-v5 .ci-chat-timeline{display:flex;flex-direction:column;gap:18px}
+.channel-v5 .ci-chat-date{text-align:center;font-size:11px;color:var(--gray-65)}
+.channel-v5 .ci-chat-prompt{margin-bottom:0!important}
+.channel-v5 .ci-chat-response{position:relative;min-height:120px}
+.channel-v5 .ci-chat-answer{margin:0;font-size:13px;line-height:1.55;color:var(--gray-8)}
+.channel-v5 .ci-chat-thinking{position:absolute;inset:0 auto auto 0;display:flex;align-items:center;gap:10px;font-size:12px;color:var(--blue-7);opacity:0}
+/* Phone playback and reduced-motion handling live in animations.js. */

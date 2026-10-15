@@ -1,0 +1,21 @@
+/* One scalable frame and set of furniture for Home V13 and Health Plans V2. */
+.cui-device{--cui-inset:12px;--cui-radius:48px;--cui-text:14px;--cui-compose-height:108px;--cui-compose-bottom:16px;position:relative;container-type:inline-size;aspect-ratio:390/844;background:var(--gray-1);border-radius:var(--cui-radius);box-shadow:0 0 0 10px var(--blue-2);overflow:hidden;isolation:isolate;color:var(--blue-9)}
+.cui-device .cui-status{position:absolute;inset:14px 7.6% auto;height:24px;display:flex;justify-content:space-between;align-items:center;font:500 clamp(9px,4.1cqw,14px)/1 var(--body-font);color:var(--blue-9)}
+.cui-device .cui-status svg{width:20%;height:auto;display:block}
+.cui-device .cui-island{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:27%;height:clamp(14px,7.4cqw,25px);border-radius:20px;background:var(--gray-10)}
+.cui-device .cui-nav{position:absolute;inset:48px var(--cui-inset) auto;height:40px;display:flex;align-items:center;justify-content:space-between;gap:12px;font:500 var(--cui-text)/1.2 var(--body-font)}
+.cui-nav-icon{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--gray-15)}
+.cui-nav-icon svg{width:18px;height:18px}
+.cui-device .cui-composer{--compose-bg:var(--gray-15);position:absolute;inset:auto var(--cui-inset) calc(var(--cui-compose-bottom) + var(--cj-crop,0px));height:var(--cui-compose-height);padding:6px 10px 18px;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:36px 44px;gap:4px;border-radius:32px;background:var(--compose-bg);font:400 var(--cui-text)/1.3 var(--body-font);transition:height .35s ease,padding .35s ease,grid-template-rows .35s ease}
+.cui-add-banner{display:flex;align-items:center;gap:8px;width:100%;font-size:12.5px;overflow:hidden;transition:opacity .2s ease}
+.cui-avatars{display:flex;padding-right:3px;flex:none}
+.cui-avatars img{width:24px;height:24px;object-fit:cover;border:2px solid var(--compose-bg);border-radius:50%;margin-right:-5px}
+.cui-add-banner small{margin-left:auto;font-size:12.5px;color:var(--gray-65);white-space:nowrap}
+.cui-device .cui-field{display:flex;align-items:center;gap:10px;width:100%;height:44px;padding:0 5px 0 12px;border:0;border-radius:22px;background:var(--gray-0)}
+.cui-label{flex:1;min-width:0;white-space:nowrap;color:var(--gray-65)}
+.cui-attachment{width:18px;height:18px;flex:none;color:var(--gray-65)}
+.cui-device .cui-send{width:32px;height:32px;border-radius:10px;background:var(--blue-9);color:var(--gray-1);display:grid;place-items:center;flex:none}
+.cui-device[data-at="2"],.cui-device[data-at="3"]{--cui-compose-height:68px}
+.cui-device[data-at="2"] .cui-composer,.cui-device[data-at="3"] .cui-composer{grid-template-rows:0px 44px;gap:0;padding:12px 10px}
+.cui-device[data-at="2"] .cui-add-banner,.cui-device[data-at="3"] .cui-add-banner{opacity:0;visibility:hidden}
+@media(prefers-reduced-motion:reduce){.cui-device .cui-composer,.cui-add-banner{transition:none}}

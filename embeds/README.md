@@ -12,6 +12,7 @@ contents into the Webflow embed named in the table. Fonts come from the page.
 | `health-systems/*.html` | Health systems | same | same |
 | `consumer-health/*.html` | Consumer health | same | same |
 | `employers/*.html` | Employers | same | same |
+| `counsel-studio/*.html` | Counsel Studio | the bento tiles' graphic embeds, four tiles (see `content/counsel-studio.md`) | ready; build after Counsel's thumbs-up |
 | `walkthrough/*.html` | all four audience pages | the walkthrough phone (`.ci-sky`), five screens | to come |
 | `../homepage/` | Homepage | the walkthrough phone: code changes, not a Card Studio embed | ready; build after Counsel's thumbs-up |
 
@@ -20,11 +21,10 @@ ordered first, as `.v5-value-escalation .v2-value-copy{order:-1}` does for
 the escalation tile: White label, Shift care upstream, Strengthen the user
 experience and Amplify utilization of your benefits ecosystem.
 
-The triage tile's graphic (Health plans and Health systems, tile 1) now sits
-in a hairline frame that fills the tile's art area, from Counsel's note that
-it felt floaty. Its embed's wrapper stretches to fill the art area, so that
-area must stay a flex column, as it is in the Health Plans template. No other
-tile has a frame.
+The triage tile's graphic (Health plans and Health systems, tile 1) fills the
+tile's art area, so that area must stay a flex column, as it is in the Health
+Plans template. Since October 14 no tile has a hairline frame (Counsel's
+note), and every file here was re-exported that day.
 
 ## Card Studio
 
@@ -44,7 +44,7 @@ copy and paste.
 
 - **Top bar:** **Phone cards** or **Bento**, the two kinds of thing it makes.
 - **Left:** **New** starts a card. **Page** picks Health plans, Health
-  systems, Consumer health or Employers; the list below it is that page's
+  systems, Consumer health, Employers or Counsel Studio; the list below it is that page's
   tiles, in page order. A page opens directly with `?page=health-plans`
   (or `health-systems`, `consumer-health`, `employers`).
 - **Middle:** the preview. **Tile** shows the selected tile at its real

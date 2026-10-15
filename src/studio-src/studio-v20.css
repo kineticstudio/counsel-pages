@@ -1,0 +1,4 @@
+/* Counsel Studio V20 (Oct 15): V19 with a straight cut under the hero (no
+   wave; the site has no wave edges anywhere else), so the hero ends with
+   the spacing it had before the wave. */
+.studio-v20 .r14-build{padding-bottom:clamp(72px,9vw,128px)}

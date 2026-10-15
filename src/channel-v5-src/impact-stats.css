@@ -1,0 +1,26 @@
+/* Three retained stats: savings leads, with two supporting cards below. */
+.channel-v5 .v2-impact{background:var(--green-2);color:var(--green-7)}
+.channel-v5 .v2-impact-intro h2{color:var(--green-7)}
+.channel-v5 .v2-impact .v2-metrics{grid-template-columns:repeat(2,minmax(0,1fr));gap:4px}
+.channel-v5 .v2-impact .v2-metric{
+  --stat-bg:var(--green-7);--stat-ink:#9ADB90;
+  border-radius:12px;background:var(--stat-bg);color:var(--stat-ink);
+}
+.channel-v5 .v2-impact .v5-metric-summary h3,.channel-v5 .v2-impact .v2-metric>p{color:var(--green-2)}
+.channel-v5 .v2-impact .v2-source{color:var(--green-7)}
+.channel-v5 .v5-stat-value{position:relative;font-variant-numeric:lining-nums tabular-nums}
+.channel-v5 .v5-stat-final{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;border:0}
+/* Savings is the lead proof point. Supporting numbers keep their original copy. */
+.channel-v5 .v2-impact .v2-metric{grid-column:auto;grid-template-columns:1fr;align-content:space-between;min-height:230px;gap:24px}
+.channel-v5 .v2-impact .v5-metric-summary>span{font-size:clamp(60px,5.5vw,80px)}
+.channel-v5 .v2-impact .v2-metric-savings{grid-column:1/-1;grid-template-columns:1fr;align-content:space-between;gap:28px;min-height:310px;padding:32px}
+.channel-v5 .v2-metric-savings .v5-metric-summary>span{font-size:clamp(100px,10vw,148px)}
+.channel-v5 .v2-impact .v2-metric-savings h3{font-size:24px;margin-top:14px}
+.channel-v5 .v2-impact .v2-metric-savings>p{max-width:27em;font-size:17px}
+@media(max-width:580px){
+  .channel-v5 .v2-impact .v2-metric{min-height:250px;padding:18px}
+  .channel-v5 .v2-impact .v5-metric-summary>span{font-size:clamp(48px,13vw,68px)}
+  .channel-v5 .v2-impact .v2-metric-savings{min-height:276px;padding:26px;gap:24px}
+  .channel-v5 .v2-metric-savings .v5-metric-summary>span{font-size:clamp(88px,25vw,124px)}
+}
+@media(max-width:380px){.channel-v5 .v2-impact .v2-metrics{grid-template-columns:1fr}.channel-v5 .v2-impact .v2-metric{min-height:210px}}

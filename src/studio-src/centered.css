@@ -1,0 +1,63 @@
+/* Counsel Studio round three (Hunter, 2026-10-13): V10 to V12. Centred type,
+   and motion that rides along with the scroll without ever holding the page.
+   Loads after round-two.css; each version adds its own sheet. */
+
+/* Hero: the copy on the centre line, the version's picture under it. */
+.studio-r3 .studio-hero>div:last-child{flex-direction:column}
+.r3-copy{display:flex;flex-direction:column;align-items:center;text-align:center;padding-top:clamp(28px,6vh,80px)}
+html[data-counsel-type="v13"] .r3-copy .r2-title{max-width:14em;margin:0 auto 24px;font-size:clamp(40px,5vw,74px);line-height:1.04}
+.r3-copy .r2-lede{margin-inline:auto;text-wrap:balance}
+.r3-copy .studio-actions{justify-content:center;margin-top:36px}
+
+/* Section heads on the centre line. */
+.r3-head{display:flex;flex-direction:column;align-items:center;text-align:center}
+html[data-counsel-type="v13"] .r3-head .r2-heading{max-width:15em;margin-inline:auto}
+.r3-head .r2-body{margin:20px auto 0;text-align:center}
+
+/* The Oura spotlight, centred: label, logo, quote. */
+.studio-r2 .r2-light .r3-partner,.r3-partner{border:0}
+.r3-partner-inner{display:flex;flex-direction:column;align-items:center;gap:26px;padding-block:clamp(80px,9vw,128px) 0;text-align:center}
+.r3-eyebrow{margin:0;font-size:14px;line-height:1.4;color:var(--sg-muted)}
+.r3-eyebrow span{display:block;margin-top:2px;font-size:12.5px;color:var(--sg-faint)}
+.r3-partner .studio-partner-logo{width:150px}
+.r3-quote{max-width:36em;margin:0;font-size:clamp(17px,1.5vw,20px);line-height:1.55;color:var(--sg-ink);text-wrap:pretty}
+
+/* Deployment, centred, under a hairline. */
+.r3-deploy{margin-top:clamp(72px,8vw,112px);padding-top:48px;border-top:1px solid var(--sg-rule);text-align:center}
+html[data-counsel-type="v13"] .r3-deploy h3{margin:0 0 40px;font-size:clamp(24px,2.2vw,30px);color:var(--sg-ink)}
+.r3-deploy ul{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:clamp(24px,4vw,56px);margin:0;padding:0;list-style:none}
+.r3-deploy li{display:flex;flex-direction:column;align-items:center;gap:16px}
+.r3-deploy svg{width:28px;height:28px;color:var(--sg-accent)}
+.r3-deploy p{max-width:22em;margin:0;font-size:16.5px;line-height:1.55;color:var(--sg-muted)}
+
+/* Outcomes: a ruled two by two, centred in each cell. The rules grow out of
+   the centre square as the grid scrolls in (animations.js). */
+.r3-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-top:clamp(40px,5vw,72px)}
+.r3-outcome{position:relative;display:flex;flex-direction:column;align-items:center;padding:clamp(40px,5vw,72px) clamp(20px,4vw,64px);text-align:center}
+.r3-outcome-text{display:flex;flex-direction:column;align-items:center;gap:14px}
+html[data-counsel-type="v13"] .r3-outcome h3{max-width:12em;margin:0;font-size:clamp(26px,2.3vw,34px);line-height:1.12;color:var(--sg-ink)}
+.r3-outcome h3 em{font-style:normal;color:var(--green-7)}
+.r3-outcome p{max-width:26em;margin:0;font-size:16px;line-height:1.55;color:var(--sg-muted)}
+.r3-line{position:absolute;display:block;background:var(--sg-rule)}
+.r3-line.is-b{left:0;right:0;bottom:0;height:1px}
+.r3-line.is-r{top:0;bottom:0;right:0;width:1px}
+.r3-line.is-last-row{display:none}
+.r3-outcome:first-child .r3-line.is-b,.r3-outcome:nth-child(3) .r3-line.is-r{transform-origin:100% 50%}
+.r3-outcome:nth-child(2) .r3-line.is-b{transform-origin:0 50%}
+.r3-outcome:first-child .r3-line.is-r{transform-origin:50% 100%}
+.r3-outcome:nth-child(3) .r3-line.is-r{transform-origin:50% 0}
+.r3-knot{position:absolute;z-index:1;right:-5px;bottom:-5px;display:block;width:10px;height:10px;background:var(--green-7)}
+
+@media(max-width:900px){
+  .r3-deploy ul,.r3-grid{grid-template-columns:minmax(0,1fr)}
+  .r3-deploy li{gap:12px}
+  .r3-outcome{padding:40px 0}
+  .r3-line.is-r,.r3-knot{display:none}
+  .r3-line.is-b,.r3-line.is-last-row{display:block}
+  .r3-grid .r3-outcome .r3-line.is-b{transform-origin:50% 50%}
+}
+
+/* The fixed (light) nav's demo button: navy with white text. The dark hero's
+   colour roles left its text navy on navy (Javi, Oct 14). */
+html[data-counsel-type="v13"] .studio-r3 nav:is(.cn-fixed,.cn-open,.cn-mopen) .actions .demo-btn{background:var(--blue-9);color:var(--gray-0)}
+html[data-counsel-type="v13"] .studio-r3 nav:is(.cn-fixed,.cn-open,.cn-mopen) .actions .demo-btn:hover{background:var(--blue-8);color:var(--gray-0)}

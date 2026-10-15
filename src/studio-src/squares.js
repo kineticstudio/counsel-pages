@@ -34,10 +34,18 @@ function setup(canvas){
  * of light crosses it (care moving through a plan) and single members light
  * up and fade. render({time,reveal}) draws one frame; time is seconds.
  */
-export function createPopulation(canvas,{color='#AED9B0',pitch=14,size=5,base=.12,spark=.95}={}){
+export function createPopulation(canvas,{color='#AED9B0',pitch=14,size=5,base=.12,spark=.95,mask=null,scatter=false,band=true,sparkRate=.004}={}){
   const view=setup(canvas);
-  let cols=0,rows=0,sparks=[],random=seeded(7);
-  const layout=()=>{view.size();cols=Math.ceil(view.w/pitch)+1;rows=Math.ceil(view.h/pitch)+1;};
+  let cols=0,rows=0,sparks=[],random=seeded(7),order=null;
+  // V16 (Hunter, Oct 14): mask(x,y) keeps only the squares whose centre it
+  // accepts (the field ends on a wave); scatter reveals squares one by one,
+  // roughly top-down, each at its own moment, instead of a left-to-right fade.
+  // band:false drops the sweep of light (Hunter: it reads as a gradient).
+  const layout=()=>{
+    view.size();cols=Math.ceil(view.w/pitch)+1;rows=Math.ceil(view.h/pitch)+1;
+    if(scatter){const r=seeded(11);order=new Float32Array(cols*rows);for(let k=0;k<order.length;k++)order[k]=Math.min(.999,(Math.floor(k/cols)/rows)*.6+r()*.4);}
+  };
+  const keep=(c,r)=>!mask||mask(c*pitch+size/2,r*pitch+size/2);
   layout();
   return{
     resize:layout,
@@ -45,12 +53,13 @@ export function createPopulation(canvas,{color='#AED9B0',pitch=14,size=5,base=.1
       const {ctx}=view;ctx.clearRect(0,0,view.w,view.h);ctx.fillStyle=color;
       const sweep=((time*.09)%1.4-.2)*view.w,width=view.w*.22;
       // a few members light up each second, each glowing for about 1.6s
-      if(sparks.length<Math.round(cols*rows*.004)&&random()<.35)sparks.push({c:Math.floor(random()*cols),r:Math.floor(random()*rows),t:time});
+      if(sparks.length<Math.round(cols*rows*sparkRate)&&random()<.35){const c=Math.floor(random()*cols),r=Math.floor(random()*rows);if(keep(c,r))sparks.push({c,r,t:time});}
       sparks=sparks.filter(s=>time-s.t<1.6&&time>=s.t);
       for(let r=0;r<rows;r++)for(let c=0;c<cols;c++){
+        if(!keep(c,r))continue;
         const x=c*pitch,y=r*pitch,d=(x-sweep)/width;
-        const wave=Math.exp(-d*d*2)*.42*(.6+.4*Math.sin(r*.35+time*.6));
-        const fade=clamp(reveal*1.6-(c/cols)*.6);
+        const wave=band?Math.exp(-d*d*2)*.42*(.6+.4*Math.sin(r*.35+time*.6)):0;
+        const fade=order?(reveal>=order[r*cols+c]?1:0):clamp(reveal*1.6-(c/cols)*.6);
         view.square(x,y,size,(base+wave)*fade);
       }
       sparks.forEach(s=>{const k=(time-s.t)/1.6,glow=Math.sin(Math.PI*k);view.square(s.c*pitch,s.r*pitch,size,glow*spark*reveal);});
@@ -293,5 +302,83 @@ export function createSignals(canvas,{sources=SIGNAL_SOURCES,color='#AED9B0',pit
       });
       ctx.globalAlpha=1;
     },
+  };
+}
+
+/**
+ * Counsel Studio V14's hero (Hunter, Oct 14): one kind of data at a time
+ * lights up as a real icon (Lucide, the brand's set, on its own 24 grid), in
+ * one colour. Pure layout and drawing: animations.js decides which icon is
+ * lit, where, and how each one moves.
+ *   const field=createPictograms(canvas,{icons:[{name,svg}]});
+ *   await field.ready;                  // rasterises the icons once, part by part
+ *   const slots=field.layout([zones],{top}); // places clear of the copy
+ *   field.bitmap(i);                    // {on:[{x,y,part,t}], inside:[{x,y,t}]}
+ *   field.draw(slot,[{x,y,a}]);         // lit cells of one slot
+ */
+export function createPictograms(canvas,{icons=[],pitch=4,size=2.5,cells=24,color='#AED9B0'}={}){
+  const view=setup(canvas);
+  let slots=[],bitmaps=[];
+  // One SVG (or one part of it) onto a cells-by-cells grid: draw it small,
+  // keep the pixels it covers. 24 is Lucide's own grid, so its 2px strokes
+  // land on whole pixels.
+  const mask=(markup,fill)=>new Promise(resolve=>{
+    const svg=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="${cells}" height="${cells}" fill="${fill?'#fff':'none'}" stroke="${fill?'none':'#fff'}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${markup}</svg>`;
+    const img=new Image();
+    img.onload=()=>{
+      const c=document.createElement('canvas');c.width=c.height=cells;const x=c.getContext('2d');x.drawImage(img,0,0,cells,cells);
+      const data=x.getImageData(0,0,cells,cells).data,on=new Uint8Array(cells*cells);
+      for(let k=0;k<cells*cells;k++)on[k]=data[k*4+3]>110?1:0;
+      resolve(on);
+    };
+    img.onerror=()=>resolve(new Uint8Array(cells*cells));
+    img.src='data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+  });
+  // Each lit pixel knows which part of the icon it belongs to (so an icon can
+  // move its own parts) and gets its own moment, so it switches on and off
+  // like a sign. inside: the pixels the outline encloses.
+  const raster=async(icon,i)=>{
+    const parts=[...new DOMParser().parseFromString(`<svg xmlns="http://www.w3.org/2000/svg">${icon.svg}</svg>`,'image/svg+xml').documentElement.children].map(el=>el.outerHTML);
+    const masks=await Promise.all(parts.map(part=>mask(part,false))),filled=await mask(icon.svg,true);
+    const random=seeded(41+i),on=[],inside=[];
+    for(let y=0;y<cells;y++)for(let x=0;x<cells;x++){
+      const part=masks.findIndex(m=>m[y*cells+x]);
+      if(part>=0)on.push({x,y,part,t:random()});else if(filled[y*cells+x])inside.push({x,y,t:random()});
+    }
+    return{name:icon.name,on,inside};
+  };
+  const ready=Promise.all(icons.map(raster)).then(list=>{bitmaps=list;});
+  // Slots: every place an icon (and its label) fits clear of the zones, on a
+  // lattice shifted to fit the most. Any icon can light in any slot. The
+  // unlit dots are the page's own background (CSS, same grid), so this canvas
+  // only ever draws lit squares.
+  const layout=(zones=[],{top=0,bottom=0}={})=>{
+    view.size();
+    const span=cells*pitch,label=24,gap=pitch*8,w=span+gap,h=span+label+gap,limit=view.h-Math.max(pitch*2,bottom);
+    const clear=(x,y)=>!zones.some(b=>x<b.x+b.w+pitch*4&&x+span>b.x-pitch*4&&y<b.y+b.h+pitch*4&&y+span+label>b.y-pitch*4);
+    let best=[];
+    for(let oy=0;oy<h;oy+=pitch*4)for(let ox=0;ox<w;ox+=pitch*4){
+      const list=[];
+      for(let y=top+oy;y+span+label<=limit;y+=h)for(let x=pitch*3+ox;x+span<=view.w-pitch*3;x+=w){
+        const c=Math.round(x/pitch),r=Math.round(y/pitch);
+        if(clear(c*pitch,r*pitch))list.push({c,r,x:c*pitch,y:r*pitch});
+      }
+      if(list.length>best.length)best=list;
+    }
+    slots=best;
+    return slots.map(slot=>({x:slot.x+span/2,y:slot.y+span/2,label:{x:slot.x+span/2,y:slot.y+span+8}}));
+  };
+  return{
+    ready,layout,
+    bitmap:icon=>bitmaps[icon],
+    // Draw grid cells (x, y in cells, 0 to 23) of one slot, each with its own alpha.
+    draw(slot,list=[]){
+      const {ctx}=view;ctx.clearRect(0,0,view.w,view.h);
+      const place=slots[slot];if(!place)return;
+      ctx.fillStyle=color;
+      list.forEach(cell=>view.square((place.c+cell.x)*pitch,(place.r+cell.y)*pitch,size,cell.a??1));
+      ctx.globalAlpha=1;
+    },
+    clear(){view.ctx.clearRect(0,0,view.w,view.h);},
   };
 }

@@ -1,0 +1,32 @@
+/* Measured from Hunter's 1244px-wide, 2x platform fields. The component
+   scales uniformly from a 622px CSS master; no marketing type rules apply.
+   The screenshot's embedded display profile resolves the send fill to Blue 7.5.
+   The after-hours surface differs from brand Blue 1 and is scoped to this UI. */
+.cp-composer{--cp-u:calc(100cqw / 622);--cp-surface:var(--gray-15);--cp-after-hours:#E0ECF1;position:relative;container-type:inline-size;width:100%;aspect-ratio:622/165;color:var(--gray-65);font-family:var(--body-font,"GT America",sans-serif);font-weight:400;line-height:1.2;letter-spacing:0;text-align:left;isolation:isolate}
+.cp-composer *{box-sizing:border-box}
+.cp-composer .cp-banner{position:relative;height:calc(64 * var(--cp-u));padding:0 calc(34 * var(--cp-u)) 0 calc(27 * var(--cp-u));display:flex;align-items:center;gap:calc(14 * var(--cp-u));white-space:nowrap;border-radius:calc(28 * var(--cp-u)) calc(28 * var(--cp-u)) 0 0;background:var(--cp-surface)}
+.cp-composer .cp-banner::after{content:"";position:absolute;top:100%;left:0;right:0;height:calc(51 * var(--cp-u));background:var(--cp-surface);z-index:-1}
+.cp-composer .cp-portraits{width:calc(88 * var(--cp-u));height:calc(35 * var(--cp-u));flex:none;background-image:url('/brand/product-ui/composer-available-reference.png');background-repeat:no-repeat;background-size:calc(662 * var(--cp-u)) calc(210 * var(--cp-u));background-position:calc(-44.5 * var(--cp-u)) calc(-44 * var(--cp-u))}
+.cp-composer .cp-banner-label{color:var(--gray-7);font-size:calc(20 * var(--cp-u));font-weight:500}
+.cp-composer .cp-wait{margin-left:auto;font-size:calc(20 * var(--cp-u));font-weight:400}
+.cp-composer .cp-chevron{width:calc(10 * var(--cp-u));height:calc(17 * var(--cp-u));flex:none}
+.cp-composer .cp-field{height:calc(101 * var(--cp-u));width:100%;display:flex;align-items:center;gap:calc(27 * var(--cp-u));padding:0 calc(26 * var(--cp-u)) 0 calc(32 * var(--cp-u));border:calc(1.5 * var(--cp-u)) solid var(--gray-3);border-radius:calc(51 * var(--cp-u));background:var(--gray-0);position:relative;z-index:1}
+.cp-composer .cp-placeholder{flex:1;min-width:0;white-space:nowrap;font-size:calc(26 * var(--cp-u));font-weight:400;color:var(--gray-65);letter-spacing:0}
+.cp-composer .cp-attachment{width:calc(22 * var(--cp-u));height:calc(25 * var(--cp-u));flex:none;color:var(--gray-65);overflow:visible}
+.cp-composer .cp-send{display:grid;place-items:center;flex:none;width:calc(47 * var(--cp-u));height:calc(47 * var(--cp-u));border-radius:50%;background:var(--blue-75);color:var(--gray-0)}
+.cp-composer .cp-send svg{width:calc(24 * var(--cp-u));height:calc(24 * var(--cp-u));display:block}
+.cp-composer .cp-visit{display:none}
+.cp-composer[data-state="after-hours"]{--cp-surface:var(--cp-after-hours)}
+.cp-composer[data-state="after-hours"] .cp-portraits{background-image:url('/brand/product-ui/composer-after-hours-reference.png');background-size:calc(658 * var(--cp-u)) calc(203 * var(--cp-u));background-position:calc(-42.5 * var(--cp-u)) calc(-37 * var(--cp-u))}
+.cp-composer[data-state="after-hours"] .cp-wait{color:var(--gray-7)}
+.cp-composer[data-state="visit"]{--cp-surface:var(--green-1);aspect-ratio:622/160}
+.cp-composer[data-state="visit"] .cp-banner{display:none}
+.cp-composer[data-state="visit"] .cp-visit{position:relative;height:calc(59 * var(--cp-u));display:flex;align-items:center;justify-content:center;gap:.25em;font-size:calc(20 * var(--cp-u));font-weight:400;color:var(--gray-8);white-space:nowrap;background:var(--cp-surface);border-radius:0 0 calc(28 * var(--cp-u)) calc(28 * var(--cp-u))}
+.cp-composer[data-state="visit"] .cp-visit::before{content:"";position:absolute;bottom:100%;left:0;right:0;height:calc(51 * var(--cp-u));background:var(--cp-surface);z-index:-1}
+/* Home opts in. Health Plans and archived home versions keep their existing UI. */
+.cj-scene.cui-device{--cui-compose-height:calc((100cqw - 2 * var(--cui-inset)) * 165 / 622)}
+.cj-scene.cui-device[data-at="2"],.cj-scene.cui-device[data-at="3"]{--cui-compose-height:calc((100cqw - 2 * var(--cui-inset)) * 160 / 622)}
+.cj-scene>.cp-composer{position:absolute;left:var(--cui-inset);right:var(--cui-inset);bottom:calc(16px + var(--cj-crop,0px));width:auto}
+.cj-scene>.cp-composer[data-state="visit"] .cp-visit{border-radius:0 0 calc(var(--cui-radius) - var(--cui-inset)) calc(var(--cui-radius) - var(--cui-inset)) / 0 0 calc(var(--cui-radius) - var(--cui-compose-bottom)) calc(var(--cui-radius) - var(--cui-compose-bottom))} /* Hunter, 2026-09-23: the green inset follows the phone's bottom curve. */
+.cp-flow-composer{display:none}
+.ch-walk.cj-flow .cp-flow-composer{display:block;width:100%;margin-top:-12px}

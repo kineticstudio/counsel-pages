@@ -16,6 +16,26 @@ Everything that animates (the walkthrough phone, the bento graphics) comes
 from Kinetic as code embeds; see `embeds/README.md`. Everything else is
 Webflow text and structure.
 
+## Javi's review, October 14
+
+Javi's second pass, on the designs. All are in the designs and the embeds:
+
+- **Health systems:** the hero body drops "physician" again: "...expanding
+  capacity, improving care continuity, and retaining patients within your
+  system."
+- **Triage graphic (Health plans and Health systems):** larger, using more of
+  the tile, with a longer line out of Counsel Physicians. New embed. It no
+  longer sits in a hairline frame; no tile has one now.
+- **Care in one place:** no outline around the six squares. New embeds.
+- **Employers, benefits tile:** the Motion Health card is wider, so it is
+  shorter and clear of the tile's bottom edge. New embed.
+- **Tile graphics:** a graphic centres between the tile's top and its
+  heading: the art area's bottom padding is 8px on tiles whose copy sits
+  below the graphic (`.ap .v2-value-grid .ap-tile:not(.is-copy-first)
+  .v2-value-art`).
+- **Consumer health, Oura spotlight:** the photo is anchored right
+  (`object-position: 100% 50%`), so the whole phone shows.
+
 ## Javi's review, October 13
 
 Javi left comments on the designs on October 13. They are all in the designs
@@ -38,7 +58,8 @@ and in the copy below:
   benefits ecosystem & programs, and In-network providers. It is a new embed.
 - **White label graphic:** the brand chips are buttons; clicking one
   rebrands the app. New embed.
-- **Health systems:** "physician capacity" in the hero body. The logos are
+- **Health systems:** "physician capacity" in the hero body (reverted on
+  October 14: "capacity"). The logos are
   the live site's institutions: Stanford Medicine, Google, UCSF, NVIDIA and
   Massachusetts General Hospital (`assets/audience-pages/institutions/` in this
   repo, the same SVGs as the live site). The EHR graphic has clearer
@@ -212,7 +233,7 @@ Tile copy:
 
 - **Hero:** eyebrow "Health systems". Heading "AI-native primary care that
   powers your entire network". Body "Bring clinical actionability to your
-  app, expanding physician capacity, improving care continuity, and retaining patients
+  app, expanding capacity, improving care continuity, and retaining patients
   within your system." Button "Request a custom demo".
 - **Logos:** "Built by senior physicians and AI scientists from leading
   institutions": Stanford Medicine, Google, UCSF, NVIDIA, Massachusetts

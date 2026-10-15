@@ -1,0 +1,88 @@
+<!-- Counsel Card Studio V3: Counsel Studio, Offer comprehensive care in one place. Load Counsel's fonts on the host page. -->
+<style>.counsel-card-f0eb63a8 .cb-wrap{width:100%}.counsel-card-f0eb63a8 .cb{container-type:inline-size;box-sizing:border-box;width:100%;color:var(--cb-ink);font:400 15.5px/1.45 "GT America",sans-serif;-webkit-font-smoothing:antialiased;--mid:color-mix(in srgb,var(--cb-ink) 64%,var(--cb-bg));--faint:color-mix(in srgb,var(--cb-ink) 34%,var(--cb-bg));--serif:"Cooper Light",Cooper,Georgia,serif}.counsel-card-f0eb63a8 :where(.cb) *{box-sizing:border-box}.counsel-card-f0eb63a8 :where(.cb) :where(p,.counsel-card-f0eb63a8 ul,.counsel-card-f0eb63a8 ol,.counsel-card-f0eb63a8 dl,.counsel-card-f0eb63a8 dd){margin:0}.counsel-card-f0eb63a8 :where(.cb) :where(ul,.counsel-card-f0eb63a8 ol){padding:0;list-style:none}.counsel-card-f0eb63a8 :where(.cb) svg{display:block}.counsel-card-f0eb63a8 .cb-art{width:100%}.counsel-card-f0eb63a8 .cb-place-frame{position:relative;width:min(100%,468px);margin:0 auto}.counsel-card-f0eb63a8 .cb-place-line{display:none}.counsel-card-f0eb63a8 .cb-place-grid{position:relative;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px}.counsel-card-f0eb63a8 .cb-place-grid li{display:flex;flex-direction:column;justify-content:space-between;gap:16px;aspect-ratio:1.2;min-height:108px;padding:14px 15px;border-radius:10px;background:var(--cb-ink);color:var(--cb-bg);font-size:15px;font-weight:500;line-height:1.2}.counsel-card-f0eb63a8 .cb-place-icon{display:block;width:24px;height:24px}.counsel-card-f0eb63a8 .cb-place-icon svg{width:100%;height:100%}@container (max-width:420px){.counsel-card-f0eb63a8 .cb-place-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}</style><div class="counsel-card-f0eb63a8" style="width:100%"><div class="cb-wrap"><div class="cb" data-graphic="place" style="--cb-bg:#C6E1ED;--cb-ink:#455F97;--cb-dark:#455F97;--cb-light:#C6E1ED"><div class="cb-art cb-place"><div class="cb-place-frame"><i class="cb-place-line" aria-hidden="true"></i><ul class="cb-place-grid"><li><span class="cb-place-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 8v8M8 12h8"></path></svg></span><span>Doctor visits</span></li><li><span class="cb-place-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-12.2 7.5L3 21l2-5.6A8.5 8.5 0 1 1 21 11.5Z"></path></svg></span><span>Medical advice</span></li><li><span class="cb-place-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6.5L4.6 18.4A1.7 1.7 0 0 0 6 21h12a1.7 1.7 0 0 0 1.4-2.6L14 9.5V3M7.5 15h9"></path></svg></span><span>Labs</span></li><li><span class="cb-place-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"></path></svg></span><span>Specialist referrals</span></li><li><span class="cb-place-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="8" rx="4" transform="rotate(-45 12 12)"></rect><path d="m8.5 8.5 7 7"></path></svg></span><span>Prescriptions</span></li><li><span class="cb-place-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4"></path></svg></span><span>Health insights</span></li></ul></div></div></div></div></div><script>(function(){
+ const root=document.currentScript.previousElementSibling;
+ const deps=[["gsap","gsap"],["ScrollTrigger","ScrollTrigger"],["CustomEase","CustomEase"]];
+ window.__counselCardGSAP=window.__counselCardGSAP||deps.reduce((chain,[key,file])=>chain.then(()=>window[key]||new Promise((resolve,reject)=>{const s=document.createElement("script");s.src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/"+file+".min.js";s.onload=resolve;s.onerror=reject;document.head.append(s);})),Promise.resolve());
+ window.__counselCardGSAP.then(()=>{(function initBentoMotion(root, { enabled = true, scroller } = {}) {
+  // White label (Javi, Oct 13: "I can't click into these"): the brands are
+  // buttons. Picking one rebrands the app at once, with or without motion,
+  // and the intro's own swaps stop for good.
+  const brandButtons = root ? [...root.querySelectorAll('.cb-brands button')] : [];
+  brandButtons.forEach((button, i) => button.addEventListener('click', () => {
+    const card = root.querySelector('.cb'), name = card.querySelector('.cb-phone-name'), mark = card.querySelector('.cb-phone-brand .cb-mark');
+    card.dataset.picked = 'true';
+    if (name) { name.textContent = button.querySelector('span').textContent; name.style.opacity = ''; name.style.transform = ''; }
+    if (mark) { mark.innerHTML = button.querySelector('.cb-mark').innerHTML; mark.style.opacity = ''; mark.style.transform = ''; }
+    brandButtons.forEach((other, k) => { other.classList.toggle('is-on', k === i); other.setAttribute('aria-pressed', String(k === i)); });
+  }));
+  const { gsap, ScrollTrigger, CustomEase } = window;
+  if (!gsap || !ScrollTrigger || !CustomEase || !root) return () => {};
+  gsap.registerPlugin(ScrollTrigger, CustomEase);
+  CustomEase.create('card-settle', '.2,.7,.2,1');
+  const media = gsap.matchMedia();
+  media.add({ reduce: '(prefers-reduced-motion: reduce)', standard: '(prefers-reduced-motion: no-preference)' }, context => {
+    if (context.conditions.reduce || !enabled) return;
+    const art = root.querySelector('.cb');
+    if (!art) return;
+    const find = selector => [...art.querySelectorAll(selector)];
+    const one = selector => art.querySelector(selector);
+    const tl = gsap.timeline({ paused: true, defaults: { duration: .9, ease: 'card-settle' } });
+    const loops = [], cleanups = [];
+    let held = false;
+    // Where each element rests (some are dimmed in CSS), so every entrance ends on the static frame.
+    const natural = new Map(find('*').map(el => [el, getComputedStyle(el).opacity]));
+    const rest = (i, el) => natural.get(el) ?? 1;
+    const some = targets => targets && (!Array.isArray(targets) || targets.length);
+    const rise = (targets, at, y = 16, stagger = 0) => { if (some(targets)) tl.fromTo(targets, { opacity: 0, y }, { opacity: rest, y: 0, stagger }, at); };
+    const fade = (targets, at, duration = .4) => { if (some(targets)) tl.fromTo(targets, { opacity: 0 }, { opacity: rest, duration }, at); };
+    // A message lands the way the product's do: up and into place from its corner.
+    const land = (bubble, at) => { if (bubble) tl.fromTo(bubble, { opacity: 0, y: 10, scale: .96, transformOrigin: 'right bottom' }, { opacity: 1, y: 0, scale: 1, duration: .6 }, at); };
+    // Thinking squares pulse and finish lit.
+    const think = (dots, at, pulses = 1) => { if (dots.length) tl.fromTo(dots, { opacity: .2 }, { opacity: 1, duration: .22, stagger: .045, repeat: pulses * 2, yoyo: true, ease: 'sine.inOut' }, at); };
+    // Counsel AI answering: its label, a moment of thinking, then the words, one after another.
+    const stream = (selector, at) => {
+      const box = one(selector);
+      if (!box) return;
+      fade(box.querySelector('.cb-ai'), at, .3);
+      think([...box.querySelectorAll('.cb-grid i')], at + .1);
+      const words = [...box.querySelectorAll('.cb-words i')];
+      if (words.length) tl.fromTo(words, { opacity: 0, y: 3 }, { opacity: 1, y: 0, duration: .3, stagger: .04, ease: 'power1.out' }, at + .8);
+      else rise(box.querySelector('p'), at + .8, 6);
+    };
+    // A square riding a lane from one end to the other, then gone.
+    const ride = (rect, path, at, duration = .8, back = false) => {
+      if (!rect || !path) return;
+      const length = path.getTotalLength(), state = { t: 0 };
+      const place = () => { const p = path.getPointAtLength((back ? 1 - state.t : state.t) * length); rect.setAttribute('x', p.x - 3); rect.setAttribute('y', p.y - 3); };
+      tl.fromTo(state, { t: 0 }, { t: 1, duration, ease: 'power1.inOut', onStart: place, onUpdate: place }, at)
+        .fromTo(rect, { opacity: 1 }, { opacity: 1, duration: duration - .2 }, at)
+        .to(rect, { opacity: 0, duration: .2 }, at + duration - .2);
+    };
+    const graphics = {
+      place() {
+        // Six kinds of care gather from outside into one frame; then the frame draws around them.
+        const items = find('.cb-place-grid li'), columns = getComputedStyle(one('.cb-place-grid')).gridTemplateColumns.split(' ').length, rows = Math.ceil(items.length / columns);
+        items.forEach((item, i) => { const col = i % columns, row = Math.floor(i / columns); tl.fromTo(item, { opacity: 0, x: (col - (columns - 1) / 2) * 110, y: (row - (rows - 1) / 2) * 90 }, { opacity: 1, x: 0, y: 0, duration: 1.1 }, .05 + i * .08); });
+        fade(one('.cb-place-line'), 1.1, .6);
+      },
+    };
+    let trigger;
+    function sync() {
+      const active = !document.hidden && (!!trigger?.isActive || (!scroller && ScrollTrigger.isInViewport(root)));
+      tl.paused(!active);
+      loops.forEach(({ motion, after }) => motion.paused(!active || held || (after && tl.progress() < 1)));
+    }
+    graphics[art.dataset.graphic]?.();
+    tl.eventCallback('onComplete', sync);
+    trigger = ScrollTrigger.create({ trigger: root, ...(scroller ? { scroller } : {}), start: 'top bottom', end: 'bottom top', onToggle: sync, onRefresh: sync });
+    document.addEventListener('visibilitychange', sync);
+    sync();
+    return () => {
+      document.removeEventListener('visibilitychange', sync);
+      cleanups.forEach(fn => fn());
+      trigger.kill(); tl.kill(); loops.forEach(({ motion }) => motion.kill());
+    };
+  }, root);
+  return () => media.revert();
+})(root);}).catch(()=>{console.warn("Counsel card motion unavailable; showing the static card.");});
+})();</script>

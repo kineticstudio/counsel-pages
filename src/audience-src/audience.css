@@ -1,0 +1,59 @@
+/* Audience pages (Oct 13): Health Plans V5's template with Counsel's October 12 content, Card Studio V3's bento and a five-step walkthrough. Loads after V5's styles. */
+/* Bento: each tile spans its Card Studio width; copy-first tiles put the copy above the graphic, like V5's escalation tile. */
+@media(min-width:701px){.ap .v2-value-grid .v2-value-card{grid-column:span var(--span,6);grid-row:auto}}
+.ap .v2-value-grid .v2-value-card{background:var(--bento-bg);color:var(--bento-ink)}
+.ap .v2-value-grid .ap-tile.is-copy-first .v2-value-copy{order:-1;padding:38px 38px 0}
+.ap .v2-value-grid .ap-tile.is-copy-first.is-wide .v2-value-copy{max-width:640px}
+@media(max-width:1100px){.ap .v2-value-grid .ap-tile.is-copy-first .v2-value-copy{padding:28px 28px 0}}
+@media(max-width:700px){.ap .v2-value-grid .ap-tile.is-copy-first .v2-value-copy{padding:26px 26px 0}}
+/* Walkthrough: a button under the five steps; the third screen's sources; the fourth's card in a different colour from the message; the fifth's medication, quiet, above the follow-up. */
+.ap .ap-walk-cta{margin-top:32px}
+.ap .ap-sources{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.ap .ap-sources span{padding:5px 9px;border-radius:6px;background:rgb(0 84 52 / .1);font-size:12px;font-weight:500}
+.ap .ci-static-doctor .ci-floating-card{background:var(--green-1);color:var(--green-7)}
+.ap .ci-static-doctor .ci-static-team img{border-color:var(--green-1)}
+.ap .ap-med{display:flex;align-items:center;gap:8px;margin:12px 16px 0;padding:10px 12px;border-radius:10px;background:var(--gray-1);color:var(--blue-7);font-size:13px}
+.ap .ap-med small{margin-left:auto;font-size:12px;opacity:.7}
+.ap .ap-followup .ci-ai-heading img{width:28px;height:28px;border-radius:50%;object-fit:cover}
+/* Stats: a button under the heading; three stats run one wide over two. */
+/* Javi, Oct 13: each paragraph starts right under its label, so paragraphs in a row line up at the top. */
+.ap .v2-impact .v2-metric:not(.v2-metric-savings){align-content:start}
+.ap .ap-stats-cta{margin-top:28px}
+.ap .ap-stats-3 .v2-metric:first-child{grid-column:1/-1}
+/* Partner spotlight: Oura (Javi, Oct 13). The live site's banner, without its
+   gradient: copy on a solid dark panel, the photo of the Oura app beside it,
+   a crisp edge between them. The tag is the hero's highlighter pill. */
+.ap .ap-partner{background:var(--gray-1);padding-bottom:clamp(56px,7vw,96px)}
+.ap .ap-spotlight{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);min-height:360px;border-radius:24px;overflow:hidden;background:var(--gray-10);color:var(--gray-1)}
+.ap .ap-spotlight-copy{display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:22px;padding:clamp(32px,4vw,56px)}
+.ap .ap-spotlight-copy .channel-chip{text-transform:none}
+.ap .ap-partner-logo{width:150px;height:auto;margin:0;filter:brightness(0) invert(1)}
+.ap .ap-partner-quote{max-width:30em;margin:0;font:400 18px/1.55 var(--body-font);letter-spacing:0;color:var(--gray-1)}
+html .ap .ap-spotlight .channel-btn{background:var(--gray-1);color:var(--blue-9)}
+html .ap .ap-spotlight .channel-btn:hover{background:var(--blue-2)}
+.ap .ap-spotlight-photo{min-height:100%}
+.ap .ap-spotlight-photo img{display:block;width:100%;height:100%;object-fit:cover;object-position:100% 50%} /* Javi, Oct 14: show all of the phone. */
+@media(max-width:900px){.ap .ap-spotlight{grid-template-columns:1fr;min-height:0}.ap .ap-spotlight-photo{aspect-ratio:16/10}}
+
+/* Javi, Oct 13. Walkthrough heading: two lines, "care," on the first. The first line is a little wider than the copy column, so it runs into the gutter before the phone rather than wrapping. */
+@media(min-width:901px){.ap .v2-integration .v2-heading h2{white-space:nowrap}}
+/* Javi, Oct 13. Hero lead: a wider measure, so it runs three lines. */
+.ap .channel-hero .hero-copy .channel-lead{max-width:28em}
+/* Health systems' institutions, at the live site's size. */
+.ap .ap-institutions .v2-logo-row img,.ap .ap-institutions .v2-logo-row img:first-child{width:128px;height:34px}
+/* Closing heading: each line on one line (two lines in all), with room for it. */
+@media(min-width:1101px){
+  .ap .v2-closing-copy{width:min(64%,800px)}
+  .ap .v2-closing .v2-closing-card h2>span{white-space:nowrap}
+}
+/* Buttons: the sweep plays as before, and the button then holds a hover colour you can see. */
+.ap .channel-btn:not(.light):hover{background:var(--blue-7)}
+.ap .channel-btn.light:hover,.ap .v2-closing-copy .channel-btn:hover{background:var(--blue-2)}
+
+/* Hero photos: each audience page has its own person, lifted from Counsel's library and cropped to the subject. Each stands on the frame's bottom edge, against the side its photo was cut on, with the head clear of the "Ask a doctor" card. */
+.ap [data-weave-alpha="true"] .hero-photo-base.ap-hero-cut{left:auto;right:auto;bottom:0;width:auto;height:64%;max-width:100%;transform:none;object-fit:contain;object-position:bottom}
+.ap [data-weave-alpha="true"] .hero-photo-base.ap-hero-cut.is-center{left:50%;transform:translateX(-50%)}
+.ap [data-weave-alpha="true"] .hero-photo-base.ap-hero-cut.is-right{right:0;height:68%}
+.ap [data-weave-alpha="true"] .hero-photo-base.ap-hero-cut.is-left{left:0;height:auto;width:92%}
+/* Javi, Oct 14: a graphic centres between the tile's top and its heading (the copy's own top padding made them sit high). */
+.ap .v2-value-grid .ap-tile:not(.is-copy-first) .v2-value-art{padding-bottom:8px}
