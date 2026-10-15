@@ -34,9 +34,10 @@ files). In short:
   figure out what’s going on.", above a "Lab ordered" card on the same map
   ("Quest Diagnostics · 0.6 mi").
 - **Screen 4:** the condensed row reads "Lab ordered at Quest". Then the
-  vitamin D message and Nora's reply. Sam asked for the chat to blur out
-  below; the design ends on the doctor typing instead. Hunter has flagged
-  that to Counsel, so this may change.
+  doctor's message and Nora's reply, which Sam changed on October 15 (see
+  `homepage/README.md`): iron deficiency anemia, not vitamin D. The chat
+  ends on the doctor typing, which Sam approved: he called the homepage
+  good to go after this edit.
 
 ## Pricing
 

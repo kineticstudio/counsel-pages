@@ -1,5 +1,12 @@
 # Changelog
 
+## October 15, 2026: Sam's last homepage edit
+
+- **Homepage phone, screen 4:** the doctor's message and Nora's reply are now
+  about iron deficiency anemia (Sam, #counsel-health). `homepage/oct-15-homepage.patch`
+  has just this change; `homepage/counsel-care-journey-v13.js` is current.
+  Sam: good to go after this.
+
 ## October 15, 2026: Counsel Studio V20, and Javi's October 14 review
 
 - **Counsel Studio:** the round Counsel landed on (V20), in

@@ -309,7 +309,7 @@ html[data-counsel-type="v13"] .cj-source { display: inline-flex; align-items: ce
     <div class="cj-stack">
       <article class="cj-card cj-ask is-current" aria-label="Ask Counsel AI">
         <div class="cj-transcript"><div class="cj-transcript-track">
-          <!-- Sam at Counsel, Oct 13 (Notion): Nora's story is fatigue, then labs, then low vitamin D. -->
+          <!-- Sam at Counsel, Oct 13 (Notion): Nora's story is fatigue, then labs, then (Oct 15, Slack) iron deficiency anemia. -->
           <div class="cj-event cj-outgoing" data-show="0"><div class="cj-question">I’ve been feeling really tired lately</div></div>
           <div class="cj-event cj-thought" data-show=".08" data-until=".3"><span class="counsel-thinking" aria-hidden="true">${thinking}</span><span>Thinking…</span></div>
           <!-- Denny via Hunter, 2026-09-20: stream words and use the requested source-token label. Actual AI copy and citations remain illustrative, pending Counsel approval. -->
@@ -328,10 +328,10 @@ html[data-counsel-type="v13"] .cj-source { display: inline-flex; align-items: ce
         <div class="cj-delivery"><div><p class="cj-ui-title">Lab ordered</p><span class="cj-meta">Quest Diagnostics · 0.6 mi</span></div><span class="cj-check" aria-hidden="true">✓</span></div>
       </article>
       <article class="cj-card cj-follow" aria-label="A seven-day visit with follow-up" aria-hidden="true" inert>
-        <!-- Denny via Hunter, 2026-09-20: start directly with the doctor’s message. -->
-        <div class="cj-event cj-follow-copy" data-show="0"><img class="cj-follow-avatar" src="${doctorPortrait}" alt="Your doctor"><p class="cj-ui-copy">Hi Nora, your lab results are back, and your vitamin D levels were about 50% lower than the “normal” range. This could explain what you’re feeling, and you could start with some supplements right away.</p></div>
+        <!-- Denny via Hunter, 2026-09-20: start directly with the doctor’s message. Sam at Counsel, Oct 15 (Slack): the results are iron deficiency anemia. -->
+        <div class="cj-event cj-follow-copy" data-show="0"><img class="cj-follow-avatar" src="${doctorPortrait}" alt="Your doctor"><p class="cj-ui-copy">Your blood count and iron panel are consistent with iron deficiency anemia, we should start you on a once-every-other day iron supplement and remeasure this in ~8 weeks.</p></div>
         <div class="cj-event cj-thought cj-nora-typing" data-show=".16" data-until=".38" aria-label="Nora is typing"><span class="cj-typing-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
-        <div class="cj-event cj-outgoing" data-show=".38"><div class="cj-question">Oh wow. I’m going to pick some up right away, do you have any recommendations?</div></div>
+        <div class="cj-event cj-outgoing" data-show=".38"><div class="cj-question">I had no idea. What usually causes iron deficiency? Is it something I’m eating?</div></div>
         <!-- Sam asked for the chat to blur out below to show it carries on. Hunter's rule is no fades or blurs, so the doctor is typing instead: the conversation continues, without its content. -->
         <div class="cj-event cj-thought cj-doctor-typing" data-show=".6" aria-label="Your doctor is typing"><img class="cj-follow-avatar" src="${doctorPortrait}" alt=""><span class="cj-typing-dots" aria-hidden="true"><i></i><i></i><i></i></span></div>
       </article>

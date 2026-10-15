@@ -1,4 +1,4 @@
-# Homepage: Sam's October 12 changes
+# Homepage: Sam's October 12 changes (and his October 15 edit)
 
 The Studio's Home design (Home V13, now just called Home) carries all of
 Sam's homepage changes:
@@ -28,12 +28,19 @@ one condensed row are different:
   is now a lab order on the same map: label "Lab order", title "Lab ordered",
   "Quest Diagnostics · 0.6 mi".
 - **Screen 4:** its condensed row reads "Lab ordered at Quest". Then the
-  doctor's vitamin D message and Nora's reply. The chat ends on the doctor
-  typing (three dots in a blue bubble, with the doctor's photo), which shows
-  the conversation carrying on.
+  doctor's message and Nora's reply (Sam, October 15): "Your blood count and
+  iron panel are consistent with iron deficiency anemia, we should start you
+  on a once-every-other day iron supplement and remeasure this in ~8 weeks."
+  and "I had no idea. What usually causes iron deficiency? Is it something
+  I’m eating?" The chat ends on the doctor typing (three dots in a blue
+  bubble, with the doctor's photo), which shows the conversation carrying
+  on.
 
 Files here:
 
+- `oct-15-homepage.patch`: Sam's last edit, the two screen 4 messages (was
+  vitamin D, now iron deficiency anemia). Apply it on top of the October 13
+  patch. Nothing else changed.
 - `oct-13-homepage.patch`: exactly what changed, against the version the
   Webflow phone was built from. Apply the `counsel-care-journey-v13.js` part
   to the phone code; the `counsel-home-v13.js` part is the same copy as the
