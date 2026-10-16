@@ -12,7 +12,8 @@ contents into the Webflow embed named in the table. Fonts come from the page.
 | `health-systems/*.html` | Health systems | same | same |
 | `consumer-health/*.html` | Consumer health | same | same |
 | `employers/*.html` | Employers | same | same |
-| `counsel-studio/*.html` | Counsel Studio | the bento tiles' graphic embeds, four tiles (see `content/counsel-studio.md`) | ready; build after Counsel's thumbs-up |
+| `counsel-studio/1-access.html` to `4-launch.html` | Counsel Studio | the bento tiles' graphic embeds (see `content/counsel-studio.md`) | ready |
+| `counsel-studio/hero.html`, `phone.html` | Counsel Studio | the hero's background and the phone section; where each goes is in `content/counsel-studio.md`, "The hero in Webflow" | ready |
 | `walkthrough/*.html` | all four audience pages | the walkthrough phone (`.ci-sky`), five screens | to come |
 | `../homepage/` | Homepage | the walkthrough phone: code changes, not a Card Studio embed | ready; build after Counsel's thumbs-up |
 

@@ -1,5 +1,15 @@
 # Changelog
 
+## October 16, 2026: Counsel Studio's hero embeds
+
+- **Counsel Studio:** the two embeds the hero was waiting on.
+  `embeds/counsel-studio/hero.html` is the background (the squares and the
+  data cards) and `phone.html` the phone section (switcher, app, sheet,
+  labels). Where each goes, and the hero's text and spacing, are in
+  `content/counsel-studio.md` under "The hero in Webflow".
+  `embeds/counsel-studio/preview.html` shows both pasted into a page like
+  Webflow's. `npm run embeds` rebuilds them from the Studio.
+
 ## October 15, 2026: Sam's last homepage edit
 
 - **Homepage phone, screen 4:** the doctor's message and Nora's reply are now

@@ -7,7 +7,7 @@ current; the Studio is the source of truth.
 
 ## Where we're at
 
-Updated October 15, 2026. Webflow staging: counsel-inc.webflow.io.
+Updated October 16, 2026. Webflow staging: counsel-inc.webflow.io.
 Design links open each page on its own.
 
 The designs on the review site carry everything Sam and Javi have sent,
@@ -25,7 +25,7 @@ still move.
 | Health systems | [Health Systems V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/health-systems-v1) | Not started | Duplicate Health plans, then this page's copy, the institution logos (`assets/audience-pages/institutions/`) and `embeds/health-systems/` | Same as Health plans | Same as Health plans |
 | Consumer health | [Consumer Health V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/consumer-health-v1) | Not started | Duplicate Health plans, drop the logo row, add the Oura banner (photo in `assets/audience-pages/oura-spotlight-app.webp`), `embeds/consumer-health/` | Same as Health plans | Same as Health plans |
 | Employers | [Employers V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/employers-v1) | Not started | Duplicate Health plans, its own third feature, `embeds/employers/` | Same as Health plans | Same as Health plans |
-| Counsel Studio | [Counsel Studio V20](https://counsel.kineticstudio.com/designs/counsel/05-counsel-studio/counsel-studio-v20) | Not started (replaces the live page) | Everything in `content/counsel-studio.md`: most sections duplicate the audience pages; bento tiles from `embeds/counsel-studio/`; `studio/counsel-studio.html` runs the page | The hero background and the phone section as embeds | Javi: "99% there"; thumbs-up to come |
+| Counsel Studio | [Counsel Studio V20](https://counsel.kineticstudio.com/designs/counsel/05-counsel-studio/counsel-studio-v20) | Built, hero placeholder | Swap the hero for "The hero in Webflow" in `content/counsel-studio.md`: the two embeds in `embeds/counsel-studio/` (hero.html, phone.html) | | Javi: "99% there"; approved |
 | Site-wide | | | Headings render in Georgia for visitors: set `--font-cooper-light: Cooper` in Global Styles. Buttons on the audience pages hold a visible hover colour (see `content/audience-pages.md`) | | Ariela uploads new photography straight into Webflow |
 
 How work moves:

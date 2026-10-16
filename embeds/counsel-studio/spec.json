@@ -1,0 +1,43 @@
+{
+  "hero": {
+    "background-color": "rgb(7, 42, 28)",
+    "padding-top": "96px"
+  },
+  "copy": {
+    "padding-top": "16px",
+    "padding-bottom": "40px",
+    "min-height": "516px",
+    "text-align": "center"
+  },
+  "title": {
+    "font-family": "\"Cooper Light\", Georgia, serif",
+    "font-size": "118.08px",
+    "font-weight": "300",
+    "line-height": "115.718px",
+    "letter-spacing": "-4.1328px",
+    "color": "rgb(219, 237, 216)",
+    "margin-bottom": "22px"
+  },
+  "lede": {
+    "font-size": "22.32px",
+    "line-height": "32.364px",
+    "color": "rgba(219, 237, 216, 0.74)",
+    "max-width": "691.92px"
+  },
+  "button": {
+    "background-color": "rgb(174, 217, 176)",
+    "color": "rgb(7, 42, 28)",
+    "font-size": "16px",
+    "padding": "10px 20px",
+    "border-radius": "10px",
+    "margin-top": "0px"
+  },
+  "actions": {
+    "margin-top": "36px"
+  },
+  "build": {
+    "padding-bottom": "128px",
+    "max-width": "1280px",
+    "padding-left": "0px"
+  }
+}
