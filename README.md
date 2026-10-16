@@ -26,7 +26,7 @@ still move.
 | Consumer health | [Consumer Health V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/consumer-health-v1) | Not started | Duplicate Health plans, drop the logo row, add the Oura banner (photo in `assets/audience-pages/oura-spotlight-app.webp`), `embeds/consumer-health/` | Same as Health plans | Same as Health plans |
 | Employers | [Employers V1](https://counsel.kineticstudio.com/designs/counsel/04-audience-pages/employers-v1) | Not started | Duplicate Health plans, its own third feature, `embeds/employers/` | Same as Health plans | Same as Health plans |
 | Counsel Studio | [Counsel Studio V20](https://counsel.kineticstudio.com/designs/counsel/05-counsel-studio/counsel-studio-v20) | Built, hero placeholder | Swap the hero for "The hero in Webflow" in `content/counsel-studio.md`: the two embeds in `embeds/counsel-studio/` (hero.html, phone.html) | | Javi: "99% there"; approved |
-| Site-wide | | | Headings render in Georgia for visitors: set `--font-cooper-light: Cooper` in Global Styles. Buttons on the audience pages hold a visible hover colour (see `content/audience-pages.md`) | | Ariela uploads new photography straight into Webflow |
+| Site-wide | | | The news banner above the nav on every page: `content/news-banner.md` (new, Oct 16). Headings render in Georgia for visitors: set `--font-cooper-light: Cooper` in Global Styles. Buttons on the audience pages hold a visible hover colour (see `content/audience-pages.md`) | | Ariela uploads new photography straight into Webflow |
 
 How work moves:
 

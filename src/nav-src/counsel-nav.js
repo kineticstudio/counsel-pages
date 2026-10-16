@@ -17,6 +17,15 @@
 (function () {
   if (window.CounselNav) return;
 
+  /* The news banner above the nav (Javi, Oct 16: the live site has one; keep
+     it). A page opts in with <body data-news>. One line of news and a link;
+     change them here. */
+  const NEWS = {
+    text: 'Counsel joins ACCESS, bringing AI-native chronic care to Medicare beneficiaries',
+    link: 'Learn more',
+    href: 'https://www.businesswire.com/news/home/20260917750816/en/Counsel-Health-Joins-ACCESS-Model-to-Bring-AI-Native-Chronic-Care-to-Medicare-Beneficiaries',
+  };
+
   /* The information architecture, launch scope (content/ia-september-29.md).
      Headers are not pages. Title case follows Denny's comp. */
   const IA = [
@@ -266,7 +275,20 @@ nav .cn-burger { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   nav .cn-sheet, nav .cn-body, nav .cn-col li a, nav .cn-card, nav .cn-card img, nav .cn-ghost, nav .links a svg { transition-duration: 1ms !important; transition-delay: 0ms !important; }
-}`;
+}
+/* The news banner: a slim band above the nav, built from the new site's
+   parts (Javi, Oct 16): sentence case in the body font on a sky band, the
+   link underlined like the site's text links. It scrolls away with the
+   page; the fixed nav that comes back on scroll up sits at the top. Colours
+   are tokens so the band can change in one place. */
+.cn-news { --news-bg: #DFEFF8; --news-ink: #132045; position: relative; z-index: 21; display: flex; justify-content: center; align-items: center; min-height: 40px; padding: 8px 20px; background: var(--news-bg); color: var(--news-ink); box-sizing: border-box; }
+.cn-news p { margin: 0; font-family: var(--body-font, "GT America", system-ui, sans-serif); font-size: 14px; font-weight: 400; line-height: 1.4; letter-spacing: 0; text-align: center; }
+.cn-news a { margin-left: 10px; color: inherit; font-weight: 500; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; text-decoration-color: color-mix(in srgb, currentColor 40%, transparent); white-space: nowrap; transition: text-decoration-color 160ms ease; }
+.cn-news a:hover, .cn-news a:focus-visible { text-decoration-color: currentColor; }
+.cn-news a:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; border-radius: 2px; }
+body[data-news] nav:not(.cn-fixed) { margin-top: var(--cn-news, 0px); }
+@media (max-width: 600px) { .cn-news { padding: 10px 16px; } .cn-news p { font-size: 13px; text-wrap: balance; } .cn-news a { margin-left: 6px; } }
+`;
 
   const ARROW = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12H19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 5L19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
 
@@ -344,10 +366,37 @@ nav .cn-burger { display: none; }
     });
     nav.insertBefore(sheet, nav.firstChild);
     state.sheet = sheet;
+    news(nav);
     buildMobile(nav);
     wire();
     watchScroll(nav);
     return true;
+  }
+
+  /* The banner goes first in the page. Where the nav is positioned at the
+     top of the same box (Home), it moves down by the banner's height; where
+     it sits in the hero (the other pages), the hero already starts below. */
+  function news(nav) {
+    if (!document.body.hasAttribute('data-news') || document.querySelector('.cn-news')) return;
+    const page = document.querySelector('#stage > .page') || document.querySelector('.page') || document.body;
+    const bar = document.createElement('div');
+    bar.className = 'cn-news';
+    bar.setAttribute('role', 'region');
+    bar.setAttribute('aria-label', 'News');
+    bar.innerHTML = `<p><span class="cn-news-text">${NEWS.text}</span><a href="${NEWS.href}" target="_blank" rel="noopener">${NEWS.link}</a></p>`;
+    page.insertBefore(bar, page.firstChild);
+    /* Layout positions (offsetTop), so an intro that is still sliding the
+       nav or the hero in does not count. */
+    const top = el => { let y = 0; for (; el; el = el.offsetParent) y += el.offsetTop; return y; };
+    const fit = () => {
+      if (nav.classList.contains('cn-fixed') || getComputedStyle(nav).position === 'fixed') return;
+      nav.style.removeProperty('--cn-news');
+      const over = top(bar) + bar.offsetHeight - top(nav);
+      if (over > 0.5) nav.style.setProperty('--cn-news', over + 'px');
+    };
+    fit();
+    if (window.ResizeObserver) new ResizeObserver(fit).observe(bar);
+    window.addEventListener('resize', fit);
   }
 
   /* the row comes back on any scroll up once the hero has gone */

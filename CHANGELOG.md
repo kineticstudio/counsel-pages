@@ -1,5 +1,13 @@
 # Changelog
 
+## October 16, 2026: News banner
+
+- **Every page:** a news banner above the nav, the new site's version of the
+  live site's (Javi, #counsel-health). A sky band with one line of news and a
+  "Learn more" link; it scrolls away with the page. Copy, link and every
+  style value are in `content/news-banner.md`. The re-synced `conditions/`,
+  `studio/` and `src/nav-src/counsel-nav.js` show it.
+
 ## October 16, 2026: Counsel Studio's hero embeds
 
 - **Counsel Studio:** the two embeds the hero was waiting on.
