@@ -6,7 +6,8 @@
   "scripts": {
     "serve": "node tools/serve.mjs",
     "sync": "node tools/sync-from-studio.mjs",
-    "embeds": "node tools/build-studio-embeds.mjs"
+    "embeds": "node tools/build-studio-embeds.mjs",
+    "og": "node tools/og-video.mjs"
   },
   "devDependencies": {
     "playwright": "1.59.1",
