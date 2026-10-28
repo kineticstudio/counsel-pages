@@ -1,5 +1,14 @@
 # Changelog
 
+## October 28, 2026: Counsel Studio's share video
+
+- **Counsel Studio:** an Open Graph video of the V20 hero
+  (`og/counsel-studio.mp4`, 1200x630, a 10.8s loop) and a still of the same
+  scene for `og:image` (`og/counsel-studio.png`). The Webflow settings and
+  the exact meta tags are in `content/open-graph.md`. `npm run og` renders
+  them again. The other pages' heroes don't move, so they keep their share
+  graphics.
+
 ## October 16, 2026: News banner
 
 - **Every page:** a news banner above the nav, the new site's version of the
